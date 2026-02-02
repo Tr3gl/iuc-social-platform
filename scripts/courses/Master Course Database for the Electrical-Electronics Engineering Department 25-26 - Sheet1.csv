@@ -1,0 +1,97 @@
+Course Code,Course Name,TK,AKTS,Type,Class Type,Instructor Name,Semester
+ELMU1005,Elektriksel Malzemeler,3,6,Zorunlu,Ders,Dr. Öğr. Üyesi Ertuğrul ADIGÜZEL,1
+ELMU1904,Elektrik-Elektronik Mühendisliğine Giriş,2,2,Zorunlu,Ders,Dr. Öğr. Üyesi Niyazi KILIÇ,1
+ELMU1900,Fizik I,4,6,Zorunlu,Ders,Dr. Öğr. Üyesi Erman ÇOKDUYGULULAR,1
+ELMU1063,Introduction to Computers and Programming,3,7,Zorunlu,Uygulamalı Ders,Öğr. Gör. Dr. Enes ALTUNCU,1
+ELMU1902,Matematik I,5,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Üyesi İnci OKUMUŞ,1
+ELMU1901,Fizik II,4,6,Zorunlu,Ders,Dr. Öğr. Üyesi Erman ÇOKDUYGULULAR,2
+ELMU1001,Linear Algebra,3,7,Zorunlu,Ders,Doç. Dr. Mahmut ÖZTÜRK,2
+ELMU1903,Matematik II,5,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Üyesi İnci OKUMUŞ,2
+ELMU1002,Sayısal Analiz,3,8,Zorunlu,Ders,Doç. Dr. Abdurrahim AKGÜNDOĞDU,2
+ELMU2003,Calculus III,3,7,Zorunlu,Ders,Ögr. Gör. Zakir Emre GÜVEN,3
+ELMU2004,Circuit Theory,3,7,Zorunlu,Ders,Doç. Dr. Rana ORTAÇ KABAOĞLU,3
+ELMU2922,Diferansiyel Denklemler,4,6,Zorunlu,Ders,Ögr. Gör. Zakir Emre GÜVEN,3
+ELMU2923,Ekonomi,2,2,Zorunlu,Ders,Doç. Dr. Güzide Öncü EROĞLU PEKTAŞ,3
+ELMU2011,Logic Circuits,3,6,Zorunlu,Uygulamalı Ders,Doç. Dr. Serap CEKLİ,3
+ELMU2008,Circuit Analysis,3,5,Zorunlu,Ders,Doç. Dr. Rana ORTAÇ KABAOĞLU,4
+ELMU2006,Circuit Laboratory,1,2,Zorunlu,Ders,Doç. Dr. Rana ORTAÇ KABAOĞLU,4
+ELMU2009,Electromagnetic Field Theory,3,6,Zorunlu,Ders,Dr. Öğr. Üyesi Cihan DÖĞÜŞGEN,4
+ELMU2007,Elektronik Devreler I,3,4,Zorunlu,Ders,Prof. Dr. Fırat KAÇAR,4
+ODKP0001,Kariyer Planlama,1,2,Seçmeli,Ders,Prof. Dr. Aysel ERSOY,4
+ELMU2056,Signals and Systems,3,5,Zorunlu,Ders,Öğr. Gör. Dr. Serkan SAĞLAM,4
+ELMU3014,Elektronik Devreler II,3,5,Zorunlu,Ders,Prof. Dr. Fırat KAÇAR,5
+ELMU3015,Elektronik Devreler Labaratuvarı I,1,3,Zorunlu,Ders,Dr. Öğr. Üyesi Sedat KILINÇ,5
+ELMU3020,İletişim Kuramı I,3,6,Zorunlu,Ders,Dr. Öğr. Üyesi Bahattin KARAKAYA,5
+ELMU3023,Power Generations Transmission and Distribution,3,5,Zorunlu,Ders,Prof. Dr. Aysel ERSOY,5
+ELMU3012,Probability and Random Processes,3,6,Zorunlu,Ders,Dr. Öğr. Üyesi Yunus ÇELİK,5
+ELMU3069,Sistem Modelleme,3,5,Zorunlu,Ders,Doç. Dr. Nevra BAYHAN,5
+ELMU3026,Communication Theory II,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Bahattin KARAKAYA,6
+ELMU3025,Digital Signal Processing,3,6,Seçmeli,Ders,Doç. Dr. Mahmut ÖZTÜRK,6
+ELMU4044,Electrical Machines I,3,6,Zorunlu,Ders,Doç. Dr. Erkan ATMACA,6
+ELMU3057,Elektronik Devreler Labaratuvarı II,1,2,Zorunlu,Ders,Dr. Öğr. Üyesi Sedat KILINÇ,6
+ELMU3074,Fundamentals of Biomedical Engineering,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Yunus ÇELİK,6
+ELMU3073,Introduction to Neural Computation,3,6,Seçmeli,Ders,Doç. Dr. Erkan ATMACA,6
+ELMU3924,İş Hukuku,2,2,Seçmeli,Ders,Doç. Dr. Aslı GÖK,6
+ELMU3904,İş Sağlığı ve Güvenliği,2,2,Seçmeli,Ders,"Prof. Dr. Aysel ERSOY, Dr. Öğr. Ü. Ertuğrul ADIGÜZEL",6
+ELMU3018,Kontrol Sistemleri,3,6,Zorunlu,Ders,Doç. Dr. Rana ORTAÇ KABAOĞLU,6
+ELMU3019,Microprocessors I,3,6,Seçmeli,Ders,Doç. Dr. Serap ÇEKLİ,6
+ELMU3046,Power Electronics,3,6,Seçmeli,Ders,Doç. Dr. Koray GÜRKAN,6
+ELMU3072,Power Systems I,3,6,Seçmeli,Ders,Prof. Dr. Cengiz Polat UZUNOĞLU,6
+ELMU3925,Sensors,3,6,Seçmeli,Uygulamalı Ders,Dr. Öğr. Üyesi Yunus ÇELİK,6
+ELMU4085,Analog Tüm Devreler,3,6,Seçmeli,Ders,Prof. Dr. Fırat KAÇAR,7
+ELMU4058,Bitirme Projesi I,2,6,Zorunlu,Ders,Bölüm Başkanı,7
+ELMU4090,Biyoistatistik,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Niyazi KILIÇ,7
+ELMU3021,Electrical Machines II,3,6,Seçmeli,Ders,Doç. Dr. Erkan ATMACA,7
+ELMU4013,Electromagnetic Wave Theory,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Sedat KILINÇ,7
+ELMU4045,Elektrik Makineleri Laboratuvarı,3,6,Seçmeli,Ders,Doç. Dr. Fatma Gülşen ERDİNÇ,7
+ELMU4086,Enerji İletim Hatlarının Mekaniği,3,6,Seçmeli,Ders,Doç. Dr. İbrahim GÜNEŞ,7
+ELMU4066,High Voltage Techniques I,3,6,Seçmeli,Ders,Prof. Dr. Aysel ERSOY,7
+ELMU4030,Mikroişlemciler II,3,6,Seçmeli,Ders,Prof. Dr. Aysel ERSOY,7
+ELMU4040,Mobile Communication Systems,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Bahattin KARAKAYA,7
+ELMU4047,Power Distribution Systems,3,6,Seçmeli,Ders,Prof. Dr. Cengiz Polat UZUNOĞLU,7
+ELMU4074,Sayısal Elektronik Devreleri,3,6,Seçmeli,Ders,Prof. Dr. Yasin ÖZÇELEP,7
+ELMU4073,Sayısal Kontrol Sistemleri,3,6,Seçmeli,Ders,Doç. Dr. Nevra BAYHAN,7
+ELMU4117,Signal Processing Applications,3,6,Seçmeli,Ders,Doç. Dr. Mahmut ÖZTÜRK,7
+ELMU4082,Yapay Zeka Sistemleri,3,6,Seçmeli,Uygulamalı Ders,Doç. Dr. Abdurrahim AKGÜNDOĞDU,7
+ELMU4060,Aydınlatma ve İç Tesisat,3,6,Seçmeli,Uygulamalı Ders,Dr. Öğr. Üyesi Ertuğrul ADIGÜZEL,8
+ELMU4088,Bilgisayar Mimarisi,3,6,Seçmeli,Ders,Doç. Dr. Serap CEKLİ,8
+ELMU4120,Computer Communication Systems,3,5,Seçmeli,Ders,Dr. Öğr. Üyesi Bahattin KARAKAYA,8
+ELMU4091,Elektrik Tesisat Mühendisliğinde Yeni Yaklaşımlar,3,5,Seçmeli,Ders,Doç. Dr. Fatma Gülşen ERDİNÇ,8
+ELMU4087,Endüstriyel Elektronik,3,6,Seçmeli,Uygulamalı Ders,Doç. Dr. Koray GÜRKAN,8
+ELMU4065,High Voltage Techniques II,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Fatih ATALAR,8
+ELMU4027,İletişim Laboratuvarı,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Bahattin KARAKAYA,8
+MUHORT01,Karmaşık Mühendislik Tasarımı,1,2,Zorunlu,Uygulamalı Ders,"Doç. Dr. Fatma Gülşen ERDİNÇ, Dr. Öğr. Üyesi Niyazi KILIÇ",8
+ELMU4119,Kontrol ve Otomasyon,3,6,Seçmeli,Ders,Doç. Dr. Rana ORTAÇ KABAOĞLU,8
+ELMU4089,Makine Öğrenmesi ve Uygulamaları,3,5,Seçmeli,Ders,Doç. Dr. Abdurrahim AKGÜNDOĞDU,8
+ELMU4078,Medikal Elektronik,3,5,Seçmeli,Ders,Doç. Dr. Abdurrahim AKGÜNDOĞDU,8
+ELMU4076,Modern Kontrol Teknikleri,3,5,Seçmeli,Ders,Doç. Dr. Nevra BAYHAN,8
+ELMU4079,Power Systems II,3,5,Seçmeli,Ders,Doç. Dr. Erkan ATMACA,8
+ELMU4092,RF Electronics,3,6,Seçmeli,Ders,Dr. Öğr. Üyesi Sedat KILINÇ,8
+MUHG0001,Uygulamalı Girişimcilik,3,5,Seçmeli,Uygulamalı Ders,"Prof. Dr. Aysel ERSOY, Dr. Öğr. Ü. Ertuğrul ADIGÜZEL",8
+ELMU4039,VLSI Tasarımı,3,6,Seçmeli,Ders,Prof. Dr. Yasin ÖZÇELEP,8
+ELMU4080,Yenilenebilir Enerji Sistemleri,3,5,Seçmeli,Ders,Doç. Dr. İbrahim GÜNEŞ,8
+ELMU4055,Yüksek Gerilim Devre Kesicileri,3,5,Seçmeli,Ders,Dr. Öğr. Üyesi Ertuğrul ADIGÜZEL,8
+PREP0004,Hazirlik Dersi,0,0,Zorunlu,Hazırlık Sınıfı (İngilizce),manual,0
+PFOD0003,Eğitim Psikolojisi [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0001,Eğitime Giriş [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0002,Öğretim İlke ve Yöntemleri [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0004,Öğretim Teknolojileri [PF],2,3,Seçmeli,Formasyon Dersi,manual,3
+PFOD0008,Eğitimde Ölçme ve Değerlendirme [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+ELMU200,Kurum Stajı I,0,6,Zorunlu,Staj,manual,4
+PFOD0009,Öğretmenlik Uygulaması [PF],5,10,Seçmeli,Uygulamalı Ders,manual,4
+PFOD0006,Özel Öğretim Yöntemleri [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+PFOD0007,Rehberlik ve Özel Eğitim [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+ELMU3000,Kurum Stajı II,0,0,Zorunlu,Staj,manual,5
+ELMU4059,Bitirme Projesi II,2,6,Zorunlu,Ders,manual,8
+ELMU4041,Digital Speech Processing,3,6,Seçmeli,Ders,manual,8
+ODGS0001,Güzel Sanatlar I,0,1,Seçmeli,Ortak Ders,manual,1
+ODTD0001,Türk Dili I,2,2,Zorunlu,Ortak Ders,manual,1
+YUTD0001,Yabancı Öğrenciler İçin Türk Dili I,2,2,Seçmeli,Ortak Ders,manual,1
+ODGS0002,Güzel Sanatlar II,0,1,Seçmeli,Ortak Ders,manual,2
+ODTD0002,Türk Dili II,2,2,Zorunlu,Ortak Ders,manual,2
+YUTD0002,Yabancı Öğrenciler İçin Türk Dili II,2,2,Seçmeli,Ortak Ders,manual,2
+ODAI0001,Atatürk İlkeleri ve İnkılap Tarihi I,2,2,Zorunlu,Ortak Ders,manual,3
+YUAI0001,Yabancı Öğrenciler İçin Atatürk İlkeleri ve İnkılap Tarihi I,2,2,Seçmeli,Ortak Ders,manual,3
+ODAI0002,Atatürk İlkeleri ve İnkılap Tarihi II,2,2,Zorunlu,Ortak Ders,manual,4
+YUAI0002,Yabancı Öğrenciler İçin Atatürk İlkeleri ve İnkılap Tarihi II,2,2,Seçmeli,Ortak Ders,manual,4
+ODID0001,İşaret Dili,2,2,Seçmeli,Ortak Ders,manual,6

@@ -1,0 +1,106 @@
+Course Code,Course Name,TK,AKTS,Type,Class Type,Instructor Name,Semester
+KIMU1084,Calculus I,2.5,6,Zorunlu,Uygulamalı Ders,Öğr. Gör. Emre GÜVEN,1
+KIMU1900,Fizik I,4,6,Zorunlu,Uygulamalı Ders,Prof. Dr. Sedat BALLIKAYA,1
+KIMU1082,Genel ve Anorganik Kimya,3,4,Zorunlu,Ders,"Prof. Dr. Yasemin KURT, Doç. Dr. Berat İlhan CEYLAN",1
+KIMU1083,Genel ve Anorganik Kimya Laboratuvarı,1,2,Zorunlu,Uygulamalı Ders,"Prof. Dr. Yasemin KURT, Doç. Dr. Berat İlhan CEYLAN",1
+KIMU1006,Kimya Mühendisliğine Giriş,2,2,Zorunlu,Ders,"Doç. Dr. Tuncer YALÇINYUVA, Prof. Dr. Gülin S. POZAN SOYLU",1
+KIMU1003,Technical English I,3,5,Zorunlu,Ders,Prof. Dr. İsmail AYDIN,1
+KIMU1086,Kimya Mühendisliğinde Bilgisayar Programlama,2,4,Zorunlu,Uygulamalı Ders,Dr. Öğr. Üyesi İ. Metin HASDEMİR,2
+KIMU1087,Calculus II,2.5,6,Zorunlu,Uygulamalı Ders,Öğr. Gör. Emre GÜVEN,2
+KIMU1901,Fizik II,4,6,Zorunlu,Uygulamalı Ders,Prof. Dr. Sedat BALLIKAYA,2
+KIMU1085,Kimya Mühendisliğinde Teknik Resim,2,4,Zorunlu,Uygulamalı Ders,Öğr. Gör. Emin ÖZDEMİR,2
+KIMU1008,Technical English II,3,5,Zorunlu,Ders,Prof. Dr. İsmail AYDIN,2
+KIMU2090,Calculus III,2.5,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Üyesi Aminu YUSUF,3
+KIMU2017,Çevre Teknolojisi,2,3,Seçmeli,Ders,Prof. Dr. Mehtap Şafak BOROĞLU,3
+KIMU2025,Enerji Teknolojileri,2,3,Seçmeli,Ders,Prof. Dr. Solmaz AKMAZ,3
+KIMU2088,Fizikokimya,3,4,Zorunlu,Ders,"Doç. Dr. Nihat AYAR, Dr. Öğr. Üyesi Ayşe Engin KURTOĞLU",3
+KIMU2089,Fizikokimya Laboratuvarı,1,2,Zorunlu,Uygulamalı Ders,Prof. Dr. Süheyla PURA ERGİN,3
+KIMU2093,İşletme Yönetimi,2,3,Seçmeli,Ders,Prof. Dr. Erol İNCE,3
+KIMU2115,Numerical Analysis,2.5,5,Zorunlu,Uygulamalı Ders,Prof. Dr. Süheyla ÇEHRELİ,3
+KIMU2011,Organik Kimya I,3,4,Zorunlu,Ders,"Prof. Dr. Nihal ONUL, Doç. Dr. Demet GÜRBÜZ",3
+KIMU3028,Organik Kimya Laboratuvarı I,1,3,Zorunlu,Uygulamalı Ders,"Prof. Dr. Sibel Şahinler AYLA, Doç. Dr. Ayşecik KAÇMAZ",3
+KIMU2094,Yeşil Kimya,2,3,Seçmeli,Ders,Prof. Dr. Gülin S. Pozan SOYLU,3
+KIMU2014,Analitik Kimya,2.5,4,Zorunlu,Uygulamalı Ders,Prof. Dr. Mustafa ÖZYÜREK,4
+KIMU3032,Chemical Process Calculations,3,3,Zorunlu,Ders,Doç. Dr. Hasan ÖZDEMİR,4
+KIMU2013,Differential Equations,3,4,Zorunlu,Ders,Doç. Dr. Hasan ÖZDEMİR,4
+KIMU2904,İş Sağlığı ve Güvenliği,2,2,Seçmeli,Ders,Doç. Dr. Adem ÇINARLI,4
+ODKP0001,Kariyer Planlama,1,2,Seçmeli,Ders,Doç. Dr. Hasan ÖZDEMİR,4
+KIMU2119,Mesleki Etik,2,3,Seçmeli,Ders,Prof. Dr. Süheyla ÇEHRELİ,4
+KIMU2095,Mühendislik Ekonomisi,2,3,Seçmeli,Ders,Prof. Dr. Erol İNCE,4
+KIMU2019,Organik Kimya II,2,3,Zorunlu,Ders,"Prof. Dr. Zeliha GÖKMEN, Prof. Dr. M. Çiğdem SAYIL",4
+KIMU3038,Organik Kimya Laboratuvarı II,1,3,Zorunlu,Uygulamalı Ders,"Prof. Dr. M. Çiğdem SAYIL, Prof. Dr. N. Gülşah DENİZ",4
+KIMU3033,Besin Kimyası I,2.5,4,Seçmeli,Uygulamalı Ders,"Doç. Dr. Hatice YILDIRIM, Doç. Dr. Ayşecik KAÇMAZ",5
+KIMU3034,Biokimya,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Refiye YANARDAĞ, Prof. Dr. Sevim TUNALI",5
+KIMU3098,Boya ve Bileşenleri,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Ahmet KAŞGÖZ, Prof. Dr. Serkan EMİK",5
+KIMU3120,Experimental Design,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Selin Şahin SEVGİLİ, Doç. Dr. Ebru Kurtulbaş ŞAHİN",5
+KIMU3097,Fluid Mechanics,2.5,5,Zorunlu,Uygulamalı Ders,Prof. Dr. İsmail İNCİ,5
+KIMU3031,Isı Transferi,2.5,4,Zorunlu,Uygulamalı Ders,"Prof. Dr. Ş. İsmail KIRBAŞLAR, Doç. Dr. Aslı GÖK",5
+KIMU3121,İlaç Kimyasına Giriş,2.5,4,Seçmeli,Uygulamalı Ders,Prof. Dr. Mehtap Şafak BOROĞLU,5
+KIMU3029,Kimya Mühendisliği Termodinamiği I,2.5,4,Zorunlu,Ders,Prof. Dr. Süheyla ÇEHRELİ,5
+KIMU3040,Mathematical Modelling in Chemical Eng.,2.5,5,Zorunlu,Uygulamalı Ders,Prof. Dr. Selva ÇAVUŞ,5
+KIMU3099,Nanotechnology and Nanomaterials,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. İsmail AYDIN, Prof. Dr. Selva ÇAVUŞ",5
+KIMU3035,Polimer Fiziği,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Hasine KAŞGÖZ, Prof. Dr. Ali DURMUŞ",5
+KIMU1040,Seramik Malzemeler,2.5,4,Seçmeli,Uygulamalı Ders,Prof. Dr. M.A. Faruk ÖKSÜZÖMER,5
+KIMU3100,Surface Chemistry,2.5,4,Seçmeli,Uygulamalı Ders,Prof. Dr. Hüseyin DELİGÖZ,5
+KIMU3036,Tekstil Kimyası,2.5,4,Seçmeli,Uygulamalı Ders,"Doç. Dr. Demet GÜRBÜZ, Doç. Dr. Adem ÇINARLI",5
+KIMU4049,Anorganik Teknolojiler,3,3,Zorunlu,Ders,"Prof. Dr. Gülten GÜRDAĞ, Doç. Dr. Mehmet Koray GÖK",6
+KIMU3044,Besin Kimyası II,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Hatice YILDIRIM,6
+KIMU3101,Boya Üretimi,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Hüseyin DELİGÖZ, Prof. Dr. Işıl ACAR",6
+KIMU3028,Electrochemistry,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Hasan ÖZDEMİR,6
+KIMU3045,Endüstriyel Mikrobiyoloji,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Nihal ONUL, Dr. Öğr. Üyesi Funda ÖZKÖK",6
+KIMU3122,İlaç Üretim Teknolojileri,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. M. Fatih ERGİN,6
+KIMU3042,Kimya Mühendisliği Termodinamiği II,2.5,4,Zorunlu,Uygulamalı Ders,Prof. Dr. Mehmet BİLGİN,6
+KIMU3027,Kimyasal Reaksiyon Mühendisliği,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. M. A. Faruk ÖKSÜZÖMER,6
+KIMU3102,Kompozit Malzemeler,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Ali DURMUŞ, Prof. Dr. Nevra ERCAN",6
+KIMU3039,Kütle Transferi,2.5,4,Zorunlu,Ders,"Dr. Öğr. Üyesi İ. Metin HASDEMİR, Prof. Dr. Erol İNCE",6
+KIMU3041,Materials Science,3,4,Zorunlu,Uygulamalı Ders,Prof. Dr. İsmail AYDIN,6
+KIMU3046,Polimer Kimyası,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. A. KAŞGÖZ, Doç. Dr. M. Koray GÖK",6
+KIMU3047,Tekstil Hazırlama Teknolojileri,2.5,4,Seçmeli,Uygulamalı Ders,"Doç. Dr. Demet GÜRBÜZ, Doç. Dr. Adem ÇINARLI",6
+KIMU3103,Transport Phenomena,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Ebru Kurtulbaş ŞAHİN,6
+KIMU4054,Besin Teknolojisi,2.5,4,Seçmeli,Uygulamalı Ders,"Doç. Dr. Hatice YILDIRIM, Doç. Dr. Ayşecik KAÇMAZ",7
+KIMU4055,Bioreaktör Tasarımı,2.5,4,Seçmeli,Uygulamalı Ders,Prof. Dr. Solmaz AKMAZ,7
+KIMU4106,Boya Test Yöntemleri,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Işıl ACAR, Prof. Dr. Serkan EMİK",7
+KIMU4109,Factory Organization,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Hüseyin DELİGÖZ, Doç. Dr. Tuncer YALÇINYUVA",7
+KIMU4108,Instrumental Analysis,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Hasan ÖZDEMİR,7
+KIMU4117,İlaç Üretiminde Kalite Yönetimi,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Gülşen Albayrak ARI,7
+KIMU4105,Kimya Mühendisliği Laboratuvarı I,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. İsmail İNCİ,7
+KIMU4115,Kimya Mühendisliği Tasarımı,2,4,Zorunlu,Dönem Projesi,"Doç. Dr. Mehmet Koray GÖK, Doç. Dr. Nilay Baylan GÜLSOY",7
+KIMU4107,Metal Malzemeler ve Korozyon,2.5,4,Seçmeli,Uygulamalı Ders,Prof. Dr. Mehmet BİLGİN,7
+KIMU4059,Organik Teknolojiler,2.5,3,Zorunlu,Uygulamalı Ders,"Prof. Dr. Tülin B. İYİM, Doç. Dr. Tuncer YALÇINYUVA",7
+KIMU4056,Polimer Üretim Teknolojileri,2.5,4,Seçmeli,Uygulamalı Ders,"Prof. Dr. Tülin B. İYİM, Doç. Dr. Tuncer YALÇINYUVA",7
+KIMU4053,Reactor Design,3,5,Zorunlu,Ders,Doç. Dr. Tuba G. ALTINÇEKİÇ,7
+KIMU4057,Tekstil Boyama Teknolojisi,2.5,4,Seçmeli,Uygulamalı Ders,"Doç. Dr. Demet GÜRBÜZ, Doç. Dr. Adem ÇINARLI",7
+KIMU4048,Temel İşlemler I,3,3,Zorunlu,Ders,Prof. Dr. Erol İNCE,7
+KIMU4061,Bitirme Projesi,2,2,Zorunlu,Uygulamalı Ders,Bölüm Öğretim Üyeleri,8
+MUHORT01,Karmaşık Mühendislik Tasarımı,1,2,Zorunlu,Uygulamalı Ders,"Prof. Dr. İlven MUTLU, Doç. Dr. Hasan ÖZDEMİR",8
+KIMU4110,Kimya Mühendisliği Laboratuvarı II,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. İsmail İNCİ,8
+KIMU4051,Process Design,3,5,Zorunlu,Ders,Prof. Dr. Mehtap Şafak BOROĞLU,8
+KIMU4111,Process Safety,2.5,4,Seçmeli,Uygulamalı Ders,Doç. Dr. Tuncer YALÇINYUVA,8
+KIMU4109,Proses Kontrol,2.5,4,Zorunlu,Uygulamalı Ders,Prof. Dr. Lütfullah M. SEVGİLİ,8
+KIMU4064,Su Arıtma Teknolojileri,3,5,Seçmeli,Uygulamalı Ders,"Prof. Dr. Işıl ACAR, Prof. Dr. Serkan EMİK",8
+KIMU4058,Temel İşlemler II,3,3,Zorunlu,Ders,Prof. Dr. Ş. İsmail KIRBAŞLAR,8
+KIMU3037,Temel Prosesler,2,2,Seçmeli,Ders,"Prof. Dr. Hasine KAŞGÖZ, Prof. Dr. Tülin B. İYİM",8
+MUHG0001,Uygulamalı Girişimcilik,3,5,Seçmeli,Uygulamalı Ders,"Prof. Dr. Ş. İsmail KIRBAŞLAR, Prof. Dr. Erol İNCE",8
+KIMU4113,Yakıt Hücreleri Teorisi ve Uygulamaları,2,2,Seçmeli,Ders,"Prof. Dr. Hüseyin DELİGÖZ, Doç. Dr. Gülşen Albayrak ARI",8
+PREP0004,Hazirlik Dersi,0,0,Zorunlu,Hazırlık Sınıfı (İngilizce),manual,0
+PFOD0003,Eğitim Psikolojisi [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0001,Eğitime Giriş [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0002,Öğretim İlke ve Yöntemleri [PF],3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0004,Öğretim Teknolojileri [PF],2,3,Seçmeli,Formasyon Dersi,manual,3
+PFOD0008,Eğitimde Ölçme ve Değerlendirme [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+ODID0001,İşaret Dili,2,2,Seçmeli,Ders,manual,4
+PFOD0009,Öğretmenlik Uygulaması [PF],5,10,Seçmeli,Uygulamalı Ders,manual,4
+PFOD0006,Özel Öğretim Yöntemleri [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+PFOD0007,Rehberlik ve Özel Eğitim [PF],3,4,Seçmeli,Formasyon Dersi,manual,4
+PFOD0005,Sınıf Yönetimi [PF],2,3,Seçmeli,Formasyon Dersi,manual,4
+KIMU2907,Staj,0,5,Zorunlu,Staj,manual,4
+ODAI0001,Atatürk İlkeleri ve İnkılap Tarihi I,2,2,Zorunlu,Ortak Ders,manual,1
+ODGS0001,Güzel Sanatlar I,0,1,Seçmeli,Ortak Ders,manual,1
+ODTD0001,Türk Dili I,2,2,Zorunlu,Ortak Ders,manual,1
+YUAI0001,Yabancı Öğrenciler İçin Atatürk İlkeleri ve İnkılap Tarihi I,2,2,Seçmeli,Ortak Ders,manual,1
+YUTD0001,Yabancı Öğrenciler İçin Türk Dili I,2,2,Seçmeli,Ortak Ders,manual,1
+ODAI0002,Atatürk İlkeleri ve İnkılap Tarihi II,2,2,Zorunlu,Ortak Ders,manual,2
+ODGS0002,Güzel Sanatlar II,0,1,Seçmeli,Ortak Ders,manual,2
+ODTD0002,Türk Dili II,2,2,Zorunlu,Ortak Ders,manual,2
+YUAI0002,Yabancı Öğrenciler İçin Atatürk İlkeleri ve İnkılap Tarihi II,2,2,Seçmeli,Ortak Ders,manual,2
+YUTD0002,Yabancı Öğrenciler İçin Türk Dili II,2,2,Seçmeli,Ortak Ders,manual,2

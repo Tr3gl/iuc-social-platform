@@ -1,0 +1,213 @@
+{
+  "topLevelFaculties": [
+    {
+      "name": "Eğitim Fakültesi",
+      "name_tr": "Eğitim Fakültesi",
+      "hasTurkish": true
+    },
+    {
+      "name": "Faculty of Engineering",
+      "name_tr": "Mühendislik Fakültesi",
+      "hasTurkish": false
+    },
+    {
+      "name": "Tıp Fakültesi",
+      "name_tr": "Tıp Fakültesi",
+      "hasTurkish": true
+    }
+  ],
+  "departments": [
+    {
+      "name": "Chemical Engineering Department",
+      "name_tr": "Chemical Engineering Department",
+      "parent": "Faculty of Engineering",
+      "hasTurkish": false
+    },
+    {
+      "name": "Computer Engineering",
+      "name_tr": "Computer Engineering",
+      "parent": "Faculty of Engineering",
+      "hasTurkish": false
+    },
+    {
+      "name": "Electrical-Electronics Engineering Department",
+      "name_tr": "Electrical-Electronics Engineering Department",
+      "parent": "Faculty of Engineering",
+      "hasTurkish": false
+    },
+    {
+      "name": "Environmental Engineering Department",
+      "name_tr": "Environmental Engineering Department",
+      "parent": "Faculty of Engineering",
+      "hasTurkish": false
+    },
+    {
+      "name": "Environmental Engineering Department (ENG)",
+      "name_tr": "Environmental Engineering Department (ENG)",
+      "parent": "Faculty of Engineering",
+      "hasTurkish": false
+    }
+  ],
+  "sampleCourses": [
+    {
+      "name": "Activated Sludge Microbiology",
+      "code": "CEMI4026",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Advanced Algorithm Analysis",
+      "code": "BIMU4037",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Advanced Water Treatment Technologies I",
+      "code": "CEMI4010",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Advanced Water Treatment Technologies II",
+      "code": "CEMI4022",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Ağ İletişim Teknolojileri",
+      "code": "BIMU4100",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Air Pollution and Control",
+      "code": "CEMI3015",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Air Pollution Measurement Techniques",
+      "code": "CEMI3029",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Air Pollution Modeling",
+      "code": "CEMI4009",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Akışkanlar Mekaniği",
+      "code": "CEMU2031",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Aktif Çamur Mikrobiyolojisi",
+      "code": "CEMU4019",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Algorithm Analysis",
+      "code": "BIMU3029",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Anaerobic Treatment",
+      "code": "CEMI3022",
+      "faculty": "Environmental Engineering Department (ENG)"
+    },
+    {
+      "name": "Anaerobik Arıtma",
+      "code": "CEMU3037",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Analitik Kimya",
+      "code": "KIMU2014",
+      "faculty": "Chemical Engineering Department"
+    },
+    {
+      "name": "Analog Tüm Devreler",
+      "code": "ELMU4085",
+      "faculty": "Electrical-Electronics Engineering Department"
+    },
+    {
+      "name": "Anorganik Teknolojiler",
+      "code": "KIMU4049",
+      "faculty": "Chemical Engineering Department"
+    },
+    {
+      "name": "Araştırma ve Yazım İlkeleri",
+      "code": "CEMU1911",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Arıtma Çamurlarının Yönetimi",
+      "code": "CEMU4013",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Arıtma Tesisi Hidroliği",
+      "code": "CEMU3068",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Arıtma Tesislerinde Yapı Teknolojileri",
+      "code": "CEMU4056",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Arıtma Tesislerinin İşletilmesi",
+      "code": "CEMU4010",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Artificial Intelligence and Expert Systems",
+      "code": "BIMU3925",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi I",
+      "code": "ODAI0001",
+      "faculty": "Electrical-Electronics Engineering Department"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi I",
+      "code": "ODAI0001",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi I",
+      "code": "ODAI0001",
+      "faculty": "Chemical Engineering Department"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi I",
+      "code": "ODAI0001",
+      "faculty": "Environmental Engineering Department"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi II",
+      "code": "ODAI0002",
+      "faculty": "Electrical-Electronics Engineering Department"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi II",
+      "code": "ODAI0002",
+      "faculty": "Computer Engineering"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi II",
+      "code": "ODAI0002",
+      "faculty": "Chemical Engineering Department"
+    },
+    {
+      "name": "Atatürk İlkeleri ve İnkılap Tarihi II",
+      "code": "ODAI0002",
+      "faculty": "Environmental Engineering Department"
+    }
+  ],
+  "summary": {
+    "totalFaculties": 3,
+    "totalDepartments": 5,
+    "totalCourses": 30,
+    "untranslatedCount": 2,
+    "untranslatedNames": [
+      "Eğitim Fakültesi",
+      "Tıp Fakültesi"
+    ]
+  }
+}

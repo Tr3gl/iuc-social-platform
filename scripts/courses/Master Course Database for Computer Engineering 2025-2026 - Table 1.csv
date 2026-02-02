@@ -1,0 +1,97 @@
+Course Code,Course Name,TK,AKTS,Type,Class Type,Instructor Name,Semester
+BIMU1059,Calculus,5,6,Zorunlu,Ders,Doç. Dr. Uğur ODABAŞI,1
+BIMU1052,Introduction to Algorithms,4,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Şafak DURUKAN ODABAŞI,1
+BIMU1058,Bilgisayar Mühendisliğine Giriş,3,2,Zorunlu,Ders,"Prof. Dr. Muhammed Ali AYDIN, Dr. Öğr. Ü. Mehmet Yavuz YAĞCI",1
+BIMU1017,Discrete Mathematics,3,5,Zorunlu,Ders,Prof. Dr. Sabri ARIK,1
+BIMU1900,Fizik I,4,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Erman ÇOKDUYGULULAR,1
+BIMU1060,Mathematics for Computer Science,5,6,Zorunlu,Ders,Doç. Dr. Uğur ODABAŞI,2
+BIMU1055,Introduction to Programming,4,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Şafak DURUKAN ODABAŞI,2
+BIMU1901,Fizik II,4,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Erman ÇOKDUYGULULAR,2
+BIMU1057,Bilişim Etiği ve Hukuku,3,2,Zorunlu,Ders,Prof. Dr. Rüya ŞAMLI,2
+BIMU1015,Linear Algebra,3,5,Zorunlu,Ders,Prof. Dr. Sabri ARIK,2
+BIMU2004,Olasılık Teorisi ve İstatistik,3,5,Zorunlu,Ders,Prof. Dr. Rüya ŞAMLI,3
+BIMU2007,Nesneye Yönelik Programlama,4,5,Zorunlu,Ders,Dr. Öğr. Ü. Özgür Can TURNA,3
+BIMU2058,Devreler ve Sistemler,4,6,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Fatih KELEŞ,3
+BIMU2057,Veri Yapıları,4,6,Zorunlu,Uygulamalı Ders,Prof. Dr. Selçuk SEVGEN,3
+BIMU2005,Lojik Devre Tasarımı,3,5,Zorunlu,Ders,Dr. Öğr. Ü. Mehmet Yavuz YAĞCI,3
+BIMU2059,Differential Equations,2,3,Zorunlu,Ders,Doç. Dr. Uğur ODABAŞI,3
+BIMU2093,Software Development Design and Practice,3,4,Zorunlu,Ders,Dr. Öğr. Ü. Özgür Can TURNA,4
+BIMU2012,Mikroişlemciler,3,4,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Serpil ÜSTEBAY,4
+BIMU2062,Lojik Devre Laboratuvarı,1,2,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Mehmet Yavuz YAĞCI,4
+BIMU2092,Veri Bilimi,3,4,Seçmeli,Ders,Dr. Öğr. Ü. Muhammed Erdem İSENKUL,4
+BIMU2061,File Organization,4,5,Zorunlu,Uygulamalı Ders,Doç. Dr. Derya YILTAŞ KAPLAN,4
+BIMU2081,Random and Stochastic Processes,3,4,Seçmeli,Ders,Dr. Öğr. Ü. Mustafa DAĞTEKİN,4
+BIMU2097,Formal Diller ve Otomatlar,3,4,Seçmeli,Ders,Doç. Dr. Eylem YÜCEL DEMİREL,4
+BIMU2060,Bilgisayar Organizasyonu ve Tasarımı,3,3,Zorunlu,Ders,Dr. Öğr. Ü. Fatih KELEŞ,4
+BIMU2002,Sayısal Metotlar,3,3,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Mustafa DAĞTEKİN,4
+ODKP0001,Kariyer Planlama,1,2,Seçmeli,Ders,Prof. Dr. Aysel ERSOY,4
+BIMU3029,Algorithm Analysis,3,5,Zorunlu,Ders,Prof. Dr. Zeynep ORMAN,5
+BIMU3064,Veri Tabanı Yönetim Sistemleri,3,5,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Ramiz Görkem BİRDAL,5
+BIMU3009,Signal Processing,3,5,Zorunlu,Ders,Doç. Dr. Pelin GÖRGEL,5
+BIMU3925,Artificial Intelligence and Expert Systems,3,5,Seçmeli,Ders,Prof. Dr. Zeynep ORMAN,5
+BIMU3060,Bilgisayar Organizasyonu ve Tasarımı Laboratuvarı,1,2,Zorunlu,Uygulamalı Ders,Dr. Öğr. Ü. Fatih KELEŞ,5
+BIMU3070,Veri Madenciliği,3,5,Seçmeli,Ders,Doç. Dr. Emel ARSLAN,5
+BIMU3071,Cloud Computing Applications,3,5,Seçmeli,Uygulamalı Ders,Dr. Öğr. Ü. Şafak DURUKAN ODABAŞI,5
+BIMU3066,Data Communications,3,5,Seçmeli,Ders,Doç. Dr. Gülsüm Zeynep GÜRKAŞ AYDIN,5
+BIMU3026,Operating Systems,4,6,Zorunlu,Uygulamalı Ders,Doç. Dr. Atakan KURT,5
+BIMU3068,Mühendislik Ekonomisi,2,2,Seçmeli,Ders,Prof. Dr. Erol İNCE,5
+BIMU3069,Yönetim Bilişim Sistemleri,2,2,Seçmeli,Ders,Dr. Öğr. Ü. Ebu Yusuf GÜVEN,5
+BIMU3013,Sistem Programlama,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Ramiz Görkem BİRDAL,5
+BIMU3926,Software Testing and Quality,3,5,Seçmeli,Ders,Öğr. Gör. Dr. Enes ALTUNCU,6
+BIMU3931,Oyun Programlama ve Tasarımı,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Muhammed Erdem İSENKUL,6
+BIMU3019,Software Engineering,4,6,Zorunlu,Uygulamalı Ders,Doç. Dr. Atakan KURT,6
+BIMU3031,Computer Networks and Technologies,4,6,Zorunlu,Ders,Doç. Dr. Gülsüm Zeynep GÜRKAŞ AYDIN,6
+BIMU3930,Görüntü İşleme,3,5,Seçmeli,Ders,Prof. Dr. Selçuk SEVGEN,6
+BIMU3927,Bilgisayar Grafikleri,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Serpil ÜSTEBAY,6
+BIMU3929,Web Programlama,3,5,Seçmeli,Ders,Doç. Dr. Pelin GÖRGEL,6
+BIMU3924,İş Hukuku,2,2,Seçmeli,Ders,Doç. Dr. Aslı GÖK,6
+BIMU3083,İnsan Bilgisayar Etkileşimi,3,5,Seçmeli,Ders,Doç. Dr. Emel ARSLAN,6
+BIMU3904,İş Sağlığı ve Güvenliği,2,2,Seçmeli,Ders,Prof. Dr. Aysel ERSOY,6
+BIMU3024,Bilgisayar Mimarisi,3,6,Zorunlu,Ders,Prof. Dr. Ahmet SERTBAŞ,6
+BIMU3928,Elektronik Devreler,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Mehmet Yavuz YAĞCI,6
+BIMU4075,Parallel and Distributed Systems,3,5,Seçmeli,Ders,Öğr. Gör. Dr. Enes ALTUNCU,7
+BIMU4089,İnformasyon Güvenliği ve Kriptoloji,3,5,Seçmeli,Ders,Prof. Dr. Muhammed Ali AYDIN,7
+BIMU4098,Bilişim Proje Geliştirme,2,10,Zorunlu,Uygulamalı Ders,"Dr. Öğr. Ü. Ebu Yusuf GÜVEN,",7
+BIMU4077,Kablosuz Haberleşme Ağları,3,5,Seçmeli,Ders,Doç. Dr. Derya YILTAŞ KAPLAN,7
+BIMU4032,Derleyici Tasarımı,3,5,Seçmeli,Ders,Doç. Dr. Eylem YÜCEL DEMİREL,7
+BIMU4088,Introduction to Machine Learning,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Muhammed Erdem İSENKUL,7
+BIMU4030,Bilgisayar Aritmetiği,3,5,Seçmeli,Ders,Prof. Dr. Ahmet SERTBAŞ,7
+BIMU4091,Neural Networks,3,5,Seçmeli,Ders,Doç. Dr. Sibel SENAN,7
+BIMU4099,Prompt Engineering,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Muhammed Erdem İSENKUL,7
+BIMU4074,Scripting Languages,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Mustafa DAĞTEKİN,7
+BIMU4084,Mobile Programming,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Özgür Can TURNA,7
+BIMU4090,Yöneylem Araştırması,3,5,Seçmeli,Ders,Prof. Dr. Selçuk SEVGEN,7
+BIMU4085,Web Engineering,3,5,Seçmeli,Ders,Öğr. Gör. Dr. Enes ALTUNCU,8
+BIMU4094,Gömülü Sistemler ve Uygulamları,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Fatih KELEŞ,8
+BIMU4044,VLSI Design,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Nihal ALTUNTAŞ,8
+BIMU4095,Object Oriented Analysis and Design,3,5,Seçmeli,Ders,Prof. Dr. Zeynep ORMAN,8
+BIMU4078,Information Technology Management and Standards,3,5,Seçmeli,Ders,Araş. Gör. Dr. Mehmet Deniz DEMİRCİ,8
+BIMU4100,Ağ İletişim Teknolojileri,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Özgür Can TURNA,8
+BIMU4042,Special Topics on Computer Networks,3,5,Seçmeli,Ders,Dr. Öğr. Ü. Şafak DURUKAN ODABAŞI,8
+BIMU4093,Bilgisayar Ağlarında Güvenlik,3,5,Seçmeli,Ders,Prof. Dr. Muhammed Ali AYDIN,8
+BIMU4087,Finansta Bilişim Teknolojileri,3,5,Seçmeli,Ders,Doç. Dr. Sibel SENAN,8
+BIMU4037,Advanced Algorithm Analysis,3,5,Seçmeli,Ders,Öğr. Gör. Dr. Enes ALTUNCU,8
+BIMU4097,Bitirme Projesi,2,8,Zorunlu,Uygulamalı Ders,"Tüm Öğretim Üyeleri,",8
+MUHORT01,Karmaşık Mühendislik Tasarımı,1,2,Zorunlu,Uygulamalı Ders,"Doç. Dr. Emel ARSLAN,",8
+PREP0004,Hazırlık Sınıfı (İngilizce),0,0,Zorunlu,Hazirlik Dersi,manual,0
+PFOD0003,Eğitim Psikolojisi,3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0001,Eğitime Giriş,3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0002,Öğretim İlke ve Yöntemleri,3,4,Seçmeli,Formasyon Dersi,manual,3
+PFOD0004,Öğretim Teknolojileri,2,3,Seçmeli,Formasyon Dersi,manual,3
+PFOD0008,Eğitimde Ölçme ve Değerlendirme,3,4,Seçmeli,Formasyon Dersi,manual,4
+PFOD0007,Rehberlik ve Özel Eğitim,3,4,Seçmeli,Formasyon Dersi,manual,4
+PFOD0005,Sınıf Yönetimi,2,3,Seçmeli,Formasyon Dersi,manual,4
+BIMU2090,Staj I,0,2,Zorunlu,Staj,manual,4
+BIMU2091,Staj II,0,3,Zorunlu,Staj,manual,4
+BIMU4092,Bulanık Mantık,3,5,Seçmeli,Ders,manual,7
+BIMU4041,Image Processing,3,5,Seçmeli,Ders,manual,8
+ODAI0001,Atatürk İlkeleri ve İnkılap Tarihi I,2,2,Zorunlu,Ortak Ders,manual,1
+ODTD0001,Türk Dili I,2,2,Zorunlu,Ortak Ders,manual,1
+YUAI0001,Yabancı Öğrenciler İçin Atatürk İlkeleri I,2,2,Seçmeli,Ortak Ders,manual,1
+YUTD0001,Yabancı Öğrenciler İçin Türk Dili I,2,2,Seçmeli,Ortak Ders,manual,1
+ODGS0001,Güzel Sanatlar I,0,1,Seçmeli,Ortak Ders,manual,1
+ODAI0002,Atatürk İlkeleri ve İnkılap Tarihi II,2,2,Zorunlu,Ortak Ders,manual,2
+ODGS0002,Güzel Sanatlar II,0,1,Seçmeli,Ortak Ders,manual,2
+ODTD0002,Türk Dili II,2,2,Zorunlu,Ortak Ders,manual,2
+YUAI0002,Yabancı Öğrenciler İçin Atatürk İlkeleri II,2,2,Seçmeli,Ortak Ders,manual,2
+YUTD0002,Yabancı Öğrenciler İçin Türk Dili II,2,2,Seçmeli,Ortak Ders,manual,2

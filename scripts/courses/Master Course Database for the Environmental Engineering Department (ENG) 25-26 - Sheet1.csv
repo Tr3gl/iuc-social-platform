@@ -1,0 +1,99 @@
+Course Code,Course Name,TK,AKTS,Type,Class Type,Instructor Name,Semester
+CEMI1001,Calculus I,5,6,Zorunlu,Uygulamalı Ders,Prof. Dr. Gökhan ÇAYLI,1
+CEMI1005,Computer Programming,3,4,Zorunlu,Uygulamalı Ders,Prof. Dr. L. Muhammed SEVGİLİ,1
+CEMI1023,General Chemistry I,3,6,Zorunlu,Ders,Prof. Dr. Tülay YILDIZ,1
+CEMI1022,Introduction to Environmental Engineering and Ethics,2,3,Zorunlu,Ders,Assoc. Prof. Dr. Adem YURTSEVER,1
+CEMI1002,Physics I,4,6,Zorunlu,Uygulamalı Ders,Asst. Prof. Dr. İlknur HOŞ,1
+CEMI1024,Principles of Research and Writing,2,2,Zorunlu,Ders,Prof.Dr. Nüket SİVRİ,1
+CEMI1010,Technical English I,2,2,Zorunlu,Ders,Assoc. Prof. Dr. Can GÜNGÖREN,1
+CEMI1012,Calculus II,5,6,Zorunlu,Uygulamalı Ders,Prof. Dr. Gökhan ÇAYLI,2
+CEMU1015,Ecology,2,5,Zorunlu,Ders,Assoc. Prof. Dr. Adem YURTSEVER,2
+CEMI1025,Entrepreneurship and Career Planning,2,2,Zorunlu,Ders,Prof. Dr. Bülent ARMAĞAN,2
+CEMI1013,Physics II,4,6,Zorunlu,Uygulamalı Ders,Assist. Prof. Dr. İlknur HOŞ,2
+CEMI1016,Static and Strength,2.5,3,Zorunlu,Uygulamalı Ders,Dr. İrem YAĞMUROĞLU,2
+CEMI1014,Statistics and Probability,2.5,5,Zorunlu,Uygulamalı Ders,Assist. Prof. Dr. Feride ULU,2
+CEMI1021,Technical English II,2,2,Zorunlu,Ders,Assoc. Prof. Dr. Can GÜNGÖREN,2
+CEMI2024,Clean Energy Technologies,2,3,Seçmeli,Ders,Prof.Dr. Bülent ARMAĞAN,3
+CEMI2006,Current Computer Applications in Environmental Engineering,3,4,Zorunlu,Uygulamalı Ders,Dr. Sümeyye ÇEKİM,3
+CEMI2002,Differential Equations,4,6,Zorunlu,Ders,Assoc. Prof. Dr. Uğur ODABAŞI,3
+CEMI2003,Fluid Mechanics,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. Semih NEMLİOĞLU,3
+CEMI2026,General Chemistry II,3,7,Zorunlu,Ders,Assist. Prof. Dr. Ceyhun AKARSU,3
+CEMI2029,Geographic Information Systems,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Ülkü KALAYCI ŞAHİNOĞLU,3
+CEMI2031,Microbiology,3,4,Zorunlu,Ders,Prof. Dr. Gulsum YILMAZ,3
+CEMI3009,Sustainability and Green Production,2,3,Seçmeli,Ders,Assist. Prof. Dr. Ceyhun AKARSU,3
+CEMI2005,Thermodynamics,2.5,3,Seçmeli,Uygulamalı Ders,Prof. Dr. L. Muhammed SEVGİLİ,3
+CEMI2008,Urbanization and Environmental Problems,2,3,Seçmeli,Ders,Prof. Dr. Emine E. ÖZBAŞ,3
+CEMI2023,Climate Change and Its Environmental Effects,2,3,Seçmeli,Ders,Prof. Dr. Semih NEMLİOĞLU,4
+CEMI2018,Computer Aided Technical Drawing,4,3,Zorunlu,Uygulamalı Ders,"Assoc. Prof. Dr. Adem YURTSEVER, Assoc. Prof. Dr. Sinan GÜNEYSU",4
+CEMI2028,Engineering Mathematics,2,5,Zorunlu,Ders,Prof. Dr. Gökhan ÇAYLI,4
+CEMI2027,Environmental Chemistry,3,4,Zorunlu,Ders,Assist.Prof. Dr. Ceyhun AKARSU,4
+CEMI2015,Hydraulics,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. Semih NEMLİOĞLU,4
+CEMI2016,Hydrology,2.5,3,Zorunlu,Uygulamalı Ders,"Prof.Dr. Hakan HOŞGÖRMEZ, Dr. Doğacan ÖZCAN",4
+CEMI2014,Transport Processes in Environmental Engineering,2,3,Zorunlu,Ders,Assoc. Prof. Dr. Adem YURTSEVER,4
+CEMI3004,Atmospheric Chemistry,2.5,2,Zorunlu,Uygulamalı Ders,Prof. Dr. Burcu ONAT,5
+CEMI3002,Chemical Processes,2.5,4,Zorunlu,Uygulamalı Ders,Prof. Dr. Atakan ÖNGEN,5
+CEMI3021,Environmental Sampling and Analysis,2,3,Seçmeli,Ders,Dr. Sümeyye ÇEKİM,5
+CEMI4014,Moleculer Techniques in Environmental Engineering,2,3,Seçmeli,Ders,Prof. Dr. Gülsum YILMAZ,5
+CEMI2020,Noise Control,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Ender ÇETİN,5
+CEMI3003,Solid Waste Management,3,3,Zorunlu,Ders,Prof. Dr. Bülent ARMAĞAN,5
+CEMI3027,Solid Waste Recycling Techniques,2,3,Seçmeli,Ders,Prof. Dr. Bülent ARMAĞAN,5
+CEMI3010,Total Quality Management,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Deniz ADIGÜZEL,5
+CEMI3001,Unit Operations,3,4,Zorunlu,Uygulamalı Ders,Assist. Prof. Dr. Ceyhun AKARSU,5
+CEMI3005,Water Supply,2.5,3,Zorunlu,Uygulamalı Ders,Assoc. Prof. Dr. Adem YURTSEVER,5
+CEMI3015,Air Pollution and Control,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. Burcu ONAT,6
+CEMI3029,Air Pollution Measurement Techniques,2,3,Seçmeli,Ders,Prof.Dr. Burcu ONAT,6
+CEMI3022,Anaerobic Treatment,2,3,Seçmeli,Ders,Prof. Dr. Gülsüm YILMAZ,6
+CEMI3017,Biological Processes,2.5,3,Zorunlu,Uygulamalı Ders,Prof. Dr. Gülsüm YILMAZ,6
+CEMI3023,Energy and Environment,2,3,Seçmeli,Ders,Assist. Prof. Dr. Deniz ADIGÜZEL,6
+CEMI4008,Hazardous and Special Wastes,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Ender ÇETİN,6
+CEMI3008,Instrumental Analysis,2,3,Seçmeli,Ders,Assist. Prof. Dr. Feride ULU,6
+CEMI3018,Wastewater Disposal,2,2,Zorunlu,Uygulamalı Ders,Prof. Dr. Emine E. ÖZBAŞ,6
+CEMI3016,Water Quality Control,3,3,Zorunlu,Ders,Assist. Prof. Dr. Feride ULU,6
+CEMI3014,Water Treatment,2.5,3,Zorunlu,Uygulamalı Ders,Assist.Prof. Dr. Ceyhun AKARSU,6
+CEMI4010,Advanced Water Treatment Technologies I,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Adem YURTSEVER,7
+CEMI4004,Environmental Economics,2.5,3,Zorunlu,Uygulamalı Ders,Assoc. Prof. Dr. Adem YURTSEVER,7
+CEMI4006,Environmental Impact Assessment,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Ülkü KALAYCI ŞAHİNOĞLU,7
+CEMI4003,Environmental Law,2,2,Zorunlu,Ders,Prof. Dr. M. Yusuf GÜNEŞ,7
+CEMI4011,Fundamentals of Life Cycle Analysis,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Deniz ADIGÜZEL,7
+CEMI3012,Marine Wastewater Outfalls,2,3,Seçmeli,Ders,Prof. Dr. Semih NEMLİOĞLU,7
+CEMI4002,Soil and Groundwater Remediation,3,2,Zorunlu,Ders,Prof. Dr. Emine ELMASLAR ÖZBAŞ,7
+CEMI4015,Treatment/Storage/Disposal Approaches in Waste Management,2,3,Seçmeli,Ders,Prof. Dr. Atakan ÖNGEN,7
+CEMI4001,Wastewater Treatment,3,4,Zorunlu,Uygulamalı Ders,Assist. Prof. Dr. Güler TÜRKOĞLU DEMİRKOL,7
+CEMI4022,Advanced Water Treatment Technologies II,2,3,Seçmeli,Ders,Assoc. Prof.Dr. Adem YURTSEVER,8
+CEMI4018,Industrial Wastewater Control,2.5,4,Zorunlu,Ders,Assist.Prof. Dr. Ceyhun AKARSU,8
+CEMI4028,Occupational Health and Safety,2,3,Seçmeli,Ders,Assoc. Prof. Dr. Can GÜNGÖREN,8
+CEMI4023,Operation of Treatment Plants,2,3,Seçmeli,Ders,Prof. Dr. Emine E. ÖZBAŞ,8
+CEMI4021,Recycling and Reuse of Wastewater,2,3,Seçmeli,Ders,Assist. Prof. Dr. Güler TÜRKOĞLU DEMİRKOL,8
+CEMI4020,Selected Topics in Solid Wastewater Management,2,3,Seçmeli,Ders,Prof.Dr. Bülent ARMAĞAN,8
+CEMI4016,Sludge Management,2,3,Zorunlu,Ders,Prof.Dr. Gülsüm YILMAZ,8
+CEMI4017,Surface Water Modeling,2.5,4,Zorunlu,Ders,Prof. Dr. Atakan ÖNGEN,8
+CEMI4027,Thermal Processes and Applications in Environmental Engineering,2,3,Seçmeli,Ders,Prof. Dr. Atakan ÖNGEN,8
+PREP0004,English Preparatory Program,0,0,Zorunlu,Hazirlik Dersi,manual,0
+CEMI2010,Public Health and Environment,2,3,Seçmeli,Ders,manual,3
+CEMI2021,Environmental Toxicology,2,3,Seçmeli,Ders,manual,4
+CEMI2025,Laboratory Internship,0,3,Zorunlu,Staj,manual,4
+CEMI2022,Marine and Lake Sciences,2,3,Seçmeli,Ders,manual,4
+CEMI3007,Biodiversity and Nature Conservation,2,3,Seçmeli,Ders,manual,5
+CEMI2012,Environmental Policy and Applications in European Union,2,3,Seçmeli,Ders,manual,5
+CEMI3006,Environmental Resources Management,2,3,Seçmeli,Ders,manual,5
+CEMI3028,Business Internship,0,2,Zorunlu,Staj,manual,6
+CEMI3024,Industrial Waste Management,2,3,Seçmeli,Ders,manual,6
+CEMI4024,Project Management in Environmental Engineering,2,3,Seçmeli,Ders,manual,6
+CEMI3025,Treatment Plant Hydraulics,2,3,Seçmeli,Ders,manual,6
+CEMI4009,Air Pollution Modeling,2,3,Seçmeli,Ders,manual,7
+CEMI4007,Construction Technologies in Treatment Plants,2,3,Seçmeli,Ders,manual,7
+CEMI4005,Graduation Project I,2,5,Zorunlu,Uygulamalı Ders,manual,7
+CEMI4013,Heavy Metal Removal from Contaminated Environments,2,3,Seçmeli,Ders,manual,7
+CEMI4026,Activated Sludge Microbiology,2,3,Seçmeli,Ders,manual,8
+CEMI4032,Complex Engineering Design,1,2,Zorunlu,Ders,manual,8
+CEMI4019,Graduation Project II,2,3,Zorunlu,Dönem Projesi,manual,8
+CEMI4025,Urban Air Quality Management,2,3,Seçmeli,Ders,manual,8
+CEMI1011,Fine Arts I,0,1,Seçmeli,Ortak Ders,manual,1
+CEMI2021,Fine Arts II,0,1,Seçmeli,Ortak Ders,manual,2
+CEMI1007,Turkish Language for Foreign Students I,2,2,Seçmeli,Ortak Ders,manual,5
+CEMI1006,Turkish Language I,2,2,Zorunlu,Ortak Ders,manual,5
+CEMI1018,Turkish Language for Foreign Students II,2,2,Seçmeli,Ortak Ders,manual,6
+CEMI1017,Turkish Language II,2,2,Zorunlu,Ortak Ders,manual,6
+CEMI1009,Ataturk's Principles and History of Turkish Revolution for Foreign Students I,2,2,Seçmeli,Ortak Ders,manual,7
+CEMI1008,Ataturk's Principles and History of Turkish Revolution I,2,2,Zorunlu,Ortak Ders,manual,7
+CEMI1019,Ataturk's Principles and History of Turkish Revolution II,2,2,Zorunlu,Ortak Ders,manual,8
