@@ -141,10 +141,10 @@ export default function ReviewPage() {
           comment: reviewData.comment || '',
           tags: reviewData.review_tags ? reviewData.review_tags.map((rt: any) => rt.tag_id) : [],
         });
-      } else if (courseData.course_instructors.length === 1) {
+      } else if (courseData.course_instructors && courseData.course_instructors.length === 1) {
         setFormData(prev => ({
           ...prev,
-          instructor_id: courseData.course_instructors[0].instructors?.id || '',
+          instructor_id: courseData.course_instructors?.[0]?.instructors?.id || '',
           survival_guide: pendingGuideContent || prev.survival_guide, // Pre-fill pending even if new review
         }));
       } else if (pendingGuideContent) {
@@ -295,7 +295,7 @@ export default function ReviewPage() {
 
   if (!course) return null;
 
-  const instructors = course.course_instructors
+  const instructors = (course.course_instructors || [])
     .map((ci: any) => ci.instructors)
     .filter(Boolean);
 
