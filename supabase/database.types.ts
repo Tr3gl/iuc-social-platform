@@ -223,6 +223,81 @@ export interface Database {
           created_at?: string
         }
       }
+      pending_survival_guides: {
+        Row: {
+          id: string
+          course_id: string
+          survival_guide: string
+          submitted_by: string
+          status: 'pending' | 'approved' | 'rejected'
+          created_at: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+        }
+        Insert: {
+          id?: string
+          course_id: string
+          survival_guide: string
+          submitted_by: string
+          status?: 'pending' | 'approved' | 'rejected'
+          created_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+        }
+        Update: {
+          id?: string
+          course_id?: string
+          survival_guide?: string
+          submitted_by?: string
+          status?: 'pending' | 'approved' | 'rejected'
+          created_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+        }
+      }
+      pending_tags: {
+        Row: {
+          id: string
+          name: string
+          suggested_type: 'positive' | 'negative'
+          submitted_by: string
+          course_id: string | null
+          status: 'pending' | 'approved' | 'rejected'
+          created_at: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+        }
+        Insert: {
+          id?: string
+          name: string
+          suggested_type: 'positive' | 'negative'
+          submitted_by: string
+          course_id?: string | null
+          status?: 'pending' | 'approved' | 'rejected'
+          created_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string
+          suggested_type?: 'positive' | 'negative'
+          submitted_by?: string
+          course_id?: string | null
+          status?: 'pending' | 'approved' | 'rejected'
+          created_at?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+        }
+      }
+    }
+    Functions: {
+      get_course_stats: {
+        Args: {
+          course_uuid: string
+        }
+        Returns: Json
+      }
     }
   }
 }

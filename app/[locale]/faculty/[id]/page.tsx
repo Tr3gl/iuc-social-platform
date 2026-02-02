@@ -122,7 +122,7 @@ export default function FacultyPage() {
     const classTypes = [...new Set(courses.map(c => c.class_type).filter(Boolean))];
     const semesters = [...new Set(courses.map(c => c.semester).filter(Boolean))];
     const instructors = [...new Set(
-      courses.flatMap(c => (c.course_instructors || []).map(ci => ci.instructors ? (ci.instructors.title ? `${ci.instructors.title} ${ci.instructors.name}` : ci.instructors.name) : null).filter(Boolean))
+      courses.flatMap(c => (c.course_instructors || []).map(ci => ci.instructors ? (ci.instructors.title ? `${ci.instructors.title} ${ci.instructors.name}` : ci.instructors.name) : null).filter(Boolean) as string[])
     )];
     return { courseTypes, classTypes, semesters, instructors };
   }, [courses]);
