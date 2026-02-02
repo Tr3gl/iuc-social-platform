@@ -56,3 +56,26 @@ export type CourseStats = {
     material_relevance_distribution?: Record<string, number>;
     exam_predictability_distribution?: Record<string, number>;
 };
+
+export interface PendingSurvivalGuide {
+    id: string;
+    course_id: string;
+    survival_guide: string;
+    submitted_by: string;
+    status: 'pending' | 'approved' | 'rejected';
+    created_at: string;
+    reviewed_at?: string | null;
+    reviewed_by?: string | null;
+}
+
+export interface PendingTag {
+    id: string;
+    course_id: string | null;
+    name: string;
+    suggested_type: 'positive' | 'negative';
+    submitted_by: string;
+    status: 'pending' | 'approved' | 'rejected';
+    created_at: string;
+    reviewed_at?: string | null;
+    reviewed_by?: string | null;
+}

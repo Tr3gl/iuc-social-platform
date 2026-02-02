@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 import { MIN_REVIEWS_FOR_DISPLAY } from './constants';
-import { CourseStats, Faculty, Course, Review, File, Tag } from './types';
+import { CourseStats, Faculty, Course, Review, File, Tag, PendingSurvivalGuide, PendingTag } from './types';
 import { PostgrestError } from '@supabase/supabase-js';
 
 export { type CourseStats } from './types';
@@ -801,7 +801,7 @@ export const submitPendingSurvivalGuide = async (
   }
 };
 
-export const getUserPendingSurvivalGuides = async (courseId: string) => {
+export const getUserPendingSurvivalGuides = async (courseId: string): Promise<PendingSurvivalGuide[]> => {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return [];
 
@@ -819,7 +819,7 @@ export const getUserPendingSurvivalGuides = async (courseId: string) => {
   return data ?? [];
 };
 
-export const getPendingSurvivalGuides = async (status: 'pending' | 'approved' | 'rejected' = 'pending') => {
+export const getPendingSurvivalGuides = async (status: 'pending' | 'approved' | 'rejected' = 'pending'): Promise<any[]> => {
   const { data, error } = await supabase.from('pending_survival_guides')
     .select(`
       *,
