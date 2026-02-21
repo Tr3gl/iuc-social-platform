@@ -44,13 +44,18 @@ import {
     approveFile as approveFileAction,
     rejectFile as rejectFileAction,
     approveSurvivalGuide,
-    rejectSurvivalGuide
+    rejectSurvivalGuide,
+    getAllTags as fetchAllTags,
+    createTag as createTagAction,
+    updateTag as updateTagAction,
+    deleteTag as deleteTagAction
 } from '@/app/actions';
+import { Edit2, Plus } from 'lucide-react';
 
 // Admin password from environment variable
 const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'kovan2026';
 
-type TopicType = 'pending_guides' | 'all_reviews' | 'reports' | 'troll_reviews' | 'pending_tags' | 'pending_files';
+type TopicType = 'pending_guides' | 'all_reviews' | 'reports' | 'troll_reviews' | 'pending_tags' | 'pending_files' | 'tag_management';
 
 interface TopicData {
     id: TopicType;
@@ -77,6 +82,7 @@ export default function AdminPage() {
     const [fileReports, setFileReports] = useState<any[]>([]);
     const [trollReviews, setTrollReviews] = useState<any[]>([]);
     const [pendingTags, setPendingTags] = useState<any[]>([]);
+    const [allTags, setAllTags] = useState<any[]>([]);
 
     const [loading, setLoading] = useState(false);
     const [processingId, setProcessingId] = useState<string | null>(null);
@@ -116,7 +122,7 @@ export default function AdminPage() {
     const loadAllData = async () => {
         setLoading(true);
         try {
-            const [guides, reviews, revReports, fReports, trolls, tags, files] = await Promise.all([
+            const [guides, reviews, revReports, fReports, trolls, tags, files, existingTags] = await Promise.all([
                 getPendingSurvivalGuides('pending'),
                 getAllReviews(),
                 getReviewReports(),
@@ -124,6 +130,7 @@ export default function AdminPage() {
                 getTrollReviews(3),
                 getPendingTags('pending'),
                 getPendingFiles(),
+                fetchAllTags(),
             ]);
             setPendingGuides(guides);
             setAllReviews(reviews);
@@ -132,6 +139,7 @@ export default function AdminPage() {
             setTrollReviews(trolls);
             setPendingTags(tags);
             setPendingFiles(files);
+            setAllTags(existingTags);
         } catch (error) {
             console.error('Error loading admin data:', error);
         } finally {
@@ -259,6 +267,14 @@ export default function AdminPage() {
             description: 'Onay bekleyen kullanıcı etiketleri',
             count: pendingTags.length,
             color: 'purple'
+        },
+        {
+            id: 'tag_management',
+            title: 'Etiket Yönetimi',
+            icon: <Edit2 className="w-6 h-6" />,
+            description: 'Tüm etiketleri ekle, düzenle, sil',
+            count: allTags.length,
+            color: 'blue'
         },
     ];
 
@@ -438,6 +454,17 @@ export default function AdminPage() {
                                                 tags={pendingTags}
                                                 onAction={handleTagAction}
                                                 processingId={processingId}
+                                            />
+                                        )}
+                                        {topic.id === 'tag_management' && (
+                                            <TagManagementContent
+                                                tags={allTags}
+                                                onRefresh={async () => {
+                                                    const updated = await fetchAllTags();
+                                                    setAllTags(updated);
+                                                }}
+                                                processingId={processingId}
+                                                setProcessingId={setProcessingId}
                                             />
                                         )}
                                     </div>
@@ -805,3 +832,218 @@ function PendingTagsContent({ tags, onAction, processingId }: PendingTagsContent
     );
 }
 
+// Tag Management CRUD Component
+function TagManagementContent({ tags, onRefresh, processingId, setProcessingId }: {
+    tags: any[];
+    onRefresh: () => Promise<void>;
+    processingId: string | null;
+    setProcessingId: (id: string | null) => void;
+}) {
+    const [editingTag, setEditingTag] = useState<string | null>(null);
+    const [editName, setEditName] = useState('');
+    const [editType, setEditType] = useState<'positive' | 'negative'>('positive');
+    const [newName, setNewName] = useState('');
+    const [newType, setNewType] = useState<'positive' | 'negative'>('positive');
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleCreate = async () => {
+        if (!newName.trim()) return;
+        setError('');
+        setProcessingId('creating');
+        try {
+            await createTagAction(newName.trim(), newType);
+            setNewName('');
+            setNewType('positive');
+            setShowAddForm(false);
+            await onRefresh();
+        } catch (err: any) {
+            setError(err.message || 'Etiket oluşturulamadı');
+        } finally {
+            setProcessingId(null);
+        }
+    };
+
+    const handleUpdate = async (tagId: string) => {
+        if (!editName.trim()) return;
+        setError('');
+        setProcessingId(tagId);
+        try {
+            await updateTagAction(tagId, editName.trim(), editType);
+            setEditingTag(null);
+            await onRefresh();
+        } catch (err: any) {
+            setError(err.message || 'Etiket güncellenemedi');
+        } finally {
+            setProcessingId(null);
+        }
+    };
+
+    const handleDelete = async (tagId: string) => {
+        if (!confirm('Bu etiketi silmek istediğinizden emin misiniz? İlişkili tüm review bağlantıları da silinecektir.')) return;
+        setError('');
+        setProcessingId(tagId);
+        try {
+            await deleteTagAction(tagId);
+            await onRefresh();
+        } catch (err: any) {
+            setError(err.message || 'Etiket silinemedi');
+        } finally {
+            setProcessingId(null);
+        }
+    };
+
+    const startEditing = (tag: any) => {
+        setEditingTag(tag.id);
+        setEditName(tag.name);
+        setEditType(tag.type);
+    };
+
+    return (
+        <div className="space-y-4">
+            {/* Add Button */}
+            <div className="flex items-center justify-between">
+                <p className="text-sm text-neutral-500">{tags.length} etiket mevcut</p>
+                <button
+                    onClick={() => setShowAddForm(!showAddForm)}
+                    className="flex items-center space-x-1 px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                >
+                    <Plus className="w-4 h-4" />
+                    <span>Yeni Etiket</span>
+                </button>
+            </div>
+
+            {/* Error */}
+            {error && (
+                <div className="bg-red-50 border border-red-200 p-3 rounded-lg text-sm text-red-700 font-medium">
+                    {error}
+                </div>
+            )}
+
+            {/* Add Form */}
+            {showAddForm && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+                    <h4 className="text-sm font-semibold text-blue-800">Yeni Etiket Ekle</h4>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        <input
+                            type="text"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            placeholder="Etiket adı..."
+                            className="input flex-1 text-sm"
+                            autoFocus
+                        />
+                        <select
+                            value={newType}
+                            onChange={(e) => setNewType(e.target.value as 'positive' | 'negative')}
+                            className="input text-sm w-32"
+                        >
+                            <option value="positive">Pozitif</option>
+                            <option value="negative">Negatif</option>
+                        </select>
+                        <div className="flex space-x-2">
+                            <button
+                                onClick={handleCreate}
+                                disabled={!newName.trim() || processingId === 'creating'}
+                                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium disabled:opacity-50"
+                            >
+                                {processingId === 'creating' ? '...' : 'Ekle'}
+                            </button>
+                            <button
+                                onClick={() => { setShowAddForm(false); setNewName(''); }}
+                                className="px-4 py-2 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 text-sm"
+                            >
+                                İptal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Tag List */}
+            <div className="space-y-2">
+                {tags.map(tag => (
+                    <div key={tag.id} className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-neutral-300 transition-colors">
+                        {editingTag === tag.id ? (
+                            /* Edit Mode */
+                            <div className="flex flex-col sm:flex-row gap-2 flex-1 mr-2">
+                                <input
+                                    type="text"
+                                    value={editName}
+                                    onChange={(e) => setEditName(e.target.value)}
+                                    className="input text-sm flex-1"
+                                    autoFocus
+                                />
+                                <select
+                                    value={editType}
+                                    onChange={(e) => setEditType(e.target.value as 'positive' | 'negative')}
+                                    className="input text-sm w-32"
+                                >
+                                    <option value="positive">Pozitif</option>
+                                    <option value="negative">Negatif</option>
+                                </select>
+                                <div className="flex space-x-1">
+                                    <button
+                                        onClick={() => handleUpdate(tag.id)}
+                                        disabled={processingId === tag.id}
+                                        className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200"
+                                        title="Kaydet"
+                                    >
+                                        <Check className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        onClick={() => setEditingTag(null)}
+                                        className="p-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200"
+                                        title="İptal"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            /* View Mode */
+                            <>
+                                <div className="flex items-center space-x-3">
+                                    <span className={`px-2 py-1 rounded text-xs font-bold ${tag.type === 'positive'
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-red-100 text-red-700'
+                                        }`}>
+                                        {tag.type === 'positive' ? '👍' : '👎'}
+                                    </span>
+                                    <span className="text-sm font-medium text-neutral-800">{tag.name}</span>
+                                    {tag.name_tr && (
+                                        <span className="text-xs text-neutral-500">({tag.name_tr})</span>
+                                    )}
+                                </div>
+                                <div className="flex space-x-1">
+                                    <button
+                                        onClick={() => startEditing(tag)}
+                                        className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
+                                        title="Düzenle"
+                                    >
+                                        <Edit2 className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(tag.id)}
+                                        disabled={processingId === tag.id}
+                                        className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+                                        title="Sil"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                ))}
+
+                {tags.length === 0 && (
+                    <div className="text-center py-8 text-neutral-500">
+                        <Tag className="w-8 h-8 mx-auto mb-2 text-neutral-400" />
+                        <p>Henüz etiket yok</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

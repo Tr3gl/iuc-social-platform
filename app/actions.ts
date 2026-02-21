@@ -82,7 +82,7 @@ export async function approvePendingTag(
         .from('tags')
         .select('id')
         .ilike('name', tagName!)
-        .single();
+        .maybeSingle();
 
     if (!duplicate) {
         const { error: insertError } = await supabaseAdmin
@@ -101,6 +101,66 @@ export async function approvePendingTag(
         }
     }
 
+    revalidatePath('/admin');
+    return { success: true };
+}
+
+// Direct Tag CRUD (Admin)
+export async function getAllTags() {
+    const { data, error } = await supabaseAdmin
+        .from('tags')
+        .select('*')
+        .order('name');
+
+    if (error) throw error;
+    return data ?? [];
+}
+
+export async function createTag(name: string, type: 'positive' | 'negative') {
+    // Check for duplicates
+    const { data: existing } = await supabaseAdmin
+        .from('tags')
+        .select('id')
+        .ilike('name', name)
+        .maybeSingle();
+
+    if (existing) {
+        throw new Error('A tag with this name already exists');
+    }
+
+    const { error } = await supabaseAdmin
+        .from('tags')
+        .insert({ name, type, is_verified: true });
+
+    if (error) throw error;
+    revalidatePath('/admin');
+    return { success: true };
+}
+
+export async function updateTag(tagId: string, name: string, type: 'positive' | 'negative') {
+    const { error } = await supabaseAdmin
+        .from('tags')
+        .update({ name, type })
+        .eq('id', tagId);
+
+    if (error) throw error;
+    revalidatePath('/admin');
+    return { success: true };
+}
+
+export async function deleteTag(tagId: string) {
+    // First delete all review_tags referencing this tag
+    await supabaseAdmin
+        .from('review_tags')
+        .delete()
+        .eq('tag_id', tagId);
+
+    const { error } = await supabaseAdmin
+        .from('tags')
+        .delete()
+        .eq('id', tagId);
+
+    if (error) throw error;
     revalidatePath('/admin');
     return { success: true };
 }

@@ -1,4 +1,4 @@
-import { Database } from './database.types';
+import { Database } from '../supabase/database.types';
 
 export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row'];
 // Enums are not defined in the current database types
@@ -44,11 +44,9 @@ export type CourseStats = {
     median_difficulty: number;
     median_usefulness: number;
     median_workload: number;
-    median_exam_clarity: number;
     difficulty_distribution: Record<string, number>;
     usefulness_distribution: Record<string, number>;
     workload_distribution: Record<string, number>;
-    exam_clarity_distribution: Record<string, number>;
     difficulty_value_counts: Record<string, number>;
     exam_format_counts: Record<string, number>;
     grading_fairness_distribution?: Record<string, number>;

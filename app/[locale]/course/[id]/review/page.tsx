@@ -8,6 +8,7 @@ import {
   DIFFICULTY_VALUE_ALIGNMENT,
   VIZE_FORMAT,
   FINAL_FORMAT,
+  EXTRA_ASSESSMENTS,
   RATING_LABELS,
   METRIC_DESCRIPTIONS,
   MAX_COMMENT_LENGTH,
@@ -39,7 +40,6 @@ export default function ReviewPage() {
     difficulty: number;
     usefulness: number;
     workload: number;
-    exam_clarity: number;
     grading_fairness: number;
     attendance: number;
     material_relevance: number;
@@ -48,6 +48,7 @@ export default function ReviewPage() {
     difficulty_value_alignment: string;
     midterm_format: string;
     final_format: string;
+    extra_assessments: string[];
     instructor_id: string;
     comment: string;
     tags: string[];
@@ -57,7 +58,6 @@ export default function ReviewPage() {
     difficulty: 0,
     usefulness: 0,
     workload: 0,
-    exam_clarity: 0,
     grading_fairness: 0,
     attendance: 0,
     material_relevance: 0,
@@ -66,6 +66,7 @@ export default function ReviewPage() {
     difficulty_value_alignment: '',
     midterm_format: '',
     final_format: '',
+    extra_assessments: [],
     instructor_id: '',
     comment: '',
     tags: [],
@@ -128,7 +129,6 @@ export default function ReviewPage() {
           difficulty: reviewData.difficulty,
           usefulness: reviewData.usefulness,
           workload: reviewData.workload,
-          exam_clarity: reviewData.exam_clarity,
           grading_fairness: reviewData.grading_fairness || 0,
           attendance: reviewData.attendance || 0,
           material_relevance: reviewData.material_relevance || 0,
@@ -137,6 +137,7 @@ export default function ReviewPage() {
           difficulty_value_alignment: reviewData.difficulty_value_alignment,
           midterm_format: reviewData.midterm_format || '',
           final_format: reviewData.final_format || '',
+          extra_assessments: reviewData.extra_assessments || [],
           instructor_id: reviewData.instructor_id || '',
           comment: reviewData.comment || '',
           tags: reviewData.review_tags ? reviewData.review_tags.map((rt: any) => rt.tag_id) : [],
@@ -172,7 +173,6 @@ export default function ReviewPage() {
       { name: 'Zorluk', value: formData.difficulty },
       { name: 'Faydalılık', value: formData.usefulness },
       { name: 'İş Yükü', value: formData.workload },
-      { name: 'Sınav Netliği', value: formData.exam_clarity },
       { name: 'Notlandırma', value: formData.grading_fairness },
       { name: 'Yoklama', value: formData.attendance },
       { name: 'Materyal Güncelliği', value: formData.material_relevance },
@@ -211,7 +211,7 @@ export default function ReviewPage() {
       // Submit review without the survival_guide (it goes through moderation)
       const reviewData = {
         ...formData,
-        survival_guide: '', // Will be populated from approved guides
+        survival_guide: '',
         course_id: courseId,
         instructor_id: formData.instructor_id || null,
       };
@@ -434,12 +434,6 @@ export default function ReviewPage() {
               <h3 className="section-title text-lg border-b pb-2">{t('exam_assessment')}</h3>
 
               <RatingSelector
-                label={t('exam_clarity')}
-                value={formData.exam_clarity}
-                onChange={(val) => setFormData({ ...formData, exam_clarity: val })}
-              />
-
-              <RatingSelector
                 label={t('exam_predictability')}
                 value={formData.exam_predictability}
                 onChange={(val) => setFormData({ ...formData, exam_predictability: val })}
@@ -524,6 +518,41 @@ export default function ReviewPage() {
                     ))}
                   </div>
                 </div>
+
+                {/* Extra Assessments - Optional */}
+                <div>
+                  <label className="block text-base font-medium text-neutral-700 mb-1">
+                    {t('extra_assessments')}
+                  </label>
+                  <p className="text-sm text-neutral-500 mb-3">
+                    {t('extra_assessments_hint')}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.entries(EXTRA_ASSESSMENTS).map(([key, label]) => {
+                      const isSelected = formData.extra_assessments.includes(key);
+                      return (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => {
+                            setFormData(prev => ({
+                              ...prev,
+                              extra_assessments: isSelected
+                                ? prev.extra_assessments.filter(a => a !== key)
+                                : [...prev.extra_assessments, key]
+                            }));
+                          }}
+                          className={`px-4 py-2 rounded-full text-base border transition-all ${isSelected
+                            ? 'bg-accent-yellow text-primary-900 border-accent-yellow font-semibold'
+                            : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50'
+                            }`}
+                        >
+                          {tConstants(`extra_assessments.${key}`)}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -600,6 +629,14 @@ export default function ReviewPage() {
                     <li>{t('and_more', { count: validationErrors.length - 3 })}</li>
                   )}
                 </ul>
+              </div>
+            )}
+
+            {/* API Error Near Submit */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4 flex items-start space-x-2">
+                <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-red-800 font-medium">{error}</p>
               </div>
             )}
 

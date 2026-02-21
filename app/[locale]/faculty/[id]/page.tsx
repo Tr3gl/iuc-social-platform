@@ -446,9 +446,8 @@ export default function FacultyPage() {
                   totalRating = ((
                     (5 - (stats.median_difficulty || 3)) +
                     (stats.median_usefulness || 3) +
-                    (stats.median_exam_clarity || 3) +
                     (5 - (stats.median_workload || 3))
-                  ) / 4).toFixed(1);
+                  ) / 3).toFixed(1);
                 }
 
                 return (

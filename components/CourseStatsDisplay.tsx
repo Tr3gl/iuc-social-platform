@@ -227,14 +227,42 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [] }
         </div>
         <div className="card p-6 border border-neutral-300 bg-white">
           {renderDistribution(initialStats.usefulness_distribution, t('usefulness_distribution'))}
-          {renderDistribution(initialStats.exam_clarity_distribution, t('exam_clarity_distribution'))}
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="card p-6 border border-neutral-300 bg-white">
           {renderDistribution(initialStats.grading_fairness_distribution || {}, t('grading_fairness'))}
-          {renderDistribution(initialStats.attendance_distribution || {}, t('attendance_required'))}
+          {/* Attendance - Binary Yes/No Display */}
+          {(() => {
+            const dist = initialStats.attendance_distribution || {};
+            const yesCount = dist['5'] || 0;
+            const noCount = dist['1'] || 0;
+            const total = yesCount + noCount;
+            const yesPercent = total > 0 ? Math.round((yesCount / total) * 100) : 0;
+            const noPercent = total > 0 ? Math.round((noCount / total) * 100) : 0;
+            return total > 0 ? (
+              <div className="mb-6">
+                <h4 className="text-base font-semibold text-neutral-800 mb-3">{t('attendance_required')}</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-base text-red-600 font-medium w-16">{t('yes_label')}</span>
+                    <div className="flex-1 bg-neutral-200 rounded-full h-5 overflow-hidden">
+                      <div className="h-full bg-red-400 transition-all duration-300" style={{ width: `${yesPercent}%` }} />
+                    </div>
+                    <span className="text-base text-neutral-700 w-14 text-right font-medium">{yesPercent}%</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-base text-green-600 font-medium w-16">{t('no_label')}</span>
+                    <div className="flex-1 bg-neutral-200 rounded-full h-5 overflow-hidden">
+                      <div className="h-full bg-green-400 transition-all duration-300" style={{ width: `${noPercent}%` }} />
+                    </div>
+                    <span className="text-base text-neutral-700 w-14 text-right font-medium">{noPercent}%</span>
+                  </div>
+                </div>
+              </div>
+            ) : null;
+          })()}
         </div>
         <div className="card p-6 border border-neutral-300 bg-white">
           {renderDistribution(initialStats.material_relevance_distribution || {}, t('material_relevance'))}

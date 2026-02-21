@@ -298,12 +298,6 @@ export default function ReviewsList({ reviews, onRefresh }: Props) {
                   <h4 className="font-semibold text-neutral-800 border-b border-neutral-200 pb-2">{t('exam_info_title')}</h4>
 
                   <div className="grid grid-cols-[130px_30px_1fr] gap-y-3 items-center">
-                    {/* Sınav Netliği */}
-                    <span className="text-neutral-600">{t('exam_clarity')}</span>
-                    <span className="font-bold text-neutral-900 text-center">{review.exam_clarity}</span>
-                    <span className="col-span-1"></span>
-
-                    {/* Öngörü */}
                     {(review.exam_predictability || 0) > 0 && (
                       <>
                         <>
@@ -357,6 +351,20 @@ export default function ReviewsList({ reviews, onRefresh }: Props) {
                         <span className="block font-semibold text-primary-700 italic">
                           {review.difficulty_value_alignment ? tConstants(`difficulty_value.${review.difficulty_value_alignment}`) : review.difficulty_value_alignment}
                         </span>
+                      </div>
+                    )}
+
+                    {/* Extra Assessments */}
+                    {(review as any).extra_assessments && (review as any).extra_assessments.length > 0 && (
+                      <div className="mt-3 pt-2 text-sm border-t border-neutral-200 border-dashed">
+                        <span className="block text-neutral-500 mb-2 font-medium">{t('extra_assessments_label')}</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {(review as any).extra_assessments.map((a: string) => (
+                            <span key={a} className="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded text-xs font-medium">
+                              {tConstants(`extra_assessments.${a}`)}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>

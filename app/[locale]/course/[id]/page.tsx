@@ -132,9 +132,8 @@ export default function CoursePage() {
                   {((
                     (5 - (stats.median_difficulty || 3)) + // Reverse difficulty (lower is better)
                     (stats.median_usefulness || 3) +
-                    (stats.median_exam_clarity || 3) +
                     (5 - (stats.median_workload || 3)) // Reverse workload (lower is better)
-                  ) / 4).toFixed(1)}
+                  ) / 3).toFixed(1)}
                 </span>
                 <span className="text-amber-600 font-medium">/5</span>
               </div>

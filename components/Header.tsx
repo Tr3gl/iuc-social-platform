@@ -5,6 +5,8 @@ import { useAuth } from './AuthProvider';
 import { useRouter } from 'next/navigation';
 import { LogOut, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function Header() {
   const { user, signOut } = useAuth();
@@ -26,9 +28,12 @@ export default function Header() {
           <span className="font-bold text-xl text-neutral-900 tracking-tight">Social</span>
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
+          <LanguageSwitcher />
+          <ThemeSwitcher />
+
           {user ? (
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3 ml-2">
               <span className="text-sm text-neutral-600 hidden md:inline-block">
                 {user.email}
               </span>
@@ -43,7 +48,7 @@ export default function Header() {
           ) : (
             <Link
               href="/auth/signin"
-              className="flex items-center space-x-2 text-neutral-600 hover:text-primary-600 font-medium transition-colors"
+              className="flex items-center space-x-2 text-neutral-600 hover:text-primary-600 font-medium transition-colors ml-2"
             >
               <User className="w-4 h-4" />
               <span>{t('signin_button')}</span>

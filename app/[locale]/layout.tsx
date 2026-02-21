@@ -3,6 +3,8 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AuthProvider } from '@/components/AuthProvider';
 import Header from '@/components/Header';
+import { ThemeProvider } from 'next-themes';
+import { Analytics } from '@vercel/analytics/react';
 
 export default async function LocaleLayout({
   children,
@@ -21,25 +23,28 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <AuthProvider>
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <footer className="bg-neutral-100/50 border-t border-neutral-200 py-8 mt-16 backdrop-blur-sm">
-          <div className="container mx-auto px-4 text-center text-sm text-neutral-600">
-            <p>
-              {t('line1')}
-            </p>
-            <p className="mt-1">
-              {t('line2')}
-            </p>
-            <p className="mt-2">
-              {t('line3')}
-            </p>
-          </div>
-        </footer>
-      </AuthProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AuthProvider>
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <footer className="bg-neutral-100/50 border-t border-neutral-200 py-8 mt-16 backdrop-blur-sm">
+            <div className="container mx-auto px-4 text-center text-sm text-neutral-600">
+              <p>
+                {t('line1')}
+              </p>
+              <p className="mt-1">
+                {t('line2')}
+              </p>
+              <p className="mt-2">
+                {t('line3')}
+              </p>
+            </div>
+          </footer>
+        </AuthProvider>
+        <Analytics />
+      </ThemeProvider>
     </NextIntlClientProvider>
   );
 }

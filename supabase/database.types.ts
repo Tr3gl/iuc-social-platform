@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       faculties: {
@@ -96,8 +96,16 @@ export interface Database {
           usefulness: number
           workload: number
           exam_clarity: number
-          difficulty_value_alignment: 'well_balanced' | 'too_difficult' | 'too_easy'
-          exam_format: 'written' | 'oral' | 'project' | 'mixed'
+          grading_fairness: number | null
+          attendance: number | null
+          material_relevance: number | null
+          exam_predictability: number | null
+          difficulty_value_alignment: string
+          exam_format: string
+          midterm_format: string | null
+          final_format: string | null
+          extra_assessments: string[] | null
+          survival_guide: string | null
           comment: string | null
           report_count: number
           is_hidden: boolean
@@ -112,9 +120,17 @@ export interface Database {
           difficulty: number
           usefulness: number
           workload: number
-          exam_clarity: number
-          difficulty_value_alignment: 'well_balanced' | 'too_difficult' | 'too_easy'
-          exam_format: 'written' | 'oral' | 'project' | 'mixed'
+          exam_clarity?: number
+          grading_fairness?: number | null
+          attendance?: number | null
+          material_relevance?: number | null
+          exam_predictability?: number | null
+          difficulty_value_alignment: string
+          exam_format?: string
+          midterm_format?: string | null
+          final_format?: string | null
+          extra_assessments?: string[] | null
+          survival_guide?: string | null
           comment?: string | null
           report_count?: number
           is_hidden?: boolean
@@ -130,8 +146,16 @@ export interface Database {
           usefulness?: number
           workload?: number
           exam_clarity?: number
-          difficulty_value_alignment?: 'well_balanced' | 'too_difficult' | 'too_easy'
-          exam_format?: 'written' | 'oral' | 'project' | 'mixed'
+          grading_fairness?: number | null
+          attendance?: number | null
+          material_relevance?: number | null
+          exam_predictability?: number | null
+          difficulty_value_alignment?: string
+          exam_format?: string
+          midterm_format?: string | null
+          final_format?: string | null
+          extra_assessments?: string[] | null
+          survival_guide?: string | null
           comment?: string | null
           report_count?: number
           is_hidden?: boolean
@@ -288,6 +312,69 @@ export interface Database {
           created_at?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
+        }
+      }
+      tags: {
+        Row: {
+          id: string
+          name: string
+          type: 'positive' | 'negative'
+          is_verified: boolean
+          created_by: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          type: 'positive' | 'negative'
+          is_verified?: boolean
+          created_by: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          type?: 'positive' | 'negative'
+          is_verified?: boolean
+          created_by?: string
+          created_at?: string
+        }
+      }
+      review_tags: {
+        Row: {
+          review_id: string
+          tag_id: string
+        }
+        Insert: {
+          review_id: string
+          tag_id: string
+        }
+        Update: {
+          review_id?: string
+          tag_id?: string
+        }
+      }
+      review_votes: {
+        Row: {
+          id: string
+          review_id: string
+          user_id: string
+          vote_type: 'helpful' | 'missing_parts' | 'totally_wrong' | 'rage_bait'
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          review_id: string
+          user_id: string
+          vote_type: 'helpful' | 'missing_parts' | 'totally_wrong' | 'rage_bait'
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          review_id?: string
+          user_id?: string
+          vote_type?: 'helpful' | 'missing_parts' | 'totally_wrong' | 'rage_bait'
+          created_at?: string
         }
       }
     }

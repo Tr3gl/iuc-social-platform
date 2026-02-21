@@ -353,15 +353,16 @@ export const submitReview = async (reviewData: {
   difficulty: number;
   usefulness: number;
   workload: number;
-  exam_clarity: number;
-  grading_fairness: number | null; // Changed to match schema nullable
-  attendance: number | null;       // Changed to match schema nullable
-  material_relevance: number | null; // Changed to match schema nullable
-  exam_predictability: number | null; // Changed to match schema nullable
+  exam_clarity?: number;
+  grading_fairness: number | null;
+  attendance: number | null;
+  material_relevance: number | null;
+  exam_predictability: number | null;
   survival_guide: string | null;
   difficulty_value_alignment: string;
   midterm_format: string;
   final_format: string;
+  extra_assessments?: string[];
   comment?: string | null;
   tags?: string[];
 }) => {
@@ -378,7 +379,7 @@ export const submitReview = async (reviewData: {
       difficulty: reviewData.difficulty,
       usefulness: reviewData.usefulness,
       workload: reviewData.workload,
-      exam_clarity: reviewData.exam_clarity,
+      exam_clarity: reviewData.exam_clarity ?? 3,
       grading_fairness: reviewData.grading_fairness,
       attendance: reviewData.attendance,
       material_relevance: reviewData.material_relevance,
@@ -387,9 +388,10 @@ export const submitReview = async (reviewData: {
       difficulty_value_alignment: reviewData.difficulty_value_alignment,
       midterm_format: reviewData.midterm_format,
       final_format: reviewData.final_format,
+      extra_assessments: reviewData.extra_assessments || [],
       exam_format: reviewData.midterm_format, // Backward compatibility for NOT NULL constraint if needed
       comment: reviewData.comment
-    })
+    } as any)
     .select()
     .single();
 

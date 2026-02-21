@@ -33,20 +33,25 @@ export const DIFFICULTY_VALUE_ALIGNMENT = {
 } as const;
 
 // Exam format options - Vize (Midterm)
-// Exam format options - Vize (Midterm)
 export const VIZE_FORMAT = {
-  written: 'written',
-  oral: 'oral',
-  project: 'project',
-  mixed: 'mixed',
+  classical: 'classical',
+  test: 'test',
+  mix: 'mix',
 } as const;
 
 // Exam format options - Final
 export const FINAL_FORMAT = {
-  written: 'written',
-  oral: 'oral',
+  classical: 'classical',
+  test: 'test',
+  mix: 'mix',
+} as const;
+
+// Extra assessment types (optional toggles - not required)
+export const EXTRA_ASSESSMENTS = {
   project: 'project',
-  mixed: 'mixed',
+  lab: 'lab',
+  quiz: 'quiz',
+  homework: 'homework',
 } as const;
 
 // Legacy - keep for backward compatibility

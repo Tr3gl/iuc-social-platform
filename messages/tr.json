@@ -97,9 +97,10 @@
         "difficulty_distribution": "Zorluk Dağılımı",
         "workload_distribution": "İş Yükü Dağılımı",
         "usefulness_distribution": "Faydalılık Dağılımı",
-        "exam_clarity_distribution": "Sınav Netliği Dağılımı",
         "grading_fairness": "Notlandırma Adaleti",
         "attendance_required": "Yoklama Zorunluluğu",
+        "yes_label": "Evet",
+        "no_label": "Hayır",
         "material_relevance": "Materyal Güncelliği",
         "exam_predictability": "Sınav Öngörülebilirliği",
         "grade_distribution_by_year": "Yıllara Göre Not Dağılımı",
@@ -137,6 +138,8 @@
         "difficulty_value_alignment": "Zorluk ve Değer Dengesi",
         "midterm_format": "Vize Formatı",
         "final_format": "Final Formatı",
+        "extra_assessments": "Ek Değerlendirmeler",
+        "extra_assessments_hint": "Varsa seçin (isteğe bağlı)",
         "instructor": "Öğretim Üyesi",
         "select": "Seçiniz",
         "survival_guide": "Survival Guide 🆘",
@@ -184,6 +187,7 @@
         "attendance_none": "Yok",
         "vize_format_label": "Vize Formatı:",
         "final_format_label": "Final Formatı:",
+        "extra_assessments_label": "Ek Değerlendirmeler:",
         "difficulty_value_balance_label": "Zorluk ve Değer Dengesi:",
         "report_reason_placeholder": "Sebep?",
         "report_action": "Raporla",
@@ -230,6 +234,22 @@
         "signin_button": "Giriş Yap",
         "signout": "Çıkış Yap"
     },
+    "Signup": {
+        "title": "Kayıt Ol",
+        "description": "Üniversite e-postanız ile bir şifre belirleyin",
+        "email_label": "Üniversite E-posta",
+        "email_placeholder": "ornek@ogr.iuc.edu.tr",
+        "email_hint": "Yalnızca @ogr.iuc.edu.tr uzantılı e-postalar",
+        "password_label": "Şifre",
+        "password_hint": "En az 6 karakter",
+        "submit": "Kayıt Ol",
+        "submitting": "Kayıt Yapılıyor...",
+        "success_title": "Kayıt Başarılı!",
+        "success_message": "Hesabınız oluşturuldu. Şimdi giriş yapabilirsiniz.",
+        "signin_link": "Giriş Yap",
+        "already_have_account": "Zaten hesabınız var mı?",
+        "error_generic": "Kayıt sırasında bir hata oluştu"
+    },
     "Common": {
         "loading": "Yükleniyor...",
         "error": "Bir hata oluştu",
@@ -254,10 +274,19 @@
             "too_easy": "Çok kolay / Yüzeysel"
         },
         "exam_format": {
+            "classical": "Klasik",
+            "test": "Test",
+            "mix": "Karma",
             "written": "Yazılı",
             "oral": "Sözlü",
             "project": "Proje",
             "mixed": "Karma"
+        },
+        "extra_assessments": {
+            "project": "Proje",
+            "lab": "Lab",
+            "quiz": "Quiz",
+            "homework": "Ödev"
         },
         "rating_labels": {
             "1": "Çok Düşük",
