@@ -46,6 +46,8 @@
         "sort_by_name": "Ada Göre",
         "sort_by_code": "Koda Göre",
         "sort_by_credits": "Krediye Göre",
+        "sort_by_rating": "Puana Göre",
+        "sort_by_reviews": "Değerlendirme Sayısına Göre",
         "ascending": "Artan",
         "descending": "Azalan",
         "course_type": "Ders Tipi",
@@ -54,6 +56,7 @@
         "instructor": "Hoca",
         "all": "Tümü",
         "clear_filters": "Filtreleri Temizle",
+        "has_reviews": "Sadece Değerlendirilmiş",
         "courses": "ders",
         "loading_courses": "Dersler yükleniyor...",
         "no_courses_added": "Bu fakültede henüz ders eklenmemiş.",
@@ -69,7 +72,11 @@
         "title": "Öğretim Görevlisi",
         "courses_title": "{name} tarafından verilen dersler",
         "no_courses": "Bu öğretim görevlisine ait ders bulunamadı.",
-        "back_to_search": "Ana Sayfaya Dön"
+        "back_to_search": "Ana Sayfaya Dön",
+        "total_courses": "Dersler",
+        "total_reviews": "Toplam Değerlendirme",
+        "avg_difficulty": "Ort. Zorluk",
+        "avg_usefulness": "Ort. Fayda"
     },
     "Course": {
         "loading": "Yükleniyor...",
@@ -119,7 +126,19 @@
         "final": "Final",
         "resit": "Büt",
         "required": "Zorunlu",
-        "not_required": "Yok"
+        "not_required": "Yok",
+        "add_grade_data": "Not Verisi Ekle",
+        "cancel": "İptal",
+        "submit_grade_curve": "Not Eğrisi Gönder",
+        "academic_year": "Yıl",
+        "semester_label": "Dönem",
+        "exam_type_label": "Sınav Türü",
+        "fall": "Güz",
+        "spring": "Bahar",
+        "summer": "Yaz",
+        "submitting": "Gönderiliyor...",
+        "submit": "Gönder",
+        "default_grade_note": "Varsayılan not sınırları gösterilmektedir. Gerçek verileri eklemek için giriş yapın."
     },
     "Review": {
         "back_to_course": "Derse Dön",

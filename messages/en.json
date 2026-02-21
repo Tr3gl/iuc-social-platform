@@ -46,6 +46,8 @@
         "sort_by_name": "By Name",
         "sort_by_code": "By Code",
         "sort_by_credits": "By Credits",
+        "sort_by_rating": "By Rating",
+        "sort_by_reviews": "By Review Count",
         "ascending": "Ascending",
         "descending": "Descending",
         "course_type": "Course Type",
@@ -54,6 +56,7 @@
         "instructor": "Instructor",
         "all": "All",
         "clear_filters": "Clear Filters",
+        "has_reviews": "Has Reviews Only",
         "courses": "courses",
         "loading_courses": "Loading courses...",
         "no_courses_added": "No courses have been added to this faculty yet.",
@@ -69,7 +72,11 @@
         "title": "Instructor",
         "courses_title": "Courses by {name}",
         "no_courses": "No courses found for this instructor.",
-        "back_to_search": "Back to Home"
+        "back_to_search": "Back to Home",
+        "total_courses": "Courses",
+        "total_reviews": "Total Reviews",
+        "avg_difficulty": "Avg Difficulty",
+        "avg_usefulness": "Avg Usefulness"
     },
     "Course": {
         "loading": "Loading...",
@@ -119,7 +126,19 @@
         "final": "Final",
         "resit": "Resit",
         "required": "Required",
-        "not_required": "Not Required"
+        "not_required": "Not Required",
+        "add_grade_data": "Add Grade Data",
+        "cancel": "Cancel",
+        "submit_grade_curve": "Submit Grade Curve",
+        "academic_year": "Year",
+        "semester_label": "Semester",
+        "exam_type_label": "Exam Type",
+        "fall": "Fall",
+        "spring": "Spring",
+        "summer": "Summer",
+        "submitting": "Submitting...",
+        "submit": "Submit",
+        "default_grade_note": "Showing default grade boundaries. Log in to submit actual data for this course."
     },
     "Review": {
         "back_to_course": "Back to Course",

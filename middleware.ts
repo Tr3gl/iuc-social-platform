@@ -1,19 +1,19 @@
-import createMiddleware from 'next-intl/middleware';
+import createMiddleware from'next-intl/middleware';
 
 export default createMiddleware({
-    // A list of all locales that are supported
-    locales: ['en', 'tr'],
+ // A list of all locales that are supported
+ locales: ['en','tr'],
 
-    // Used when no locale is matching
-    defaultLocale: 'tr',
+ // Used when no locale is matching
+ defaultLocale:'tr',
 
-    // Always use a locale prefix (e.g. /tr/home)
-    localePrefix: 'always'
+ // Always use a locale prefix (e.g. /tr/home)
+ localePrefix:'always'
 });
 
 export const config = {
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+ // Match all pathnames except for
+ // - … if they start with`/api`,`/_next` or`/_vercel`
+ // - … the ones containing a dot (e.g.`favicon.ico`)
+ matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };

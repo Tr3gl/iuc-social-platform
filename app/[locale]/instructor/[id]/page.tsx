@@ -57,7 +57,7 @@ export default function InstructorPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+            <div className="min-h-screen bg-neutral-50 text-neutral-900 flex items-center justify-center">
                 <div className="text-center">
                     <div className="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
                     <p className="mt-4 text-neutral-600">{t('loading') || 'Loading...'}</p>
@@ -68,7 +68,7 @@ export default function InstructorPage() {
 
     if (!instructor) {
         return (
-            <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+            <div className="min-h-screen bg-neutral-50 text-neutral-900 flex items-center justify-center">
                 <div className="card p-8 text-center bg-neutral-100 border-neutral-200">
                     <User className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
                     <p className="text-neutral-600">{t('not_found') || 'Instructor not found'}</p>
@@ -81,7 +81,7 @@ export default function InstructorPage() {
     }
 
     return (
-        <div className="min-h-screen bg-neutral-50">
+        <div className="min-h-screen bg-neutral-50 text-neutral-900 ">
             <div className="container mx-auto px-4 py-8 max-w-6xl">
                 {/* Back Button */}
                 <button
@@ -104,6 +104,40 @@ export default function InstructorPage() {
                         {t('title')}
                     </p>
                 </div>
+
+                {/* Instructor Summary Stats */}
+                {(() => {
+                    const statsEntries = Object.values(courseRatings).filter(Boolean) as CourseStats[];
+                    if (statsEntries.length === 0) return null;
+
+                    const totalReviews = statsEntries.reduce((sum, s) => sum + s.total_reviews, 0);
+                    const weightedDiff = statsEntries.reduce((sum, s) => sum + s.median_difficulty * s.total_reviews, 0) / totalReviews;
+                    const weightedUse = statsEntries.reduce((sum, s) => sum + s.median_usefulness * s.total_reviews, 0) / totalReviews;
+                    const weightedWork = statsEntries.reduce((sum, s) => sum + s.median_workload * s.total_reviews, 0) / totalReviews;
+
+                    return (
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div className="card p-4 border border-neutral-300 text-center">
+                                <div className="text-sm text-neutral-500 mb-1">{t('total_courses') || 'Courses'}</div>
+                                <div className="text-3xl font-bold text-neutral-900">{courses.length}</div>
+                            </div>
+                            <div className="card p-4 border border-neutral-300 text-center">
+                                <div className="text-sm text-neutral-500 mb-1">{t('total_reviews') || 'Total Reviews'}</div>
+                                <div className="text-3xl font-bold text-neutral-900">{totalReviews}</div>
+                            </div>
+                            <div className="card p-4 border border-neutral-300 text-center">
+                                <div className="text-sm text-neutral-500 mb-1">{t('avg_difficulty') || 'Avg Difficulty'}</div>
+                                <div className="text-3xl font-bold text-neutral-900">{weightedDiff.toFixed(1)}</div>
+                                <div className="text-xs text-neutral-400">/ 5.0</div>
+                            </div>
+                            <div className="card p-4 border border-neutral-300 text-center">
+                                <div className="text-sm text-neutral-500 mb-1">{t('avg_usefulness') || 'Avg Usefulness'}</div>
+                                <div className="text-3xl font-bold text-neutral-900">{weightedUse.toFixed(1)}</div>
+                                <div className="text-xs text-neutral-400">/ 5.0</div>
+                            </div>
+                        </div>
+                    );
+                })()}
 
                 {/* Courses List */}
                 <div className="mb-6">
@@ -137,7 +171,7 @@ export default function InstructorPage() {
                                     <button
                                         key={course.id}
                                         onClick={() => router.push(`/course/${course.id}`)}
-                                        className={`card p-5 text-left transition-all duration-200 group border-2 rounded-xl ${isZorunlu
+                                        className={`card p-5 text-left transition-all duration-200 group border-2 rounded-xl block ${isZorunlu
                                             ? 'border-green-600 bg-white hover:bg-green-50 hover:shadow-lg'
                                             : isSecmeli
                                                 ? 'border-orange-600 bg-white hover:bg-orange-50 hover:shadow-lg'

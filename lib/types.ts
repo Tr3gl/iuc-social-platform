@@ -49,10 +49,27 @@ export type CourseStats = {
     workload_distribution: Record<string, number>;
     difficulty_value_counts: Record<string, number>;
     exam_format_counts: Record<string, number>;
-    grading_fairness_distribution?: Record<string, number>;
     attendance_distribution?: Record<string, number>;
     material_relevance_distribution?: Record<string, number>;
     exam_predictability_distribution?: Record<string, number>;
+};
+
+export type GradeDistribution = {
+    id: string;
+    course_id: string;
+    academic_year: number;
+    semester: string;
+    exam_type: string;
+    aa_lower: number; aa_upper: number;
+    ba_lower: number; ba_upper: number;
+    bb_lower: number; bb_upper: number;
+    cb_lower: number; cb_upper: number;
+    cc_lower: number; cc_upper: number;
+    dc_lower: number; dc_upper: number;
+    dd_lower: number; dd_upper: number;
+    ff_lower: number; ff_upper: number;
+    submitted_by: string | null;
+    created_at: string;
 };
 
 export interface PendingSurvivalGuide {
