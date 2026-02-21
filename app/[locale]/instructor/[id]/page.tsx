@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { getInstructorById, getCoursesByInstructor, getCourseStats, CourseStats } from '@/lib/utils';
 import { Course } from '@/lib/types';
 import { ArrowLeft, BookOpen, Star, User, Calendar, MessageSquare, FileText, ChevronRight } from 'lucide-react';
@@ -20,6 +20,14 @@ export default function InstructorPage() {
     const [courses, setCourses] = useState<Course[]>([]);
     const [courseRatings, setCourseRatings] = useState<Record<string, CourseStats | null>>({});
     const [loading, setLoading] = useState(true);
+
+    // Derive the faculty to navigate back to from the first course
+    const backFacultyId = courses.length > 0 ? (courses[0] as any).faculty_id : null;
+    const locale = useLocale();
+    const backFaculty = courses.length > 0 ? (courses[0] as any).faculties : null;
+    const backFacultyName = backFaculty
+        ? (locale === 'tr' && backFaculty.name_tr ? backFaculty.name_tr : backFaculty.name)
+        : null;
 
     useEffect(() => {
         loadData();
@@ -85,11 +93,11 @@ export default function InstructorPage() {
             <div className="container mx-auto px-4 py-8 max-w-6xl">
                 {/* Back Button */}
                 <button
-                    onClick={() => router.push('/')}
+                    onClick={() => backFacultyId ? router.push(`/faculty/${backFacultyId}`) : router.back()}
                     className="flex items-center space-x-2 text-neutral-500 hover:text-primary-500 mb-6 px-3 py-2 bg-neutral-100 hover:bg-neutral-200 rounded-lg transition-colors text-base font-medium"
                 >
                     <ArrowLeft className="w-5 h-5" />
-                    <span>{t('back_to_search')}</span>
+                    <span>{backFacultyName ? backFacultyName : t('back_to_search')}</span>
                 </button>
 
                 {/* Instructor Header */}

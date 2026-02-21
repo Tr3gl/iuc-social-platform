@@ -302,7 +302,7 @@ export default function FacultyPage() {
 
                             {/* Filters - Only for Courses */}
                             {viewMode === 'courses' && (
-                                <>
+                                <div className="flex items-center gap-2 flex-wrap">
                                     <button
                                         onClick={() => setShowFilters(!showFilters)}
                                         className={`btn ${showFilters ? 'btn-primary' : 'btn-secondary'} flex items-center space-x-2`}
@@ -316,27 +316,27 @@ export default function FacultyPage() {
                                         )}
                                     </button>
 
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center gap-2 flex-1 min-w-0">
                                         <select
                                             value={sortBy}
                                             onChange={(e) => setSortBy(e.target.value as any)}
-                                            className="input py-2 bg-neutral-200 border-neutral-300 text-neutral-900 focus:bg-neutral-50 "
+                                            className="input py-2 bg-neutral-200 border-neutral-300 text-neutral-900 focus:bg-neutral-50 flex-1 min-w-0"
                                         >
                                             <option value="name">{t('sort_by_name')}</option>
                                             <option value="code">{t('sort_by_code')}</option>
                                             <option value="credits">{t('sort_by_credits')}</option>
-                                            <option value="rating">{t('sort_by_rating') || 'Rating'}</option>
-                                            <option value="reviews">{t('sort_by_reviews') || 'Review Count'}</option>
+                                            <option value="rating">{t('sort_by_rating')}</option>
+                                            <option value="reviews">{t('sort_by_reviews')}</option>
                                         </select>
                                         <button
                                             onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                                            className="btn btn-secondary p-2"
+                                            className="btn btn-secondary p-2 flex-shrink-0"
                                             title={sortOrder === 'asc' ? t('ascending') : t('descending')}
                                         >
                                             <ArrowUpDown className={`w-4 h-4 ${sortOrder === 'desc' ? 'rotate-180' : ''}`} />
                                         </button>
                                     </div>
-                                </>
+                                </div>
                             )}
                         </div>
 
@@ -475,7 +475,7 @@ export default function FacultyPage() {
                             )}
                         </div>
                     ) : (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
                             {filteredCourses.map((course) => {
                                 const instructors = (course.course_instructors || [])
                                     .map((ci) => ci.instructors ? (ci.instructors.title ? `${ci.instructors.title} ${ci.instructors.name}` : ci.instructors.name) : null)
@@ -499,19 +499,19 @@ export default function FacultyPage() {
                                     <Link
                                         key={course.id}
                                         href={`/course/${course.id}`}
-                                        className={`card p-5 text-left transition-all duration-200 group border-2 rounded-xl block ${isZorunlu
+                                        className={`card p-3 md:p-5 text-left transition-all duration-200 group border-2 rounded-xl block ${isZorunlu
                                             ? 'border-green-600 bg-white hover:bg-green-50 hover:shadow-lg'
-                                            : isSecmeli // Assuming'option === "medium"' from instruction refers to'isSecmeli'
+                                            : isSecmeli
                                                 ? 'border-orange-600 bg-white hover:bg-orange-50 hover:shadow-lg'
                                                 : 'border-neutral-200 bg-white hover:border-primary-400 hover:shadow-lg'
                                             }`}
                                     >
                                         {/* Course Name & Code */}
-                                        <div className="mb-3">
-                                            <h3 className="text-lg font-bold text-neutral-900 group-hover:text-primary-600 transition-colors leading-tight mb-1">
+                                        <div className="mb-2 md:mb-3">
+                                            <h3 className="text-base md:text-lg font-bold text-neutral-900 group-hover:text-primary-600 transition-colors leading-tight mb-1">
                                                 {course.name}
                                             </h3>
-                                            <span className="text-base font-mono text-neutral-500 bg-neutral-200 px-2 py-0.5 rounded">
+                                            <span className="text-sm md:text-base font-mono text-neutral-500 bg-neutral-200 px-2 py-0.5 rounded">
                                                 {course.code}
                                             </span>
                                         </div>
@@ -537,17 +537,17 @@ export default function FacultyPage() {
 
                                         {/* Instructor */}
                                         {instructors.length > 0 && (
-                                            <div className="flex items-center text-base text-neutral-600 mb-3">
-                                                <User className="w-4 h-4 mr-2 text-neutral-400" />
+                                            <div className="flex items-center text-sm md:text-base text-neutral-600 mb-2 md:mb-3">
+                                                <User className="w-3.5 md:w-4 h-3.5 md:h-4 mr-1.5 md:mr-2 text-neutral-400 flex-shrink-0" />
                                                 <span className="truncate">{instructors.join(',')}</span>
                                             </div>
                                         )}
 
                                         {/* Credits & AKTS */}
-                                        <div className="flex items-center gap-4 text-base mb-2">
+                                        <div className="flex items-center gap-3 md:gap-4 text-sm md:text-base mb-2">
                                             {course.credit_theory !== undefined && (
                                                 <div className="flex items-center text-neutral-700">
-                                                    <BookMarked className="w-4 h-4 mr-1 text-primary-500" />
+                                                    <BookMarked className="w-3.5 md:w-4 h-3.5 md:h-4 mr-1 text-primary-500" />
                                                     <span className="font-medium">{t('credits')}: {course.credit_theory}</span>
                                                 </div>
                                             )}
@@ -560,8 +560,8 @@ export default function FacultyPage() {
 
                                         {/* Semester */}
                                         {course.semester && (
-                                            <div className="flex items-center text-base text-neutral-500">
-                                                <Calendar className="w-4 h-4 mr-1" />
+                                            <div className="flex items-center text-sm md:text-base text-neutral-500">
+                                                <Calendar className="w-3.5 md:w-4 h-3.5 md:h-4 mr-1" />
                                                 <span>{t('semester_label')}: {course.semester}</span>
                                             </div>
                                         )}

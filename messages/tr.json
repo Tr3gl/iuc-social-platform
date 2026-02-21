@@ -250,8 +250,24 @@
     },
     "Auth": {
         "signin_title": "Giriş Yap",
+        "signin_description_password": "E-posta ve şifrenizle giriş yapın",
+        "signin_description_magic": "Sihirli bağlantı ile şifresiz giriş yapın",
         "signin_button": "Giriş Yap",
-        "signout": "Çıkış Yap"
+        "signout": "Çıkış Yap",
+        "email_label": "Üniversite E-posta",
+        "email_placeholder": "ornek@ogr.iuc.edu.tr",
+        "email_hint": "Yalnızca @ogr.iuc.edu.tr uzantılı e-postalar",
+        "password_label": "Şifre",
+        "submit_password": "Giriş Yap",
+        "submit_magic": "Giriş Bağlantısı Gönder",
+        "processing": "İşleniyor...",
+        "switch_to_magic": "Şifresiz (Magic Link) ile giriş yap",
+        "switch_to_password": "Şifre ile giriş yap",
+        "magic_sent_title": "Bağlantı gönderildi!",
+        "magic_sent_message": "E-posta kutunuzu kontrol edin. Gönderilen bağlantıya tıklayarak giriş yapabilirsiniz.",
+        "no_account": "Hesabınız yok mu?",
+        "signup_link": "Kayıt Ol",
+        "error_generic": "Giriş yapılırken bir hata oluştu"
     },
     "Signup": {
         "title": "Kayıt Ol",

@@ -220,7 +220,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
     return (
         <div className="space-y-6">
             {/* Summary Cards */}
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                 <div className="card p-6 border border-neutral-300">
                     <div className="text-base text-neutral-600 mb-1">{t('total_reviews')}</div>
                     <div className="text-4xl font-bold text-neutral-900">{initialStats.total_reviews}</div>
@@ -249,7 +249,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
             </div>
 
             {/* Distributions */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="card p-6 border border-neutral-300">
                     {renderDistribution(initialStats.difficulty_distribution, t('difficulty_distribution'))}
                 </div>
@@ -331,7 +331,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
                 {showAddForm && (
                     <div className="mb-6 p-4 bg-neutral-100 rounded-xl border border-neutral-200">
                         <h4 className="text-base font-semibold text-neutral-800 mb-4">{t('submit_grade_curve') || 'Submit Grade Curve'}</h4>
-                        <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-4">
                             <div>
                                 <label className="text-sm font-medium text-neutral-700 mb-1 block">{t('academic_year') || 'Year'}</label>
                                 <input
@@ -366,7 +366,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-4 gap-3 mb-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3 mb-4">
                             {GRADES.map(grade => (
                                 <div key={grade} className="flex items-center gap-2">
                                     <span className={`font-bold text-sm w-8 ${getGradeTextColor(grade)}`}>{grade}</span>
@@ -376,7 +376,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
                                         max="100"
                                         value={(formData as any)[`${grade.toLowerCase()}_lower`]}
                                         onChange={e => setFormData(p => ({ ...p, [`${grade.toLowerCase()}_lower`]: Number(e.target.value) }))}
-                                        className="input text-sm !py-1 !px-2 w-16"
+                                        className="input text-sm !py-1 !px-2 w-14"
                                         placeholder="Low"
                                     />
                                     <span className="text-neutral-400">-</span>
@@ -386,7 +386,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
                                         max="100"
                                         value={(formData as any)[`${grade.toLowerCase()}_upper`]}
                                         onChange={e => setFormData(p => ({ ...p, [`${grade.toLowerCase()}_upper`]: Number(e.target.value) }))}
-                                        className="input text-sm !py-1 !px-2 w-16"
+                                        className="input text-sm !py-1 !px-2 w-14"
                                         placeholder="High"
                                     />
                                 </div>
@@ -494,7 +494,7 @@ export default function CourseStatsDisplay({ stats: initialStats, reviews = [], 
                 </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div className="card p-6 border border-neutral-300">
                     {renderCategorical(
                         initialStats.difficulty_value_counts,

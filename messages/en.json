@@ -250,8 +250,24 @@
     },
     "Auth": {
         "signin_title": "Sign In",
+        "signin_description_password": "Sign in with your email and password",
+        "signin_description_magic": "Sign in without a password using a magic link",
         "signin_button": "Sign In",
-        "signout": "Sign Out"
+        "signout": "Sign Out",
+        "email_label": "University Email",
+        "email_placeholder": "example@ogr.iuc.edu.tr",
+        "email_hint": "Only @ogr.iuc.edu.tr emails allowed",
+        "password_label": "Password",
+        "submit_password": "Sign In",
+        "submit_magic": "Send Magic Link",
+        "processing": "Processing...",
+        "switch_to_magic": "Sign in without password (Magic Link)",
+        "switch_to_password": "Sign in with password",
+        "magic_sent_title": "Link sent!",
+        "magic_sent_message": "Check your inbox and click the link to sign in.",
+        "no_account": "Don't have an account?",
+        "signup_link": "Sign Up",
+        "error_generic": "An error occurred while signing in"
     },
     "Signup": {
         "title": "Sign Up",

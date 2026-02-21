@@ -104,8 +104,8 @@ export default function CoursePage() {
     const hasEnoughReviews = stats && stats.total_reviews >= MIN_REVIEWS_FOR_DISPLAY;
 
     return (
-        <div className="min-h-screen bg-neutral-50 text-neutral-900 ">
-            <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="min-h-screen bg-neutral-50 text-neutral-900">
+            <div className="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
                 {/* Back Button */}
                 <button
                     onClick={() => router.push(`/faculty/${course.faculty_id}`)}
@@ -116,9 +116,9 @@ export default function CoursePage() {
                 </button>
 
                 {/* Course Header */}
-                <div className="card p-8 mb-6">
-                    <div className="flex flex-wrap items-center gap-3 mb-3">
-                        <h1 className="text-3xl font-bold text-neutral-900">
+                <div className="card p-5 md:p-8 mb-6">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-3">
+                        <h1 className="text-2xl md:text-3xl font-bold text-neutral-900">
                             {course.name}
                         </h1>
                         <span className="text-lg font-mono text-neutral-500">
