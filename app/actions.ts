@@ -20,7 +20,10 @@ const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
 });
 
 export async function checkAdminPassword(password: string): Promise<boolean> {
- const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ||'kovan2026';
+ const adminPassword = process.env.ADMIN_PASSWORD;
+ if (!adminPassword) {
+  throw new Error('ADMIN_PASSWORD environment variable is not set');
+ }
  return password === adminPassword;
 }
 
