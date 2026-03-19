@@ -61,7 +61,7 @@ END $$;
 DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'pending_tags' AND policyname = 'Users can view their own pending tags') THEN
     CREATE POLICY "Users can view their own pending tags" ON public.pending_tags FOR SELECT
-      USING (auth.uid() = created_by);
+      USING (auth.uid() = submitted_by);
   END IF;
 END $$;
 
