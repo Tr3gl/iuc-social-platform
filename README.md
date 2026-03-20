@@ -157,7 +157,7 @@ All tables have RLS policies enforcing:
 2. Browse faculties and courses
 3. Submit one review per course with structured ratings
 4. Upload helpful materials (past exams, notes)
-5. View aggregated statistics (requires ≥10 reviews per course)
+5. View aggregated statistics (requires ≥3 reviews per course)
 
 ### For Administrators
 

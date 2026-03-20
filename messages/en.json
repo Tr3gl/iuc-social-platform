@@ -73,10 +73,7 @@
         "courses_title": "Courses by {name}",
         "no_courses": "No courses found for this instructor.",
         "back_to_search": "Back to Home",
-        "total_courses": "Courses",
-        "total_reviews": "Total Reviews",
-        "avg_difficulty": "Avg Difficulty",
-        "avg_usefulness": "Avg Usefulness"
+        "total_courses": "Courses"
     },
     "Course": {
         "loading": "Loading...",
@@ -267,7 +264,9 @@
         "magic_sent_message": "Check your inbox and click the link to sign in.",
         "no_account": "Don't have an account?",
         "signup_link": "Sign Up",
-        "error_generic": "An error occurred while signing in"
+        "error_generic": "An error occurred while signing in",
+        "google_signin": "Sign in with Google",
+        "google_domain_error": "Only @ogr.iuc.edu.tr Google accounts are allowed"
     },
     "Signup": {
         "title": "Sign Up",
@@ -283,7 +282,8 @@
         "success_message": "Your account has been created. You can now sign in.",
         "signin_link": "Sign In",
         "already_have_account": "Already have an account?",
-        "error_generic": "An error occurred during registration"
+        "error_generic": "An error occurred during registration",
+        "google_signup": "Sign up with Google"
     },
     "Common": {
         "loading": "Loading...",
@@ -294,7 +294,7 @@
         "title": "Important Information",
         "privacy": "Privacy: Your email address is only used for authentication and is never publicly displayed. Your reviews are completely anonymous.",
         "rules": "Rules: You can only submit one review per course. Rate limiting is applied to prevent spam and abuse.",
-        "statistics": "Statistics: Course statistics are displayed only after at least 10 reviews are submitted. This increases data reliability.",
+        "statistics": "Statistics: Course statistics are displayed only after at least 3 reviews are submitted. This increases data reliability.",
         "responsibility": "Responsibility: This platform is not an official university platform. Reviews reflect students' personal opinions and are for informational purposes only."
     },
     "Footer": {

@@ -63,6 +63,21 @@ export const signOut = async () => {
  if (error) throw error;
 };
 
+export const signInWithGoogle = async () => {
+ const { data, error } = await supabase.auth.signInWithOAuth({
+  provider: 'google',
+  options: {
+   redirectTo: `${window.location.origin}/api/auth/callback`,
+   queryParams: {
+    hd: 'ogr.iuc.edu.tr',
+   },
+  },
+ });
+
+ if (error) throw error;
+ return data;
+};
+
 export const getCurrentUser = async () => {
  const { data: { user }, error } = await supabase.auth.getUser();
  if (error) throw error;

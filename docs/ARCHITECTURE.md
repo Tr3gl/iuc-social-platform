@@ -130,7 +130,7 @@ course-feedback-platform/
 - Summary cards (median scores)
 - Distribution charts (horizontal bars)
 - Categorical data visualization
-- Only shown when ≥10 reviews
+- Only shown when ≥3 reviews
 
 **ReviewsList** (`components/ReviewsList.tsx`)
 - Individual review cards

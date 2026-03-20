@@ -22,9 +22,9 @@ export default function Header() {
  <div className="container mx-auto px-4 h-16 flex items-center justify-between">
  <Link href="/"className="flex items-center space-x-2">
  <div className="px-2 h-8 bg-accent-yellow rounded-lg flex items-center justify-center text-primary-900 font-bold text-lg shadow-[0_0_15px_rgba(251,191,36,0.5)]">
- İÜC
+ Cerrahpasa
  </div>
- <span className="font-bold text-xl text-neutral-900 tracking-tight">Social</span>
+ <span className="font-bold text-xl text-neutral-900 tracking-tight">Student Hub</span>
  </Link>
 
  <div className="flex items-center space-x-2">

@@ -73,10 +73,7 @@
         "courses_title": "{name} tarafından verilen dersler",
         "no_courses": "Bu öğretim görevlisine ait ders bulunamadı.",
         "back_to_search": "Ana Sayfaya Dön",
-        "total_courses": "Dersler",
-        "total_reviews": "Toplam Değerlendirme",
-        "avg_difficulty": "Ort. Zorluk",
-        "avg_usefulness": "Ort. Fayda"
+        "total_courses": "Dersler"
     },
     "Course": {
         "loading": "Yükleniyor...",
@@ -267,7 +264,9 @@
         "magic_sent_message": "E-posta kutunuzu kontrol edin. Gönderilen bağlantıya tıklayarak giriş yapabilirsiniz.",
         "no_account": "Hesabınız yok mu?",
         "signup_link": "Kayıt Ol",
-        "error_generic": "Giriş yapılırken bir hata oluştu"
+        "error_generic": "Giriş yapılırken bir hata oluştu",
+        "google_signin": "Google ile giriş yap",
+        "google_domain_error": "Sadece @ogr.iuc.edu.tr Google hesapları kabul edilir"
     },
     "Signup": {
         "title": "Kayıt Ol",
@@ -283,7 +282,8 @@
         "success_message": "Hesabınız oluşturuldu. Şimdi giriş yapabilirsiniz.",
         "signin_link": "Giriş Yap",
         "already_have_account": "Zaten hesabınız var mı?",
-        "error_generic": "Kayıt sırasında bir hata oluştu"
+        "error_generic": "Kayıt sırasında bir hata oluştu",
+        "google_signup": "Google ile kayıt ol"
     },
     "Common": {
         "loading": "Yükleniyor...",
@@ -294,7 +294,7 @@
         "title": "Önemli Bilgiler",
         "privacy": "Gizlilik: E-posta adresiniz yalnızca kimlik doğrulama için kullanılır ve asla halka açık olarak gösterilmez. Değerlendirmeleriniz tamamen anonimdir.",
         "rules": "Kural: Her ders için yalnızca bir değerlendirme yapabilirsiniz. Spam ve kötüye kullanımı önlemek için hız sınırlaması uygulanır.",
-        "statistics": "İstatistikler: Bir dersin istatistikleri en az 10 değerlendirme yapıldıktan sonra görüntülenir. Bu, verilerin güvenilirliğini artırır.",
+        "statistics": "İstatistikler: Bir dersin istatistikleri en az 3 değerlendirme yapıldıktan sonra görüntülenir. Bu, verilerin güvenilirliğini artırır.",
         "responsibility": "Sorumluluk: Bu platform resmi bir üniversite platformu değildir. Değerlendirmeler öğrencilerin kişisel görüşlerini yansıtır ve bilgilendirme amaçlıdır."
     },
     "Footer": {

@@ -2,14 +2,14 @@ import { ReactNode } from 'react';
 import '../globals.css';
 
 export const metadata = {
-  title: 'Ders Değerlendirme Platformu',
+  title: 'Cerrah Hub – Ders Değerlendirme Platformu',
   description: 'Anonim ders ve öğretim üyesi değerlendirme platformu',
   manifest: '/manifest.json',
   themeColor: '#1e293b',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default' as const,
-    title: 'IUC HUB',
+    title: 'Cerrah Hub',
   },
   other: {
     'mobile-web-app-capable': 'yes',

@@ -141,10 +141,6 @@ export default function Home() {
             {/* Hero Section */}
             <section className="bg-neutral-50 border-b border-neutral-200/10">
                 <div className="container mx-auto px-4 py-10 md:py-20 text-center">
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-neutral-900 tracking-tight mb-4 md:mb-6">
-                        {t('hero_title_line1')}<br />
-                        <span className="text-accent-yellow">{t('hero_title_line2')}</span>
-                    </h1>
                     <p className="text-base md:text-lg text-neutral-600 max-w-2xl mx-auto mb-8 px-2">
                         {t('hero_description')}
                     </p>

@@ -1,5 +1,5 @@
 // Minimum reviews required before displaying statistics
-export const MIN_REVIEWS_FOR_DISPLAY = 10;
+export const MIN_REVIEWS_FOR_DISPLAY = 3;
 
 // Maximum comment length
 export const MAX_COMMENT_LENGTH = 300;

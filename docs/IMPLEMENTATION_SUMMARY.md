@@ -38,7 +38,7 @@ I've created a production-ready, anonymous university course feedback platform f
 - ✅ Categorical questions: difficulty-value alignment, exam format
 - ✅ Optional text comments (max 300 chars)
 - ✅ Statistics display (median, distributions)
-- ✅ Minimum review threshold (10 reviews)
+- ✅ Minimum review threshold (3 reviews)
 - ✅ File sharing (exams, notes, materials)
 - ✅ Report functionality for reviews and files
 
@@ -80,7 +80,7 @@ course-feedback-platform/
 | Zero-cost MVP | ✅ | Free tier only |
 | Fast deployment | ✅ | Under 1 hour guide |
 | Mobile responsive | ✅ | Tailwind responsive classes |
-| Statistics (≥10 reviews) | ✅ | Median-based aggregation |
+| Statistics (≥3 reviews) | ✅ | Median-based aggregation |
 | Report functionality | ✅ | Community moderation |
 
 ## 🚀 Quick Start Commands

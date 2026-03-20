@@ -113,39 +113,8 @@ export default function InstructorPage() {
                     </p>
                 </div>
 
-                {/* Instructor Summary Stats */}
-                {(() => {
-                    const statsEntries = Object.values(courseRatings).filter(Boolean) as CourseStats[];
-                    if (statsEntries.length === 0) return null;
 
-                    const totalReviews = statsEntries.reduce((sum, s) => sum + s.total_reviews, 0);
-                    const weightedDiff = statsEntries.reduce((sum, s) => sum + s.median_difficulty * s.total_reviews, 0) / totalReviews;
-                    const weightedUse = statsEntries.reduce((sum, s) => sum + s.median_usefulness * s.total_reviews, 0) / totalReviews;
-                    const weightedWork = statsEntries.reduce((sum, s) => sum + s.median_workload * s.total_reviews, 0) / totalReviews;
 
-                    return (
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                            <div className="card p-4 border border-neutral-300 text-center">
-                                <div className="text-sm text-neutral-500 mb-1">{t('total_courses') || 'Courses'}</div>
-                                <div className="text-3xl font-bold text-neutral-900">{courses.length}</div>
-                            </div>
-                            <div className="card p-4 border border-neutral-300 text-center">
-                                <div className="text-sm text-neutral-500 mb-1">{t('total_reviews') || 'Total Reviews'}</div>
-                                <div className="text-3xl font-bold text-neutral-900">{totalReviews}</div>
-                            </div>
-                            <div className="card p-4 border border-neutral-300 text-center">
-                                <div className="text-sm text-neutral-500 mb-1">{t('avg_difficulty') || 'Avg Difficulty'}</div>
-                                <div className="text-3xl font-bold text-neutral-900">{weightedDiff.toFixed(1)}</div>
-                                <div className="text-xs text-neutral-400">/ 5.0</div>
-                            </div>
-                            <div className="card p-4 border border-neutral-300 text-center">
-                                <div className="text-sm text-neutral-500 mb-1">{t('avg_usefulness') || 'Avg Usefulness'}</div>
-                                <div className="text-3xl font-bold text-neutral-900">{weightedUse.toFixed(1)}</div>
-                                <div className="text-xs text-neutral-400">/ 5.0</div>
-                            </div>
-                        </div>
-                    );
-                })()}
 
                 {/* Courses List */}
                 <div className="mb-6">

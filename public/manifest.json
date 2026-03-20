@@ -1,6 +1,6 @@
 {
-  "name": "IUC HUB – Ders Değerlendirme",
-  "short_name": "IUC HUB",
+  "name": "Cerrah Hub – Ders Değerlendirme",
+  "short_name": "Cerrah Hub",
   "description": "İstanbul Üniversitesi-Cerrahpaşa anonim ders ve öğretim üyesi değerlendirme platformu",
   "start_url": "/tr",
   "scope": "/",
