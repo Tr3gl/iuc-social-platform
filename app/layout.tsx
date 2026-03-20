@@ -9,7 +9,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default' as const,
-    title: 'Kovan',
+    title: 'IUC HUB',
   },
   other: {
     'mobile-web-app-capable': 'yes',
