@@ -180,7 +180,7 @@ export const getCourseById = async (courseId: string): Promise<Course> => {
  instructors(id, name, title)
  )
 `)
-        .eq('id', courseId)
+        .or(`id.eq.${courseId},code.ilike.${courseId}`)
         .single();
 
     if (error) throw error;

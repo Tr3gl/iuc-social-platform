@@ -147,7 +147,7 @@ export default function InstructorPage() {
                                 return (
                                     <button
                                         key={course.id}
-                                        onClick={() => router.push(`/course/${course.id}`)}
+                                        onClick={() => router.push(`/course/${course.code}`)}
                                         className={`card p-5 text-left transition-all duration-200 group border-2 rounded-xl block ${isZorunlu
                                             ? 'border-green-600 bg-white hover:bg-green-50 hover:shadow-lg'
                                             : isSecmeli

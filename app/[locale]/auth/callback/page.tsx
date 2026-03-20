@@ -16,36 +16,43 @@ export default function AuthCallback() {
     useEffect(() => {
         const handleCallback = async () => {
             try {
-                // Check for error from server-side OAuth callback
-                const errorParam = searchParams.get('error');
-                if (errorParam === 'invalid_domain') {
-                    throw new Error(t('google_domain_error'));
-                }
-                if (errorParam === 'auth_failed') {
-                    throw new Error(t('error_generic'));
-                }
-                if (errorParam === 'missing_code') {
-                    throw new Error(t('error_generic'));
-                }
-
-                // Handle hash-based tokens (magic link flow)
+                // Handle hash-based tokens (magic link & OAuth implicit flow)
                 const hashParams = new URLSearchParams(window.location.hash.substring(1));
                 const accessToken = hashParams.get('access_token');
                 const refreshToken = hashParams.get('refresh_token');
+                const errorParam = hashParams.get('error') || searchParams.get('error');
+
+                if (errorParam) {
+                    throw new Error(errorParam === 'invalid_domain' ? t('google_domain_error') : t('error_generic'));
+                }
 
                 if (accessToken && refreshToken) {
                     const { error } = await supabase.auth.setSession({
                         access_token: accessToken,
                         refresh_token: refreshToken,
                     });
-
                     if (error) throw error;
+                }
+
+                // Wait for session to be fully established and fetch user
+                const { data: { user }, error: userError } = await supabase.auth.getUser();
+                
+                if (userError || !user) {
+                    throw new Error(t('error_generic'));
+                }
+
+                // Verify domain
+                const email = user.email || '';
+                if (!email.endsWith('@ogr.iuc.edu.tr')) {
+                    // Sign out invalid user
+                    await supabase.auth.signOut();
+                    throw new Error(t('google_domain_error'));
                 }
 
                 setStatus('success');
                 setTimeout(() => {
                     router.push('/');
-                }, 2000);
+                }, 1000);
             } catch (err: any) {
                 console.error('Auth callback error:', err);
                 setError(err.message || t('error_generic'));

@@ -196,7 +196,7 @@ export default function Home() {
                                             {searchResults.map((result) => (
                                                 <Link
                                                     key={result.id}
-                                                    href={searchType === 'course' ? `/course/${result.id}` : `/instructor/${result.id}`}
+                                                    href={searchType === 'course' ? `/course/${result.code}` : `/instructor/${result.id}`}
                                                     className="flex items-center justify-between px-4 py-3 hover:bg-neutral-200 transition-colors"
                                                     onClick={() => setShowResults(false)}
                                                 >

@@ -498,7 +498,7 @@ export default function FacultyPage() {
                                 return (
                                     <Link
                                         key={course.id}
-                                        href={`/course/${course.id}`}
+                                        href={`/course/${course.code}`}
                                         className={`card p-3 md:p-5 text-left transition-all duration-200 group border-2 rounded-xl block ${isZorunlu
                                             ? 'border-green-600 bg-white hover:bg-green-50 hover:shadow-lg'
                                             : isSecmeli
