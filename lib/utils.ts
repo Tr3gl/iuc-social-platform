@@ -5,6 +5,8 @@ import { PostgrestError } from '@supabase/supabase-js';
 
 export { type CourseStats } from './types';
 
+const isUUID = (id: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
 export const getCourseStats = async (courseId: string): Promise<CourseStats | null> => {
     const { data, error } = await supabase.rpc('get_course_stats', {
         course_uuid: courseId,
@@ -171,7 +173,7 @@ export const getFacultyParent = async (parentId: string) => {
 };
 
 export const getCourseById = async (courseId: string): Promise<Course> => {
-    const { data, error } = await supabase
+    let query = supabase
         .from('courses')
         .select(`
  *,
@@ -179,9 +181,15 @@ export const getCourseById = async (courseId: string): Promise<Course> => {
  course_instructors(
  instructors(id, name, title)
  )
-`)
-        .or(`id.eq.${courseId},code.ilike.${courseId}`)
-        .single();
+`);
+
+    if (isUUID(courseId)) {
+        query = query.or(`id.eq.${courseId},code.ilike.${courseId}`);
+    } else {
+        query = query.ilike('code', courseId);
+    }
+
+    const { data, error } = await query.single();
 
     if (error) throw error;
     return data as unknown as Course;

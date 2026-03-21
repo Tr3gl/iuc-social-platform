@@ -78,7 +78,7 @@ export default function UploadPage() {
  setError('');
 
  try {
- await uploadFile(courseId, selectedFile, fileType);
+ await uploadFile(course.id, selectedFile, fileType);
  setSuccess(true);
  setSelectedFile(null);
 

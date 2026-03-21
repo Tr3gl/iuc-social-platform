@@ -20,7 +20,7 @@ export const signUpWithEmail = async (email: string, password: string) => {
  email,
  password,
  options: {
- emailRedirectTo:`${window.location.origin}/auth/callback`,
+ emailRedirectTo:`${window.location.origin}/tr/auth/callback`,
  },
  });
 
@@ -50,7 +50,7 @@ export const signInWithEmail = async (email: string) => {
  const { data, error } = await supabase.auth.signInWithOtp({
  email,
  options: {
- emailRedirectTo:`${window.location.origin}/auth/callback`,
+ emailRedirectTo:`${window.location.origin}/tr/auth/callback`,
  },
  });
 
@@ -67,7 +67,7 @@ export const signInWithGoogle = async () => {
  const { data, error } = await supabase.auth.signInWithOAuth({
   provider: 'google',
   options: {
-   redirectTo: `${window.location.origin}/api/auth/callback`,
+   redirectTo: `${window.location.origin}/tr/auth/callback`,
    queryParams: {
     hd: 'ogr.iuc.edu.tr',
    },

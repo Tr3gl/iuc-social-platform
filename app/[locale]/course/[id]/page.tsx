@@ -41,11 +41,18 @@ export default function CoursePage() {
 
     const loadCourseData = async () => {
         try {
-            const [courseData, statsData, reviewsData, filesData] = await Promise.all([
-                getCourseById(courseId),
-                getCourseStats(courseId),
-                getReviewsByCourse(courseId),
-                getFilesByCourse(courseId),
+            const courseData = await getCourseById(courseId);
+            if (!courseData) {
+                setLoading(false);
+                return;
+            }
+
+            const actualCourseId = courseData.id;
+
+            const [statsData, reviewsData, filesData] = await Promise.all([
+                getCourseStats(actualCourseId),
+                getReviewsByCourse(actualCourseId),
+                getFilesByCourse(actualCourseId),
             ]);
 
             setCourse(courseData);
@@ -54,7 +61,7 @@ export default function CoursePage() {
             setFiles(filesData);
 
             if (user) {
-                const userReviewData = await getUserReviewForCourse(user.id, courseId);
+                const userReviewData = await getUserReviewForCourse(user.id, actualCourseId);
                 setUserReview(userReviewData);
             }
         } catch (error) {

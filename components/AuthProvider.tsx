@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from'react';
 import { User } from'@supabase/supabase-js';
 import { supabase } from'@/lib/supabase';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface AuthContextType {
  user: User | null;
@@ -13,7 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
  user: null,
  loading: true,
- signOut: async () => { },
+ signOut: async () => {},
 });
 
 export const useAuth = () => {
@@ -27,8 +28,18 @@ export const useAuth = () => {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
  const [user, setUser] = useState<User | null>(null);
  const [loading, setLoading] = useState(true);
+ const router = useRouter();
+ const pathname = usePathname();
 
  useEffect(() => {
+ // Intercept rogue hash tokens (e.g. from Supabase defaulting to root URL)
+ if (typeof window !== 'undefined' && window.location.hash.includes('access_token=')) {
+ if (!pathname.includes('/auth/callback')) {
+ router.push(`/tr/auth/callback${window.location.hash}`);
+ return;
+ }
+ }
+
  // Get initial session
  supabase.auth.getSession().then(({ data: { session } }) => {
  setUser(session?.user ?? null);
@@ -38,8 +49,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
  // Listen for auth changes
  const {
  data: { subscription },
- } = supabase.auth.onAuthStateChange((_event, session) => {
- setUser(session?.user ?? null);
+ } = supabase.auth.onAuthStateChange(async (_event, session) => {
+ const currentUser = session?.user ?? null;
+ // Enforce domain check globally just in case
+ if (currentUser && currentUser.email && !currentUser.email.endsWith('@ogr.iuc.edu.tr')) {
+      await supabase.auth.signOut();
+      setUser(null);
+      return;
+ }
+ setUser(currentUser);
  });
 
  return () => subscription.unsubscribe();

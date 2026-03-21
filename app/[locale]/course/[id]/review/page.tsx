@@ -107,14 +107,18 @@ export default function ReviewPage() {
  }
  }, [user, authLoading, courseId]);
 
- const loadData = async () => {
- try {
- const [courseData, reviewData, tagsData, pendingGuides] = await Promise.all([
- getCourseById(courseId),
- getUserReviewForCourse(courseId, user!.id),
- getTags(),
- getUserPendingSurvivalGuides(courseId) // Fetch pending guides
- ]);
+    const loadData = async () => {
+        try {
+            const courseData = await getCourseById(courseId);
+            if (!courseData) throw new Error("Course not found");
+            
+            const actualCourseId = courseData.id;
+
+            const [reviewData, tagsData, pendingGuides] = await Promise.all([
+                getUserReviewForCourse(actualCourseId, user!.id),
+                getTags(),
+                getUserPendingSurvivalGuides(actualCourseId)
+            ]);
 
  setCourse(courseData);
  setExistingReview(reviewData);
@@ -198,21 +202,23 @@ export default function ReviewPage() {
 
  setSubmitting(true);
 
- try {
- // Submit survival guide to pending/moderation queue if provided
- if (formData.survival_guide.trim()) {
- await submitPendingSurvivalGuide(courseId, formData.survival_guide);
- }
+        try {
+            const actualCourseId = course.id;
 
- // Submit review without the survival_guide (it goes through moderation)
- const reviewData = {
- ...formData,
- survival_guide:'',
- course_id: courseId,
- instructor_id: formData.instructor_id || null,
- };
+            // Submit survival guide to pending/moderation queue if provided
+            if (formData.survival_guide.trim()) {
+                await submitPendingSurvivalGuide(actualCourseId, formData.survival_guide);
+            }
 
- if (existingReview) {
+            // Submit review without the survival_guide (it goes through moderation)
+            const reviewData = {
+                ...formData,
+                survival_guide: '',
+                course_id: actualCourseId,
+                instructor_id: formData.instructor_id || null,
+            };
+
+            if (existingReview) {
  await updateReview(existingReview.id, reviewData);
  } else {
  await submitReview(reviewData);
