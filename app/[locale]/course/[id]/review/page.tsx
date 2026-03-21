@@ -660,13 +660,13 @@ export default function ReviewPage() {
  </div>
  </div>
 
- {/* Tag Suggestion Modal */}
- {showTagModal && (
- <TagSuggestionModal
- courseId={courseId}
- onClose={() => setShowTagModal(false)}
- />
- )}
+        {/* Tag Suggestion Modal */}
+        {showTagModal && (
+            <TagSuggestionModal
+                courseId={course?.id}
+                onClose={() => setShowTagModal(false)}
+            />
+        )}
  </div>
  );
 }

@@ -34,14 +34,14 @@ export const DIFFICULTY_VALUE_ALIGNMENT = {
 
 // Exam format options - Vize (Midterm)
 export const VIZE_FORMAT = {
- classical:'classical',
+ written:'written',
  test:'test',
  mix:'mix',
 } as const;
 
 // Exam format options - Final
 export const FINAL_FORMAT = {
- classical:'classical',
+ written:'written',
  test:'test',
  mix:'mix',
 } as const;

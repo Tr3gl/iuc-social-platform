@@ -262,7 +262,7 @@ export default function CoursePage() {
                 {/* Tab Content */}
                 {activeTab === 'stats' && (
                     hasEnoughReviews && stats ? (
-                        <CourseStatsDisplay stats={stats} reviews={reviews} courseId={courseId} />
+                        <CourseStatsDisplay stats={stats} reviews={reviews} courseId={course?.id} />
                     ) : (
                         <div className="card p-8 text-center">
                             <BarChart3 className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
@@ -283,7 +283,7 @@ export default function CoursePage() {
                 )}
 
                 {activeTab === 'files' && (
-                    <FilesList files={files} courseId={courseId} onUpdate={loadCourseData} />
+                    <FilesList files={files} courseId={course?.id} onUpdate={loadCourseData} />
                 )}
             </div>
         </div>
