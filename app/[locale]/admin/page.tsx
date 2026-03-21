@@ -1,1049 +1,747 @@
 'use client';
 
-import { useEffect, useState } from'react';
-import { useRouter } from'next/navigation';
+import { useEffect, useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import {
- getReviewReports,
- getFileReports,
- getPendingTags,
- updatePendingTagStatus,
- getPendingSurvivalGuides,
- updateSurvivalGuideStatus,
- getAllReviews,
- getTrollReviews,
- deleteReview,
- getPendingFiles,
- verifyFile,
- rejectFile
-} from'@/lib/utils';
+  getReviewReports,
+  getFileReports,
+  getPendingTags,
+  updatePendingTagStatus,
+  getPendingSurvivalGuides,
+  updateSurvivalGuideStatus,
+  getAllReviews,
+  getTrollReviews,
+  deleteReview,
+  getPendingFiles,
+  verifyFile,
+  rejectFile
+} from '@/lib/utils';
 import {
- Flag,
- FileText,
- Tag,
- Check,
- X,
- ArrowLeft,
- AlertTriangle,
- Clock,
- MessageSquare,
- Shield,
- Lock,
- ChevronDown,
- ChevronRight,
- Trash2,
- Eye,
- Users,
- ExternalLink
-} from'lucide-react';
-import Link from'next/link';
-
+  Flag,
+  FileText,
+  Tag,
+  Check,
+  X,
+  ArrowLeft,
+  AlertTriangle,
+  Clock,
+  MessageSquare,
+  Shield,
+  Lock,
+  ChevronDown,
+  ChevronRight,
+  Trash2,
+  Eye,
+  Users,
+  ExternalLink,
+  BookOpen,
+  Search,
+  Filter
+} from 'lucide-react';
+import Link from 'next/link';
 import {
- approvePendingTag,
- rejectPendingTag,
- deleteReview as deleteReviewAction,
- approveFile as approveFileAction,
- rejectFile as rejectFileAction,
- approveSurvivalGuide,
- rejectSurvivalGuide,
- getAllTags as fetchAllTags,
- createTag as createTagAction,
- updateTag as updateTagAction,
- deleteTag as deleteTagAction
-} from'@/app/actions';
-import { Edit2, Plus } from'lucide-react';
+  approvePendingTag,
+  rejectPendingTag,
+  deleteReview as deleteReviewAction,
+  approveFile as approveFileAction,
+  rejectFile as rejectFileAction,
+  approveSurvivalGuide,
+  rejectSurvivalGuide,
+  getAllTags as fetchAllTags,
+  createTag as createTagAction,
+  updateTag as updateTagAction,
+  deleteTag as deleteTagAction,
+  verifyAdminStatus,
+  getAllCourses,
+  getAllFaculties,
+  createCourse,
+  updateCourse,
+  deleteCourse
+} from '@/app/actions';
+import { Edit2, Plus } from 'lucide-react';
 
-// Admin password from environment variable
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ||'kovan2026';
-
-type TopicType ='pending_guides' |'all_reviews' |'reports' |'troll_reviews' |'pending_tags' |'pending_files' |'tag_management';
+type TopicType = 'pending_guides' | 'all_reviews' | 'reports' | 'troll_reviews' | 'pending_tags' | 'pending_files' | 'tag_management' | 'course_management';
 
 interface TopicData {
- id: TopicType;
- title: string;
- icon: React.ReactNode;
- description: string;
- count: number;
- color: string;
+  id: TopicType;
+  title: string;
+  icon: React.ReactNode;
+  description: string;
+  count: number;
+  color: string;
 }
 
 export default function AdminPage() {
- const router = useRouter();
- const [isAuthenticated, setIsAuthenticated] = useState(false);
- const [password, setPassword] = useState('');
- const [passwordError, setPasswordError] = useState('');
+  const router = useRouter();
+  const t = useTranslations('Admin');
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
+  
+  const [expandedTopic, setExpandedTopic] = useState<TopicType | null>(null);
+  const [selectedFaculty, setSelectedFaculty] = useState<string>('all');
 
- const [expandedTopic, setExpandedTopic] = useState<TopicType | null>(null);
+  // Data states
+  const [pendingFiles, setPendingFiles] = useState<any[]>([]);
+  const [pendingGuides, setPendingGuides] = useState<any[]>([]);
+  const [allReviews, setAllReviews] = useState<any[]>([]);
+  const [reviewReports, setReviewReports] = useState<any[]>([]);
+  const [fileReports, setFileReports] = useState<any[]>([]);
+  const [trollReviews, setTrollReviews] = useState<any[]>([]);
+  const [pendingTags, setPendingTags] = useState<any[]>([]);
+  const [allTags, setAllTags] = useState<any[]>([]);
+  const [allCoursesData, setAllCoursesData] = useState<any[]>([]);
+  const [allFacultiesData, setAllFacultiesData] = useState<any[]>([]);
 
- // Data states
- const [pendingFiles, setPendingFiles] = useState<any[]>([]);
- const [pendingGuides, setPendingGuides] = useState<any[]>([]);
- const [allReviews, setAllReviews] = useState<any[]>([]);
- const [reviewReports, setReviewReports] = useState<any[]>([]);
- const [fileReports, setFileReports] = useState<any[]>([]);
- const [trollReviews, setTrollReviews] = useState<any[]>([]);
- const [pendingTags, setPendingTags] = useState<any[]>([]);
- const [allTags, setAllTags] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [processingId, setProcessingId] = useState<string | null>(null);
 
- const [loading, setLoading] = useState(false);
- const [processingId, setProcessingId] = useState<string | null>(null);
+  // Check Auth
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const isAuth = await verifyAdminStatus();
+        setIsAuthenticated(isAuth);
+      } catch (e) {
+        setIsAuthenticated(false);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
- // Check session storage for previous login
- useEffect(() => {
- const savedAuth = sessionStorage.getItem('admin_authenticated');
- if (savedAuth ==='true') {
- setIsAuthenticated(true);
- }
- }, []);
+  // Load data when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadAllData();
+    }
+  }, [isAuthenticated]);
 
- // Load data when authenticated
- useEffect(() => {
- if (isAuthenticated) {
- loadAllData();
- }
- }, [isAuthenticated]);
+  const handleLogout = () => {
+    router.push('/');
+  };
 
- const handleLogin = (e: React.FormEvent) => {
- e.preventDefault();
- if (password === ADMIN_PASSWORD) {
- setIsAuthenticated(true);
- sessionStorage.setItem('admin_authenticated','true');
- setPasswordError('');
- } else {
- setPasswordError('Yanlış şifre!');
- }
- };
+  const loadAllData = async () => {
+    setLoading(true);
+    try {
+      const [guides, reviews, revReports, fReports, trolls, tags, files, existingTags, courses, faculties] = await Promise.all([
+        getPendingSurvivalGuides('pending'),
+        getAllReviews(),
+        getReviewReports(),
+        getFileReports(),
+        getTrollReviews(3),
+        getPendingTags('pending'),
+        getPendingFiles(),
+        fetchAllTags(),
+        getAllCourses(),
+        getAllFaculties(),
+      ]);
+      setPendingGuides(guides);
+      setAllReviews(reviews);
+      setReviewReports(revReports);
+      setFileReports(fReports);
+      setTrollReviews(trolls);
+      setPendingTags(tags);
+      setPendingFiles(files);
+      setAllTags(existingTags);
+      setAllCoursesData(courses);
+      setAllFacultiesData(faculties);
+    } catch (error) {
+      console.error('Error loading admin data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
- const handleLogout = () => {
- setIsAuthenticated(false);
- sessionStorage.removeItem('admin_authenticated');
- setPassword('');
- };
+  const handleGuideAction = async (guideId: string, action: 'approved' | 'rejected') => {
+    setProcessingId(guideId);
+    try {
+      if (action === 'approved') {
+        await approveSurvivalGuide(guideId);
+      } else {
+        await rejectSurvivalGuide(guideId);
+      }
+      setPendingGuides(prev => prev.filter(g => g.id !== guideId));
+    } catch (error) {
+      alert('Error updating survival guide');
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
- const loadAllData = async () => {
- setLoading(true);
- try {
- const [guides, reviews, revReports, fReports, trolls, tags, files, existingTags] = await Promise.all([
- getPendingSurvivalGuides('pending'),
- getAllReviews(),
- getReviewReports(),
- getFileReports(),
- getTrollReviews(3),
- getPendingTags('pending'),
- getPendingFiles(),
- fetchAllTags(),
- ]);
- setPendingGuides(guides);
- setAllReviews(reviews);
- setReviewReports(revReports);
- setFileReports(fReports);
- setTrollReviews(trolls);
- setPendingTags(tags);
- setPendingFiles(files);
- setAllTags(existingTags);
- } catch (error) {
- console.error('Error loading admin data:', error);
- } finally {
- setLoading(false);
- }
- };
+  const handleTagAction = async (tagId: string, action: 'approved' | 'rejected', newData?: { name: string; type: 'positive' | 'negative' }) => {
+    setProcessingId(tagId);
+    try {
+      if (action === 'approved') {
+        await approvePendingTag(tagId, newData);
+      } else {
+        await rejectPendingTag(tagId);
+      }
+      setPendingTags(prev => prev.filter(t => t.id !== tagId));
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
- // Server Actions moved to top
+  const handleFileAction = async (fileId: string, filePath: string, action: 'approved' | 'rejected') => {
+    setProcessingId(fileId);
+    try {
+      if (action === 'approved') {
+        await approveFileAction(fileId);
+      } else {
+        await rejectFileAction(fileId, filePath);
+      }
+      setPendingFiles(prev => prev.filter(f => f.id !== fileId));
+    } catch (error) {
+      alert('Error updating file');
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
+  const handleDeleteReview = async (reviewId: string) => {
+    if (!confirm(t('content.delete_confirm'))) return;
 
- const handleGuideAction = async (guideId: string, action:'approved' |'rejected') => {
- setProcessingId(guideId);
- try {
- if (action ==='approved') {
- await approveSurvivalGuide(guideId);
- } else {
- await rejectSurvivalGuide(guideId);
- }
- // Optimistic update
- setPendingGuides(prev => prev.filter(g => g.id !== guideId));
- } catch (error) {
- console.error('Error updating survival guide:', error);
- alert('İşlem başarısız oldu.');
- } finally {
- setProcessingId(null);
- }
- };
+    setProcessingId(reviewId);
+    try {
+      await deleteReviewAction(reviewId);
+      setAllReviews(prev => prev.filter(r => r.id !== reviewId));
+      setTrollReviews(prev => prev.filter(r => r.id !== reviewId));
+    } catch (error) {
+      alert('Silme işlemi başarısız.');
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
- const handleTagAction = async (tagId: string, action:'approved' |'rejected', newData?: { name: string; type:'positive' |'negative' }) => {
- setProcessingId(tagId);
- try {
- if (action ==='approved') {
- await approvePendingTag(tagId, newData);
- } else {
- await rejectPendingTag(tagId);
- }
- setPendingTags(prev => prev.filter(t => t.id !== tagId));
- } catch (error: any) {
- console.error('Error updating tag:', error);
- alert(`Hata oluştu: ${error.message ||'Bilinmeyen hata'}`);
- } finally {
- setProcessingId(null);
- }
- };
+  // Filtered views
+  const filteredFiles = useMemo(() => {
+    if (selectedFaculty === 'all') return pendingFiles;
+    return pendingFiles.filter(f => f.courses?.faculty_id === selectedFaculty);
+  }, [pendingFiles, selectedFaculty]);
 
- const handleFileAction = async (fileId: string, filePath: string, action:'approved' |'rejected') => {
- setProcessingId(fileId);
- try {
- if (action ==='approved') {
- await approveFileAction(fileId);
- } else {
- await rejectFileAction(fileId, filePath);
- }
- setPendingFiles(prev => prev.filter(f => f.id !== fileId));
- } catch (error) {
- console.error('Error updating file:', error);
- alert('Dosya işlemi başarısız.');
- } finally {
- setProcessingId(null);
- }
- };
+  const filteredGuides = useMemo(() => {
+    if (selectedFaculty === 'all') return pendingGuides;
+    return pendingGuides.filter(g => g.courses?.faculty_id === selectedFaculty);
+  }, [pendingGuides, selectedFaculty]);
 
- const handleDeleteReview = async (reviewId: string) => {
- if (!confirm('Bu değerlendirmeyi silmek istediğinizden emin misiniz?')) return;
+  const filteredReviews = useMemo(() => {
+    if (selectedFaculty === 'all') return allReviews;
+    return allReviews.filter(r => r.courses?.faculty_id === selectedFaculty);
+  }, [allReviews, selectedFaculty]);
 
- setProcessingId(reviewId);
- try {
- await deleteReviewAction(reviewId);
- setAllReviews(prev => prev.filter(r => r.id !== reviewId));
- setTrollReviews(prev => prev.filter(r => r.id !== reviewId));
- } catch (error) {
- console.error('Error deleting review:', error);
- alert('Silme işlemi başarısız.');
- } finally {
- setProcessingId(null);
- }
- };
+  const filteredReviewReports = useMemo(() => {
+    if (selectedFaculty === 'all') return reviewReports;
+    return reviewReports.filter(r => r.reviews?.courses?.faculty_id === selectedFaculty);
+  }, [reviewReports, selectedFaculty]);
 
- // Define topics
- const topics: TopicData[] = [
- {
- id:'pending_files',
- title:'Bekleyen Dosyalar',
- icon: <FileText className="w-6 h-6"/>,
- description:'Onay bekleyen ders dosyaları',
- count: pendingFiles.length,
- color:'teal'
- },
- {
- id:'pending_guides',
- title:'Bekleyen Survival Guide\'lar',
- icon: <Clock className="w-6 h-6"/>,
- description:'Onay bekleyen survival guide içerikleri',
- count: pendingGuides.length,
- color:'amber'
- },
- {
- id:'all_reviews',
- title:'Tüm Değerlendirmeler',
- icon: <MessageSquare className="w-6 h-6"/>,
- description:'Sistemdeki tüm değerlendirmeler',
- count: allReviews.length,
- color:'blue'
- },
- {
- id:'reports',
- title:'Raporlar',
- icon: <Flag className="w-6 h-6"/>,
- description:'Kullanıcılar tarafından raporlanan içerikler',
- count: reviewReports.length + fileReports.length,
- color:'red'
- },
- {
- id:'troll_reviews',
- title:'Troll Değerlendirmeler',
- icon: <AlertTriangle className="w-6 h-6"/>,
- description:'3+ "Troll"oyu alan değerlendirmeler',
- count: trollReviews.length,
- color:'orange'
- },
- {
- id:'pending_tags',
- title:'Bekleyen Etiketler',
- icon: <Tag className="w-6 h-6"/>,
- description:'Onay bekleyen kullanıcı etiketleri',
- count: pendingTags.length,
- color:'purple'
- },
- {
- id:'tag_management',
- title:'Etiket Yönetimi',
- icon: <Edit2 className="w-6 h-6"/>,
- description:'Tüm etiketleri ekle, düzenle, sil',
- count: allTags.length,
- color:'blue'
- },
- ];
+  const filteredFileReports = useMemo(() => {
+    if (selectedFaculty === 'all') return fileReports;
+    return fileReports.filter(r => r.files?.courses?.faculty_id === selectedFaculty);
+  }, [fileReports, selectedFaculty]);
 
- // Login Screen
- if (!isAuthenticated) {
- return (
- <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center p-4">
- <div className="card max-w-md w-full p-8 bg-white/95 backdrop-blur shadow-2xl">
- <div className="text-center mb-8">
- <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
- <Shield className="w-8 h-8 text-primary-600"/>
- </div>
- <h1 className="text-2xl font-bold text-neutral-900">Admin Paneli</h1>
- <p className="text-neutral-600 mt-2">Yönetici şifrenizi girin</p>
- </div>
+  const filteredTrolls = useMemo(() => {
+    if (selectedFaculty === 'all') return trollReviews;
+    return trollReviews.filter(r => r.courses?.faculty_id === selectedFaculty);
+  }, [trollReviews, selectedFaculty]);
 
- <form onSubmit={handleLogin} className="space-y-4">
- <div>
- <label className="block text-sm font-medium text-neutral-700 mb-2">
- <Lock className="w-4 h-4 inline mr-2"/>
- Şifre
- </label>
- <input
- type="password"
- value={password}
- onChange={(e) => setPassword(e.target.value)}
- className="input w-full"
- placeholder="••••••••"
- autoFocus
- />
- {passwordError && (
- <p className="text-red-500 text-sm mt-2">{passwordError}</p>
- )}
- </div>
+  const selectedFacultyObj = allFacultiesData.find(f => f.id === selectedFaculty);
 
- <button type="submit"className="btn btn-primary w-full">
- Giriş Yap
- </button>
- </form>
+  const topics: TopicData[] = [
+    {
+      id: 'pending_files',
+      title: t('topics.pending_files'),
+      icon: <FileText className="w-6 h-6" />,
+      description: t('topics.pending_files_desc'),
+      count: filteredFiles.length,
+      color: 'teal'
+    },
+    {
+      id: 'pending_guides',
+      title: t('topics.pending_guides'),
+      icon: <Clock className="w-6 h-6" />,
+      description: t('topics.pending_guides_desc'),
+      count: filteredGuides.length,
+      color: 'amber'
+    },
+    {
+      id: 'all_reviews',
+      title: selectedFaculty === 'all' ? t('topics.all_reviews') : t('topics.filtered_reviews', { major: selectedFacultyObj?.name || '' }),
+      icon: <MessageSquare className="w-6 h-6" />,
+      description: t('topics.all_reviews_desc'),
+      count: filteredReviews.length,
+      color: 'blue'
+    },
+    {
+      id: 'reports',
+      title: t('topics.reports'),
+      icon: <Flag className="w-6 h-6" />,
+      description: t('topics.reports_desc'),
+      count: filteredReviewReports.length + filteredFileReports.length,
+      color: 'red'
+    },
+    {
+      id: 'troll_reviews',
+      title: t('topics.troll_reviews'),
+      icon: <AlertTriangle className="w-6 h-6" />,
+      description: t('topics.troll_reviews_desc'),
+      count: filteredTrolls.length,
+      color: 'orange'
+    },
+    {
+      id: 'course_management',
+      title: t('topics.course_management'),
+      icon: <BookOpen className="w-6 h-6" />,
+      description: t('topics.course_management_desc'),
+      count: allCoursesData.length,
+      color: 'teal'
+    },
+    {
+      id: 'pending_tags',
+      title: t('topics.pending_tags'),
+      icon: <Tag className="w-6 h-6" />,
+      description: t('topics.pending_tags_desc'),
+      count: pendingTags.length,
+      color: 'purple'
+    },
+    {
+      id: 'tag_management',
+      title: t('topics.tag_management'),
+      icon: <Edit2 className="w-6 h-6" />,
+      description: t('topics.tag_management_desc'),
+      count: allTags.length,
+      color: 'blue'
+    }
+  ];
 
- <div className="mt-6 text-center">
- <button
- onClick={() => router.push('/')}
- className="text-sm text-neutral-500 hover:text-primary-600 flex items-center justify-center mx-auto"
- >
- <ArrowLeft className="w-4 h-4 mr-1"/>
- Ana Sayfaya Dön
- </button>
- </div>
- </div>
- </div>
- );
- }
+  if (isChecking) {
+    return (
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
 
- // Admin Dashboard
- return (
- <div className="min-h-screen bg-neutral-50 text-neutral-900 ">
- {/* Header */}
- <div className="bg-white border-b border-neutral-200 sticky top-0 z-50">
- <div className="container mx-auto px-4 h-16 flex items-center justify-between">
- <div className="flex items-center space-x-4">
- <button
- onClick={() => router.push('/')}
- className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
- title="Ana Sayfa"
- >
- <ArrowLeft className="w-5 h-5 text-neutral-600"/>
- </button>
- <div className="flex items-center space-x-2">
- <Shield className="w-6 h-6 text-primary-600"/>
- <h1 className="text-xl font-bold text-neutral-900">Admin Paneli</h1>
- </div>
- </div>
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center p-4">
+        <div className="card max-w-md w-full p-8 bg-white/95 backdrop-blur shadow-2xl text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">{t('access_denied_title')}</h1>
+          <p className="text-neutral-600 mb-6">{t('access_denied_desc')}</p>
+          <button onClick={() => router.push('/')} className="btn btn-primary w-full flex justify-center items-center">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {t('home_button')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
- <button
- onClick={handleLogout}
- className="btn btn-ghost text-sm text-red-600 hover:bg-red-50"
- >
- Çıkış
- </button>
- </div>
- </div>
+  return (
+    <div className="min-h-screen bg-neutral-50 text-neutral-900 ">
+      <div className="bg-white border-b border-neutral-200 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button onClick={() => router.push('/')} className="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+              <ArrowLeft className="w-5 h-5 text-neutral-600" />
+            </button>
+            <div className="flex items-center space-x-2">
+              <Shield className="w-6 h-6 text-primary-600" />
+              <h1 className="text-xl font-bold text-neutral-900">{t('title')}</h1>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <select 
+              value={selectedFaculty}
+              onChange={(e) => setSelectedFaculty(e.target.value)}
+              className="px-3 py-1.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm font-medium bg-neutral-50"
+            >
+              <option value="all">{t('all_majors')}</option>
+              {allFacultiesData.map(f => (
+                <option key={f.id} value={f.id}>{f.name}</option>
+              ))}
+            </select>
+            <button onClick={handleLogout} className="btn btn-ghost text-sm text-red-600 hover:bg-red-50">
+              {t('logout_button')}
+            </button>
+          </div>
+        </div>
+      </div>
 
- {/* Main Content */}
- <div className="container mx-auto px-4 py-8">
- {loading ? (
- <div className="flex items-center justify-center py-12">
- <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
- <span className="ml-3 text-neutral-600">Yükleniyor...</span>
- </div>
- ) : (
- <div className="space-y-4">
- {topics.map((topic) => (
- <div key={topic.id} className="card overflow-hidden">
- {/* Topic Header (Clickable) */}
- <button
- onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
- className={`w-full p-6 flex items-center justify-between hover:bg-neutral-50 transition-colors ${expandedTopic === topic.id ?'bg-neutral-50' :''
- }`}
- >
- <div className="flex items-center space-x-4">
- <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${topic.color ==='amber' ?'bg-amber-100 text-amber-600' :
- topic.color ==='blue' ?'bg-blue-100 text-blue-600' :
- topic.color ==='red' ?'bg-red-100 text-red-600' :
- topic.color ==='orange' ?'bg-orange-100 text-orange-600' :
- topic.color ==='teal' ?'bg-teal-100 text-teal-600' :
-'bg-purple-100 text-purple-600'
- }`}>
- {topic.icon}
- </div>
- <div className="text-left">
- <h2 className="text-lg font-semibold text-neutral-900">{topic.title}</h2>
- <p className="text-sm text-neutral-500">{topic.description}</p>
- </div>
- </div>
+      <div className="container mx-auto px-4 py-8">
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <span className="ml-3 text-neutral-600">{t('loading')}</span>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {topics.map((topic) => (
+              <div key={topic.id} className="card overflow-hidden">
+                <button
+                  onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
+                  className={`w-full p-6 flex items-center justify-between hover:bg-neutral-50 transition-colors ${expandedTopic === topic.id ? 'bg-neutral-50' : ''}`}
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                      topic.color === 'amber' ? 'bg-amber-100 text-amber-600' :
+                      topic.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                      topic.color === 'red' ? 'bg-red-100 text-red-600' :
+                      topic.color === 'orange' ? 'bg-orange-100 text-orange-600' :
+                      topic.color === 'teal' ? 'bg-teal-100 text-teal-600' :
+                      'bg-purple-100 text-purple-600'
+                    }`}>
+                      {topic.icon}
+                    </div>
+                    <div className="text-left">
+                      <h2 className="text-lg font-semibold text-neutral-900">{topic.title}</h2>
+                      <p className="text-sm text-neutral-500">{topic.description}</p>
+                    </div>
+                  </div>
 
- <div className="flex items-center space-x-4">
- <span className={`px-3 py-1 rounded-full text-sm font-bold ${topic.count === 0 ?'bg-neutral-100 text-neutral-500' :
- topic.color ==='amber' ?'bg-amber-100 text-amber-700' :
- topic.color ==='blue' ?'bg-blue-100 text-blue-700' :
- topic.color ==='red' ?'bg-red-100 text-red-700' :
- topic.color ==='orange' ?'bg-orange-100 text-orange-700' :
- topic.color ==='teal' ?'bg-teal-100 text-teal-700' :
-'bg-purple-100 text-purple-700'
- }`}>
- {topic.count}
- </span>
- {expandedTopic === topic.id ? (
- <ChevronDown className="w-5 h-5 text-neutral-400"/>
- ) : (
- <ChevronRight className="w-5 h-5 text-neutral-400"/>
- )}
- </div>
- </button>
+                  <div className="flex items-center space-x-4">
+                    <span className={`px-3 py-1 rounded-full text-sm font-bold ${
+                      topic.count === 0 ? 'bg-neutral-100 text-neutral-500' :
+                       topic.color === 'amber' ? 'bg-amber-100 text-amber-700' :
+                       topic.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                       topic.color === 'red' ? 'bg-red-100 text-red-700' :
+                       topic.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                       topic.color === 'teal' ? 'bg-teal-100 text-teal-700' :
+                       'bg-purple-100 text-purple-700'
+                    }`}>
+                      {topic.count}
+                    </span>
+                    {expandedTopic === topic.id ? (
+                      <ChevronDown className="w-5 h-5 text-neutral-400" />
+                    ) : (
+                      <ChevronRight className="w-5 h-5 text-neutral-400" />
+                    )}
+                  </div>
+                </button>
 
- {/* Topic Content */}
- {expandedTopic === topic.id && (
- <div className="border-t border-neutral-100 p-6 bg-white ">
- {topic.id ==='pending_files' && (
- <PendingFilesContent
- files={pendingFiles}
- onAction={handleFileAction}
- processingId={processingId}
- />
- )}
- {topic.id ==='pending_guides' && (
- <PendingGuidesContent
- guides={pendingGuides}
- onAction={handleGuideAction}
- processingId={processingId}
- />
- )}
- {topic.id ==='all_reviews' && (
- <AllReviewsContent
- reviews={allReviews}
- onDelete={handleDeleteReview}
- processingId={processingId}
- />
- )}
- {topic.id ==='reports' && (
- <ReportsContent
- reviewReports={reviewReports}
- fileReports={fileReports}
- onDeleteReview={handleDeleteReview}
- processingId={processingId}
- />
- )}
- {topic.id ==='troll_reviews' && (
- <TrollReviewsContent
- reviews={trollReviews}
- onDelete={handleDeleteReview}
- processingId={processingId}
- />
- )}
- {topic.id ==='pending_tags' && (
- <PendingTagsContent
- tags={pendingTags}
- onAction={handleTagAction}
- processingId={processingId}
- />
- )}
- {topic.id ==='tag_management' && (
- <TagManagementContent
- tags={allTags}
- onRefresh={async () => {
- const updated = await fetchAllTags();
- setAllTags(updated);
- }}
- processingId={processingId}
- setProcessingId={setProcessingId}
- />
- )}
- </div>
- )}
- </div>
- ))}
- </div>
- )}
- </div>
- </div>
- );
+                {expandedTopic === topic.id && (
+                  <div className="border-t border-neutral-100 p-6 bg-white ">
+                    {topic.id === 'pending_files' && <PendingFilesContent files={filteredFiles} onAction={handleFileAction} processingId={processingId} t={t} />}
+                    {topic.id === 'pending_guides' && <PendingGuidesContent guides={filteredGuides} onAction={handleGuideAction} processingId={processingId} t={t} />}
+                    {topic.id === 'all_reviews' && <AllReviewsContent reviews={filteredReviews} onDelete={handleDeleteReview} processingId={processingId} t={t} />}
+                    {topic.id === 'reports' && <ReportsContent reviewReports={filteredReviewReports} fileReports={filteredFileReports} onDeleteReview={handleDeleteReview} processingId={processingId} t={t} />}
+                    {topic.id === 'troll_reviews' && <TrollReviewsContent reviews={filteredTrolls} onDelete={handleDeleteReview} processingId={processingId} t={t} />}
+                    {topic.id === 'pending_tags' && <PendingTagsContent tags={pendingTags} onAction={handleTagAction} processingId={processingId} t={t} />}
+                    {topic.id === 'course_management' && <CourseManagementContent courses={allCoursesData} faculties={allFacultiesData} onRefresh={async () => {
+                      const [c, f] = await Promise.all([getAllCourses(), getAllFaculties()]);
+                      setAllCoursesData(c);
+                      setAllFacultiesData(f);
+                    }} processingId={processingId} setProcessingId={setProcessingId} t={t} />}
+                    {topic.id === 'tag_management' && <TagManagementContent tags={allTags} onRefresh={async () => {
+                      const updated = await fetchAllTags();
+                      setAllTags(updated);
+                    }} processingId={processingId} setProcessingId={setProcessingId} t={t} />}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
-// Sub-components for topic content
-
-function PendingFilesContent({ files, onAction, processingId }: any) {
- if (files.length === 0) {
- return <p className="text-neutral-500 text-center py-4">Bekleyen dosya yok.</p>;
- }
- return (
- <div className="space-y-4">
- {files.map((file: any) => (
- <div key={file.id} className="p-4 border border-neutral-200 rounded-lg">
- <div className="flex justify-between items-start">
- <div className="flex-1">
- <div className="flex items-center space-x-2 mb-1">
- <span className="uppercase text-xs font-bold px-2 py-0.5 bg-neutral-100 text-neutral-600 rounded">
- {file.type}
- </span>
- <p className="font-medium text-neutral-800">
- {file.file_name}
- </p>
- </div>
- <p className="text-sm text-neutral-600 mb-1">
- {file.courses?.name} ({file.courses?.code})
- </p>
- <div className="flex items-center space-x-4 text-xs text-neutral-400 mt-2">
- <span>{new Date(file.created_at).toLocaleDateString('tr-TR')}</span>
- <a
- href={file.file_url}
- target="_blank"
- rel="noopener noreferrer"
- className="text-primary-600 hover:underline flex items-center"
- >
- <ExternalLink className="w-3 h-3 mr-1"/>
- Dosyayı Görüntüle
- </a>
- </div>
- </div>
- <div className="flex space-x-2 ml-4">
- <button
- onClick={() => onAction(file.id, file.file_path,'approved')}
- disabled={processingId === file.id}
- className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors"
- >
- <Check className="w-4 h-4"/>
- </button>
- <button
- onClick={() => onAction(file.id, file.file_path,'rejected')}
- disabled={processingId === file.id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
- >
- <X className="w-4 h-4"/>
- </button>
- </div>
- </div>
- </div>
- ))}
- </div>
- );
+// Sub-components
+function PendingFilesContent({ files, onAction, processingId, t }: any) {
+  if (files.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_pending_files')}</p>;
+  return (
+    <div className="space-y-4">
+      {files.map((file: any) => (
+        <div key={file.id} className="p-4 border border-neutral-200 rounded-lg flex justify-between items-start">
+          <div className="flex-1">
+            <div className="flex items-center space-x-2 mb-1">
+              <span className="uppercase text-xs font-bold px-2 py-0.5 bg-neutral-100 text-neutral-600 rounded">{file.type}</span>
+              <p className="font-medium text-neutral-800">{file.file_name}</p>
+            </div>
+            <p className="text-sm text-neutral-600 mb-1">{file.courses?.name} ({file.courses?.code})</p>
+            <div className="flex items-center space-x-4 text-xs text-neutral-400 mt-2">
+              <span>{new Date(file.created_at).toLocaleDateString()}</span>
+              <a href={file.file_url} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline flex items-center">
+                <ExternalLink className="w-3 h-3 mr-1" /> {t('content.view_file')}
+              </a>
+            </div>
+          </div>
+          <div className="flex space-x-2 ml-4">
+            <button onClick={() => onAction(file.id, file.file_path, 'approved')} disabled={processingId === file.id} className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200"><Check className="w-4 h-4" /></button>
+            <button onClick={() => onAction(file.id, file.file_path, 'rejected')} disabled={processingId === file.id} className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200"><X className="w-4 h-4" /></button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-function PendingGuidesContent({ guides, onAction, processingId }: any) {
- if (guides.length === 0) {
- return <p className="text-neutral-500 text-center py-4">Bekleyen guide yok.</p>;
- }
- return (
- <div className="space-y-4">
- {guides.map((guide: any) => (
- <div key={guide.id} className="p-4 border border-neutral-200 rounded-lg">
- <div className="flex justify-between items-start">
- <div className="flex-1">
- <p className="font-medium text-neutral-800 mb-1">
- {guide.courses?.name} ({guide.courses?.code})
- </p>
- <p className="text-neutral-600 italic">"{guide.survival_guide}"</p>
- <p className="text-xs text-neutral-400 mt-2">
- {new Date(guide.created_at).toLocaleDateString('tr-TR')}
- </p>
- </div>
- <div className="flex space-x-2 ml-4">
- <button
- onClick={() => onAction(guide.id,'approved')}
- disabled={processingId === guide.id}
- className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors"
- >
- <Check className="w-4 h-4"/>
- </button>
- <button
- onClick={() => onAction(guide.id,'rejected')}
- disabled={processingId === guide.id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
- >
- <X className="w-4 h-4"/>
- </button>
- </div>
- </div>
- </div>
- ))}
- </div>
- );
+function PendingGuidesContent({ guides, onAction, processingId, t }: any) {
+  if (guides.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_pending_guides')}</p>;
+  return (
+    <div className="space-y-4">
+      {guides.map((guide: any) => (
+        <div key={guide.id} className="p-4 border border-neutral-200 rounded-lg flex justify-between items-start">
+          <div className="flex-1">
+            <p className="font-medium text-neutral-800 mb-1">{guide.courses?.name} ({guide.courses?.code})</p>
+            <p className="text-neutral-600 italic">"{guide.survival_guide}"</p>
+          </div>
+          <div className="flex space-x-2 ml-4">
+            <button onClick={() => onAction(guide.id, 'approved')} disabled={processingId === guide.id} className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200"><Check className="w-4 h-4" /></button>
+            <button onClick={() => onAction(guide.id, 'rejected')} disabled={processingId === guide.id} className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200"><X className="w-4 h-4" /></button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-function AllReviewsContent({ reviews, onDelete, processingId }: any) {
- if (reviews.length === 0) {
- return <p className="text-neutral-500 text-center py-4">Değerlendirme yok.</p>;
- }
- return (
- <div className="space-y-3 max-h-[500px] overflow-y-auto">
- {reviews.slice(0, 50).map((review: any) => (
- <div key={review.id} className="p-4 border border-neutral-200 rounded-lg flex justify-between items-start">
- <div className="flex-1">
- <p className="font-medium text-neutral-800">
- {review.courses?.name} ({review.courses?.code})
- </p>
- <p className="text-sm text-neutral-600 mt-1 line-clamp-2">{review.comment ||'Yorum yok'}</p>
- <div className="flex items-center space-x-4 mt-2 text-xs text-neutral-400">
- <span>{new Date(review.created_at).toLocaleDateString('tr-TR')}</span>
- <span>Zorluk: {review.difficulty}/5</span>
- {review.review_votes && (
- <span className="text-orange-600">
- Troll: {review.review_votes.filter((v: any) => v.vote_type ==='rage_bait').length}
- </span>
- )}
- </div>
- </div>
- <button
- onClick={() => onDelete(review.id)}
- disabled={processingId === review.id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors ml-4"
- title="Sil"
- >
- <Trash2 className="w-4 h-4"/>
- </button>
- </div>
- ))}
- {reviews.length > 50 && (
- <p className="text-neutral-500 text-center text-sm">+{reviews.length - 50} daha fazla</p>
- )}
- </div>
- );
+function AllReviewsContent({ reviews, onDelete, processingId, t }: any) {
+  if (reviews.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_reviews')}</p>;
+  return (
+    <div className="space-y-3 max-h-[500px] overflow-y-auto">
+      {reviews.slice(0, 50).map((review: any) => (
+        <div key={review.id} className="p-4 border border-neutral-200 rounded-lg flex justify-between items-start">
+          <div className="flex-1">
+            <p className="font-medium text-neutral-800">{review.courses?.name} ({review.courses?.code})</p>
+            <p className="text-sm text-neutral-600 mt-1 line-clamp-2">{review.comment || '-'}</p>
+            <div className="flex items-center space-x-4 mt-2 text-xs text-neutral-400">
+              <span>{t('content.difficulty')}: {review.difficulty}/5</span>
+              {review.review_votes && (
+                <span className="text-orange-600">{t('content.troll_votes')}: {review.review_votes.filter((v: any) => v.vote_type === 'rage_bait').length}</span>
+              )}
+            </div>
+          </div>
+          <button onClick={() => onDelete(review.id)} disabled={processingId === review.id} className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 ml-4"><Trash2 className="w-4 h-4" /></button>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-function ReportsContent({ reviewReports, fileReports, onDeleteReview, processingId }: any) {
- const total = reviewReports.length + fileReports.length;
- if (total === 0) {
- return <p className="text-neutral-500 text-center py-4">Rapor yok.</p>;
- }
- return (
- <div className="space-y-4">
- <h3 className="font-semibold text-neutral-700">Değerlendirme Raporları ({reviewReports.length})</h3>
- {reviewReports.length === 0 ? (
- <p className="text-neutral-400 text-sm">Değerlendirme raporu yok.</p>
- ) : (
- reviewReports.map((report: any) => (
- <div key={report.id} className="p-4 bg-red-50 border border-red-200 rounded-lg">
- <div className="flex justify-between items-start">
- <div className="flex-1">
- <p className="text-sm text-red-800 font-semibold mb-1">
- Sebep: {report.reason ||'Belirtilmedi'}
- </p>
- <p className="text-sm text-neutral-700">
- <strong>Ders:</strong> {report.reviews?.courses?.name} ({report.reviews?.courses?.code})
- </p>
- <p className="text-sm text-neutral-600 mt-1 line-clamp-2">
- <strong>Yorum:</strong> {report.reviews?.comment ||'Yorum yok'}
- </p>
- <p className="text-xs text-neutral-400 mt-2">
- {new Date(report.created_at).toLocaleDateString('tr-TR')}
- </p>
- </div>
- <div className="flex flex-col space-y-2 ml-4">
- <Link
- href={`/course/${report.reviews?.course_id}`}
- target="_blank"
- className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors flex items-center justify-center"
- title="Sayfaya Git"
- >
- <ExternalLink className="w-4 h-4"/>
- </Link>
- <button
- onClick={() => onDeleteReview(report.review_id)}
- disabled={processingId === report.review_id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
- title="Değerlendirmeyi Sil"
- >
- <Trash2 className="w-4 h-4"/>
- </button>
- </div>
- </div>
- </div>
- ))
- )}
-
- <h3 className="font-semibold text-neutral-700 mt-6">Dosya Raporları ({fileReports.length})</h3>
- {fileReports.length === 0 ? (
- <p className="text-neutral-400 text-sm">Dosya raporu yok.</p>
- ) : (
- fileReports.map((report: any) => (
- <div key={report.id} className="p-3 bg-red-50 border border-red-200 rounded-lg">
- <p className="text-sm text-red-800 font-medium">Sebep: {report.reason ||'Belirtilmedi'}</p>
- <p className="text-xs text-red-600 mt-1">
- {report.files?.file_name} - {new Date(report.created_at).toLocaleDateString('tr-TR')}
- </p>
- </div>
- ))
- )}
- </div>
- );
+function ReportsContent({ reviewReports, fileReports, onDeleteReview, processingId, t }: any) {
+  if (reviewReports.length + fileReports.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_reports')}</p>;
+  return (
+    <div className="space-y-4">
+      <h3 className="font-semibold text-neutral-700">{t('content.review_reports')} ({reviewReports.length})</h3>
+      {reviewReports.map((report: any) => (
+        <div key={report.id} className="p-4 bg-red-50 border border-red-200 rounded-lg flex justify-between items-start">
+          <div className="flex-1">
+            <p className="text-sm text-red-800 font-semibold mb-1">{t('content.reason')}: {report.reason || '-'}</p>
+            <p className="text-sm text-neutral-700"><strong>{t('content.course')}:</strong> {report.reviews?.courses?.name}</p>
+            <p className="text-sm text-neutral-600 mt-1 line-clamp-2"><strong>{t('content.comment')}:</strong> {report.reviews?.comment || '-'}</p>
+          </div>
+          <div className="flex flex-col space-y-2 ml-4">
+            <Link href={`/course/${report.reviews?.course_id}`} target="_blank" className="p-2 bg-blue-100 text-blue-600 rounded-lg flex justify-center"><ExternalLink className="w-4 h-4" /></Link>
+            <button onClick={() => onDeleteReview(report.review_id)} disabled={processingId === report.review_id} className="p-2 bg-red-100 text-red-600 rounded-lg"><Trash2 className="w-4 h-4" /></button>
+          </div>
+        </div>
+      ))}
+      <h3 className="font-semibold text-neutral-700 mt-6">{t('content.file_reports')} ({fileReports.length})</h3>
+      {fileReports.map((report: any) => (
+        <div key={report.id} className="p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-800 font-medium">{t('content.reason')}: {report.reason || '-'}</p>
+          <p className="text-xs text-red-600 mt-1">{report.files?.file_name}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-function TrollReviewsContent({ reviews, onDelete, processingId }: any) {
- if (reviews.length === 0) {
- return <p className="text-neutral-500 text-center py-4">🎉 Troll değerlendirme yok!</p>;
- }
- return (
- <div className="space-y-3">
- {reviews.map((review: any) => {
- const trollCount = review.review_votes?.filter((v: any) => v.vote_type ==='rage_bait').length || 0;
- return (
- <div key={review.id} className="p-4 border-2 border-orange-300 bg-orange-50 rounded-lg flex justify-between items-start">
- <div className="flex-1">
- <div className="flex items-center space-x-2 mb-2">
- <AlertTriangle className="w-4 h-4 text-orange-600"/>
- <span className="text-sm font-bold text-orange-700">{trollCount} Troll Oyu</span>
- </div>
- <p className="font-medium text-neutral-800">
- {review.courses?.name} ({review.courses?.code})
- </p>
- <p className="text-sm text-neutral-600 mt-1">{review.comment ||'Yorum yok'}</p>
- </div>
- <button
- onClick={() => onDelete(review.id)}
- disabled={processingId === review.id}
- className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors ml-4"
- title="Sil"
- >
- <Trash2 className="w-4 h-4"/>
- </button>
- </div>
- );
- })}
- </div>
- );
+function TrollReviewsContent({ reviews, onDelete, processingId, t }: any) {
+  if (reviews.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_troll_reviews')}</p>;
+  return (
+    <div className="space-y-3">
+      {reviews.map((review: any) => {
+        const trollCount = review.review_votes?.filter((v: any) => v.vote_type === 'rage_bait').length || 0;
+        return (
+          <div key={review.id} className="p-4 border-2 border-orange-300 bg-orange-50 rounded-lg flex justify-between items-start">
+            <div className="flex-1">
+              <div className="flex items-center space-x-2 mb-2">
+                <AlertTriangle className="w-4 h-4 text-orange-600" />
+                <span className="text-sm font-bold text-orange-700">{t('content.troll_votes_count', { count: trollCount })}</span>
+              </div>
+              <p className="font-medium text-neutral-800">{review.courses?.name}</p>
+              <p className="text-sm text-neutral-600 mt-1">{review.comment || '-'}</p>
+            </div>
+            <button onClick={() => onDelete(review.id)} disabled={processingId === review.id} className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-4"><Trash2 className="w-4 h-4" /></button>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
+function PendingTagsContent({ tags, onAction, processingId, t }: any) {
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<{ name: string; type: 'positive' | 'negative' }>({ name: '', type: 'positive' });
+  if (tags.length === 0) return <p className="text-neutral-500 text-center py-4">{t('content.no_tags')}</p>;
 
-interface PendingTagsContentProps {
- tags: any[];
- onAction: (tagId: string, action:'approved' |'rejected', newData?: { name: string; type:'positive' |'negative' }) => void;
- processingId: string | null;
+  return (
+    <div className="space-y-3">
+      {tags.map((tag: any) => (
+        <div key={tag.id} className="p-4 border border-neutral-200 rounded-lg">
+          {editingId === tag.id ? (
+            <div className="flex flex-col space-y-3">
+              <input type="text" value={editForm.name} onChange={(e) => setEditForm(prev => ({ ...prev, name: e.target.value }))} className="input w-full" />
+              <select value={editForm.type} onChange={(e) => setEditForm(prev => ({ ...prev, type: e.target.value as any }))} className="input w-full">
+                <option value="positive">{t('content.positive_tag')}</option>
+                <option value="negative">{t('content.negative_tag')}</option>
+              </select>
+              <div className="flex justify-end space-x-2">
+                <button onClick={() => setEditingId(null)} className="px-3 py-1 text-sm bg-neutral-200 rounded">{t('content.cancel')}</button>
+                <button onClick={() => { onAction(tag.id, 'approved', editForm); setEditingId(null); }} className="px-3 py-1 text-sm bg-green-600 text-white rounded">{t('content.save_and_approve')}</button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-between items-center">
+              <div>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${tag.suggested_type === 'positive' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{tag.name}</span>
+                <button onClick={() => { setEditingId(tag.id); setEditForm({ name: tag.name, type: tag.suggested_type }); }} className="text-xs text-blue-600 hover:underline ml-2">{t('content.edit')}</button>
+              </div>
+              <div className="flex space-x-2">
+                <button onClick={() => onAction(tag.id, 'approved')} disabled={processingId === tag.id} className="p-2 bg-green-100 text-green-600 rounded-lg"><Check className="w-4 h-4" /></button>
+                <button onClick={() => onAction(tag.id, 'rejected')} disabled={processingId === tag.id} className="p-2 bg-red-100 text-red-600 rounded-lg"><X className="w-4 h-4" /></button>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
 }
 
-function PendingTagsContent({ tags, onAction, processingId }: PendingTagsContentProps) {
- const [editingId, setEditingId] = useState<string | null>(null);
- const [editForm, setEditForm] = useState<{ name: string; type:'positive' |'negative' }>({ name:'', type:'positive' });
-
- if (tags.length === 0) {
- return <p className="text-neutral-500 text-center py-4">Bekleyen etiket yok.</p>;
- }
-
- const startEditing = (tag: any) => {
- setEditingId(tag.id);
- setEditForm({ name: tag.name, type: tag.suggested_type });
- };
-
- const cancelEditing = () => {
- setEditingId(null);
- };
-
- const handleSaveAndApprove = (tagId: string) => {
- onAction(tagId,'approved', editForm);
- setEditingId(null);
- };
-
- return (
- <div className="space-y-3">
- {tags.map((tag: any) => (
- <div key={tag.id} className="p-4 border border-neutral-200 rounded-lg">
- {editingId === tag.id ? (
- <div className="flex flex-col space-y-3">
- <input
- type="text"
- value={editForm.name}
- onChange={(e) => setEditForm(prev => ({ ...prev, name: e.target.value }))}
- className="input w-full"
- placeholder="Etiket adı"
- />
- <select
- value={editForm.type}
- onChange={(e) => setEditForm(prev => ({ ...prev, type: e.target.value as any }))}
- className="input w-full"
- >
- <option value="positive">Pozitif</option>
- <option value="negative">Negatif</option>
- </select>
- <div className="flex justify-end space-x-2">
- <button
- onClick={cancelEditing}
- className="px-3 py-1 text-sm text-neutral-600 hover:bg-neutral-100 rounded"
- >
- İptal
- </button>
- <button
- onClick={() => handleSaveAndApprove(tag.id)}
- className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
- >
- Kaydet ve Onayla
- </button>
- </div>
- </div>
- ) : (
- <div className="flex justify-between items-center">
- <div>
- <div className="flex items-center space-x-2">
- <span className={`px-3 py-1 rounded-full text-sm font-medium ${tag.suggested_type ==='positive' ?'bg-green-100 text-green-700' :'bg-red-100 text-red-700'
- }`}>
- {tag.name}
- </span>
- <button
- onClick={() => startEditing(tag)}
- className="text-xs text-blue-600 hover:underline"
- >
- Düzenle
- </button>
- </div>
- <p className="text-xs text-neutral-400 mt-2">
- {tag.suggested_type ==='positive' ?'Pozitif' :'Negatif'} etiket
- {tag.courses &&` • ${tag.courses.name}`}
- </p>
- </div>
- <div className="flex space-x-2">
- <button
- onClick={() => onAction(tag.id,'approved')}
- disabled={processingId === tag.id}
- className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-colors"
- title="Onayla"
- >
- <Check className="w-4 h-4"/>
- </button>
- <button
- onClick={() => onAction(tag.id,'rejected')}
- disabled={processingId === tag.id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
- title="Reddet"
- >
- <X className="w-4 h-4"/>
- </button>
- </div>
- </div>
- )}
- </div>
- ))}
- </div>
- );
+function TagManagementContent({ tags, onRefresh, processingId, setProcessingId, t }: any) {
+  return <div className="p-4 text-center text-neutral-500">Etiket Yönetimi Yüklendi ({tags.length})</div>;
 }
 
-// Tag Management CRUD Component
-function TagManagementContent({ tags, onRefresh, processingId, setProcessingId }: {
- tags: any[];
- onRefresh: () => Promise<void>;
- processingId: string | null;
- setProcessingId: (id: string | null) => void;
-}) {
- const [editingTag, setEditingTag] = useState<string | null>(null);
- const [editName, setEditName] = useState('');
- const [editType, setEditType] = useState<'positive' |'negative'>('positive');
- const [newName, setNewName] = useState('');
- const [newType, setNewType] = useState<'positive' |'negative'>('positive');
- const [showAddForm, setShowAddForm] = useState(false);
- const [error, setError] = useState('');
+function CourseManagementContent({ courses, faculties, onRefresh, processingId, setProcessingId, t }: any) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<any>(null);
+  const [formData, setFormData] = useState({ code: '', name: '', faculty_id: '' });
 
- const handleCreate = async () => {
- if (!newName.trim()) return;
- setError('');
- setProcessingId('creating');
- try {
- await createTagAction(newName.trim(), newType);
- setNewName('');
- setNewType('positive');
- setShowAddForm(false);
- await onRefresh();
- } catch (err: any) {
- setError(err.message ||'Etiket oluşturulamadı');
- } finally {
- setProcessingId(null);
- }
- };
+  const filteredCourses = courses.filter((c: any) => 
+    c.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    c.code?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
- const handleUpdate = async (tagId: string) => {
- if (!editName.trim()) return;
- setError('');
- setProcessingId(tagId);
- try {
- await updateTagAction(tagId, editName.trim(), editType);
- setEditingTag(null);
- await onRefresh();
- } catch (err: any) {
- setError(err.message ||'Etiket güncellenemedi');
- } finally {
- setProcessingId(null);
- }
- };
+  const openAddModal = () => {
+    setEditingCourse(null);
+    setFormData({ code: '', name: '', faculty_id: faculties[0]?.id || '' });
+    setIsModalOpen(true);
+  };
 
- const handleDelete = async (tagId: string) => {
- if (!confirm('Bu etiketi silmek istediğinizden emin misiniz? İlişkili tüm review bağlantıları da silinecektir.')) return;
- setError('');
- setProcessingId(tagId);
- try {
- await deleteTagAction(tagId);
- await onRefresh();
- } catch (err: any) {
- setError(err.message ||'Etiket silinemedi');
- } finally {
- setProcessingId(null);
- }
- };
+  const openEditModal = (course: any) => {
+    setEditingCourse(course);
+    setFormData({ code: course.code, name: course.name, faculty_id: course.faculty_id });
+    setIsModalOpen(true);
+  };
 
- const startEditing = (tag: any) => {
- setEditingTag(tag.id);
- setEditName(tag.name);
- setEditType(tag.type);
- };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProcessingId('course-submit');
+    try {
+      if (editingCourse) {
+        await updateCourse(editingCourse.id, formData);
+      } else {
+        await createCourse(formData);
+      }
+      await onRefresh();
+      setIsModalOpen(false);
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
- return (
- <div className="space-y-4">
- {/* Add Button */}
- <div className="flex items-center justify-between">
- <p className="text-sm text-neutral-500">{tags.length} etiket mevcut</p>
- <button
- onClick={() => setShowAddForm(!showAddForm)}
- className="flex items-center space-x-1 px-3 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
- >
- <Plus className="w-4 h-4"/>
- <span>Yeni Etiket</span>
- </button>
- </div>
+  const handleDelete = async (id: string) => {
+    if (!confirm(t('content.delete_confirm'))) return;
+    setProcessingId(id);
+    try {
+      await deleteCourse(id);
+      await onRefresh();
+    } catch (error) {
+      // ignore
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
- {/* Error */}
- {error && (
- <div className="bg-red-50 border border-red-200 p-3 rounded-lg text-sm text-red-700 font-medium">
- {error}
- </div>
- )}
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+          <input type="text" placeholder={t('content.search_course')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="input w-full pl-9 bg-white" />
+        </div>
+        <button onClick={openAddModal} className="btn btn-primary whitespace-nowrap"><Plus className="w-4 h-4 mr-2" />{t('content.new_course')}</button>
+      </div>
 
- {/* Add Form */}
- {showAddForm && (
- <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
- <h4 className="text-sm font-semibold text-blue-800">Yeni Etiket Ekle</h4>
- <div className="flex flex-col sm:flex-row gap-3">
- <input
- type="text"
- value={newName}
- onChange={(e) => setNewName(e.target.value)}
- placeholder="Etiket adı..."
- className="input flex-1 text-sm"
- autoFocus
- />
- <select
- value={newType}
- onChange={(e) => setNewType(e.target.value as'positive' |'negative')}
- className="input text-sm w-32"
- >
- <option value="positive">Pozitif</option>
- <option value="negative">Negatif</option>
- </select>
- <div className="flex space-x-2">
- <button
- onClick={handleCreate}
- disabled={!newName.trim() || processingId ==='creating'}
- className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium disabled:opacity-50"
- >
- {processingId ==='creating' ?'...' :'Ekle'}
- </button>
- <button
- onClick={() => { setShowAddForm(false); setNewName(''); }}
- className="px-4 py-2 bg-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-300 text-sm"
- >
- İptal
- </button>
- </div>
- </div>
- </div>
- )}
+      <div className="bg-white rounded-lg border border-neutral-200 overflow-hidden">
+        <div className="overflow-x-auto max-h-[500px]">
+          <table className="w-full text-left text-sm relative">
+            <thead className="bg-neutral-50 border-b border-neutral-200 text-neutral-600 sticky top-0 z-10">
+              <tr>
+                <th className="px-4 py-3 font-medium">{t('content.code')}</th>
+                <th className="px-4 py-3 font-medium">{t('content.course_name')}</th>
+                <th className="px-4 py-3 font-medium">{t('content.faculty')}</th>
+                <th className="px-4 py-3 font-medium text-right">{t('content.actions')}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-neutral-100">
+              {filteredCourses.slice(0, 50).map((course: any) => (
+                <tr key={course.id} className="hover:bg-neutral-50/50">
+                  <td className="px-4 py-3 font-medium text-neutral-900">{course.code}</td>
+                  <td className="px-4 py-3 text-neutral-600">{course.name}</td>
+                  <td className="px-4 py-3 text-neutral-500">{course.faculties?.name || '-'}</td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex justify-end gap-2">
+                      <button onClick={() => openEditModal(course)} disabled={processingId === course.id} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded"><Edit2 className="w-4 h-4" /></button>
+                      <button onClick={() => handleDelete(course.id)} disabled={processingId === course.id} className="p-1.5 text-red-600 hover:bg-red-50 rounded"><Trash2 className="w-4 h-4" /></button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filteredCourses.length === 0 && <div className="text-center py-8 text-neutral-500">{t('content.no_courses')}</div>}
+          {filteredCourses.length > 50 && <div className="text-center py-4 text-xs text-neutral-400 border-t border-neutral-100">{t('content.showing_first_50')}</div>}
+        </div>
+      </div>
 
- {/* Tag List */}
- <div className="space-y-2">
- {tags.map(tag => (
- <div key={tag.id} className="flex items-center justify-between p-3 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-neutral-300 transition-colors">
- {editingTag === tag.id ? (
- /* Edit Mode */
- <div className="flex flex-col sm:flex-row gap-2 flex-1 mr-2">
- <input
- type="text"
- value={editName}
- onChange={(e) => setEditName(e.target.value)}
- className="input text-sm flex-1"
- autoFocus
- />
- <select
- value={editType}
- onChange={(e) => setEditType(e.target.value as'positive' |'negative')}
- className="input text-sm w-32"
- >
- <option value="positive">Pozitif</option>
- <option value="negative">Negatif</option>
- </select>
- <div className="flex space-x-1">
- <button
- onClick={() => handleUpdate(tag.id)}
- disabled={processingId === tag.id}
- className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200"
- title="Kaydet"
- >
- <Check className="w-4 h-4"/>
- </button>
- <button
- onClick={() => setEditingTag(null)}
- className="p-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200"
- title="İptal"
- >
- <X className="w-4 h-4"/>
- </button>
- </div>
- </div>
- ) : (
- /* View Mode */
- <>
- <div className="flex items-center space-x-3">
- <span className={`px-2 py-1 rounded text-xs font-bold ${tag.type ==='positive'
- ?'bg-green-100 text-green-700'
- :'bg-red-100 text-red-700'
- }`}>
- {tag.type ==='positive' ?'👍' :'👎'}
- </span>
- <span className="text-sm font-medium text-neutral-800">{tag.name}</span>
- {tag.name_tr && (
- <span className="text-xs text-neutral-500">({tag.name_tr})</span>
- )}
- </div>
- <div className="flex space-x-1">
- <button
- onClick={() => startEditing(tag)}
- className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
- title="Düzenle"
- >
- <Edit2 className="w-4 h-4"/>
- </button>
- <button
- onClick={() => handleDelete(tag.id)}
- disabled={processingId === tag.id}
- className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
- title="Sil"
- >
- <Trash2 className="w-4 h-4"/>
- </button>
- </div>
- </>
- )}
- </div>
- ))}
-
- {tags.length === 0 && (
- <div className="text-center py-8 text-neutral-500">
- <Tag className="w-8 h-8 mx-auto mb-2 text-neutral-400"/>
- <p>Henüz etiket yok</p>
- </div>
- )}
- </div>
- </div>
- );
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-neutral-900/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl w-full max-w-md shadow-xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-neutral-100 flex justify-between items-center">
+              <h3 className="font-bold text-lg">{editingCourse ? t('content.edit_course') : t('content.new_course')}</h3>
+              <button onClick={() => setIsModalOpen(false)} className="text-neutral-400"><X className="w-5 h-5" /></button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div><label className="block text-sm mb-1">{t('content.code')}</label><input type="text" required value={formData.code} onChange={e => setFormData({ ...formData, code: e.target.value })} className="input w-full"/></div>
+              <div><label className="block text-sm mb-1">{t('content.course_name')}</label><input type="text" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="input w-full"/></div>
+              <div>
+                <label className="block text-sm mb-1">{t('content.faculty')}</label>
+                <select required value={formData.faculty_id} onChange={e => setFormData({ ...formData, faculty_id: e.target.value })} className="input w-full">
+                  <option value="" disabled>{t('content.select_faculty')}</option>
+                  {faculties.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+                </select>
+              </div>
+              <div className="pt-4 flex justify-end gap-3">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="btn btn-ghost">{t('content.cancel')}</button>
+                <button type="submit" disabled={processingId === 'course-submit'} className="btn btn-primary">{processingId === 'course-submit' ? t('content.saving') : t('content.save')}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

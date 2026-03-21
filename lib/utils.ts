@@ -577,7 +577,7 @@ export const getPendingFiles = async (): Promise<File[]> => {
         .from('files')
         .select(`
  *,
- courses(name, code)
+ courses(id, name, code, faculty_id)
 `)
         .eq('is_verified', false)
         .order('created_at', { ascending: false });
@@ -646,7 +646,7 @@ export const getPendingTags = async (status: 'pending' | 'approved' | 'rejected'
     const { data, error } = await supabase.from('pending_tags')
         .select(`
  *,
- courses(name, code)
+ courses(id, name, code, faculty_id)
 `)
         .eq('status', status)
         .order('created_at', { ascending: false });
@@ -734,7 +734,7 @@ export const getReviewReports = async () => {
  id,
  comment,
  course_id,
- courses(id, name, code)
+ courses(id, name, code, faculty_id)
  )
 `)
         .order('created_at', { ascending: false });
@@ -750,7 +750,7 @@ export const getFileReports = async () => {
  files(
  id,
  file_name,
- courses(name, code)
+ courses(id, name, code, faculty_id)
  )
 `)
         .order('created_at', { ascending: false });
@@ -877,7 +877,7 @@ export const getPendingSurvivalGuides = async (status: 'pending' | 'approved' | 
     const { data, error } = await supabase.from('pending_survival_guides')
         .select(`
  *,
- courses(name, code)
+ courses(id, name, code, faculty_id)
 `)
         .eq('status', status)
         .order('created_at', { ascending: false });
@@ -940,7 +940,7 @@ export const getAllReviews = async () => {
         .from('reviews')
         .select(`
  *,
- courses(name, code),
+ courses(id, name, code, faculty_id),
  review_votes(vote_type)
 `)
         .order('created_at', { ascending: false });
@@ -955,7 +955,7 @@ export const getTrollReviews = async (minRageBaitVotes = 3) => {
         .from('reviews')
         .select(`
  *,
- courses(name, code),
+ courses(id, name, code, faculty_id),
  review_votes(vote_type)
 `)
         .order('created_at', { ascending: false });
