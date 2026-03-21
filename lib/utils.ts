@@ -395,7 +395,7 @@ export const submitReview = async (reviewData: {
             midterm_format: reviewData.midterm_format,
             final_format: reviewData.final_format,
             extra_assessments: reviewData.extra_assessments || [],
-            exam_format: reviewData.midterm_format, // Backward compatibility for NOT NULL constraint if needed
+            exam_format: 'written', // Hardcoded safe value to satisfy legacy CHECK constraint
             comment: reviewData.comment
         } as any)
         .select()
