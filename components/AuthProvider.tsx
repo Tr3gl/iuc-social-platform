@@ -32,14 +32,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
  const pathname = usePathname();
 
  useEffect(() => {
- // Intercept rogue hash tokens (e.g. from Supabase defaulting to root URL)
- if (typeof window !== 'undefined' && window.location.hash.includes('access_token=')) {
- if (!pathname.includes('/auth/callback')) {
- router.push(`/tr/auth/callback${window.location.hash}`);
- return;
- }
- }
-
  // Get initial session
  supabase.auth.getSession().then(({ data: { session } }) => {
  setUser(session?.user ?? null);

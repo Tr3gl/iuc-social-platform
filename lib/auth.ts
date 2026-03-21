@@ -15,14 +15,14 @@ export const signUpWithEmail = async (email: string, password: string) => {
  if (!validateUniversityEmail(email)) {
  throw new Error('Please use a valid university email address (@ogr.iuc.edu.tr)');
  }
-
- const { data, error } = await supabase.auth.signUp({
- email,
- password,
- options: {
- emailRedirectTo:`${window.location.origin}/tr/auth/callback`,
- },
- });
+    const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] || 'tr' : 'tr';
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+            emailRedirectTo: `${window.location.origin}/${locale}/auth/callback`,
+        },
+    });
 
  if (error) throw error;
  return data;
@@ -46,13 +46,13 @@ export const signInWithEmail = async (email: string) => {
  if (!validateUniversityEmail(email)) {
  throw new Error('Please use a valid university email address (@ogr.iuc.edu.tr)');
  }
-
- const { data, error } = await supabase.auth.signInWithOtp({
- email,
- options: {
- emailRedirectTo:`${window.location.origin}/tr/auth/callback`,
- },
- });
+    const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] || 'tr' : 'tr';
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+            emailRedirectTo: `${window.location.origin}/${locale}/auth/callback`,
+        },
+    });
 
  if (error) throw error;
  return data;
@@ -64,15 +64,16 @@ export const signOut = async () => {
 };
 
 export const signInWithGoogle = async () => {
- const { data, error } = await supabase.auth.signInWithOAuth({
-  provider: 'google',
-  options: {
-   redirectTo: `${window.location.origin}/tr/auth/callback`,
-   queryParams: {
-    hd: 'ogr.iuc.edu.tr',
-   },
-  },
- });
+    const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] || 'tr' : 'tr';
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${window.location.origin}/${locale}/auth/callback`,
+            queryParams: {
+                hd: 'ogr.iuc.edu.tr',
+            },
+        },
+    });
 
  if (error) throw error;
  return data;

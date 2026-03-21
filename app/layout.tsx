@@ -31,6 +31,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (window.location.hash.includes('access_token=')) {
+                  var l = window.location.pathname.split('/')[1];
+                  var locale = (l === 'en' || l === 'tr') ? l : 'tr';
+                  if (!window.location.pathname.includes('/auth/callback')) {
+                      window.location.replace('/' + locale + '/auth/callback' + window.location.hash);
+                  }
+              }
+            `,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
