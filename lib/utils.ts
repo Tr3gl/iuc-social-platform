@@ -189,9 +189,12 @@ export const getCourseById = async (courseId: string): Promise<Course> => {
         query = query.ilike('code', courseId);
     }
 
-    const { data, error } = await query.single();
+    const { data, error } = await query.limit(1).maybeSingle();
 
-    if (error) throw error;
+    if (error) {
+        console.error('Error in getCourseById:', error);
+        throw error;
+    }
     return data as unknown as Course;
 };
 
