@@ -33,6 +33,7 @@ export default function ReviewPage() {
  const [error, setError] = useState('');
  const [showTagModal, setShowTagModal] = useState(false);
  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+ const [consent, setConsent] = useState(false);
 
  const STORAGE_KEY =`review_form_${courseId}`;
 
@@ -193,10 +194,14 @@ export default function ReviewPage() {
  if (!formData.final_format) {
  errors.push('Final formatı seçilmedi');
  }
+ 
+ if (!consent) {
+ errors.push(t('error_no_consent', { fallback: 'You must confirm the review guidelines before submitting.' }));
+ }
 
  if (errors.length > 0) {
  setValidationErrors(errors);
- setError('Lütfen tüm gerekli alanları doldurun');
+ setError('Lütfen tüm gerekli alanları doldurun ve sözleşmeyi onaylayın');
  return;
  }
 
@@ -634,6 +639,20 @@ export default function ReviewPage() {
  <p className="text-sm text-red-800 font-medium">{error}</p>
  </div>
  )}
+
+ {/* Legal Consent */}
+ <div className="mb-6 flex items-start space-x-3 bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+ <input
+ type="checkbox"
+ id="consent"
+ checked={consent}
+ onChange={(e) => setConsent(e.target.checked)}
+ className="mt-1 w-4 h-4 text-primary-600 rounded border-neutral-300 focus:ring-primary-500"
+ />
+ <label htmlFor="consent" className="text-sm text-neutral-700">
+ {t('legal_consent_review_text', { fallback: 'I confirm this review evaluates the course objectively and contains no personal insults (Hakaret) or political statements.' })}
+ </label>
+ </div>
 
  {/* Submit */}
  <div className="flex space-x-4 pt-6">

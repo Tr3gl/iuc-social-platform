@@ -74,8 +74,11 @@ export const METRIC_DESCRIPTIONS = {
 } as const;
 
 // File type options
-// File type options
 export const FILE_TYPES = {
  notes:'notes',
+ lab_template:'lab_template',
+ cheat_sheet:'cheat_sheet',
+ practice_exam:'practice_exam',
+ study_notes:'study_notes',
  other:'other',
 } as const;

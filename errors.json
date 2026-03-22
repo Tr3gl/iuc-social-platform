@@ -1,0 +1,5 @@
+{
+  "INVALID_STR": "new row for relation \"reviews\" violates check constraint \"reviews_exam_format_check\"",
+  "INVALID_FIN": "insert or update on table \"reviews\" violates foreign key constraint \"reviews_user_id_fkey\"",
+  "CLASSICAL": "new row for relation \"reviews\" violates check constraint \"reviews_exam_format_check\""
+}

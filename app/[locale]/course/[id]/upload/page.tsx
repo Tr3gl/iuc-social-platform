@@ -22,8 +22,9 @@ export default function UploadPage() {
  const [error, setError] = useState('');
  const [success, setSuccess] = useState(false);
 
- const [fileType, setFileType] = useState<'exam' |'notes' |'other'>('exam');
+ const [fileType, setFileType] = useState<string>('study_notes');
  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+ const [consent, setConsent] = useState(false);
 
  useEffect(() => {
  if (!authLoading && !user) {
@@ -71,6 +72,11 @@ export default function UploadPage() {
 
  if (!selectedFile) {
  setError(t('error_no_file'));
+ return;
+ }
+
+ if (!consent) {
+ setError(t('error_no_consent', { fallback: 'You must confirm the legal agreement.' }));
  return;
  }
 
@@ -250,6 +256,20 @@ export default function UploadPage() {
  <li>{t('rule_3')}</li>
  <li>{t('rule_4')}</li>
  </ul>
+ </div>
+
+ {/* Legal Consent */}
+ <div className="mb-6 flex items-start space-x-3">
+ <input
+ type="checkbox"
+ id="consent"
+ checked={consent}
+ onChange={(e) => setConsent(e.target.checked)}
+ className="mt-1 w-4 h-4 text-primary-600 rounded border-neutral-300 focus:ring-primary-500"
+ />
+ <label htmlFor="consent" className="text-sm text-neutral-700">
+ {t('legal_consent_text', { fallback: 'I confirm this file does not contain personal data or copyrighted raw exam papers, and I agree to the Community Guidelines.' })}
+ </label>
  </div>
 
  {/* Submit */}

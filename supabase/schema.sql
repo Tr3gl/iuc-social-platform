@@ -81,7 +81,7 @@ CREATE TABLE files (
     course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
     
-    type TEXT NOT NULL CHECK (type IN ('exam', 'notes', 'other')),
+    type TEXT NOT NULL CHECK (type IN ('exam', 'notes', 'other', 'lab_template', 'cheat_sheet', 'practice_exam', 'study_notes')),
     file_name TEXT NOT NULL,
     file_path TEXT NOT NULL,
     file_url TEXT NOT NULL,
@@ -173,10 +173,10 @@ CREATE POLICY "Anyone can view course instructors"
 -- REVIEWS: Protected anonymity
 -- ----------------------------------------------------------------------------
 
--- Users can view reviews but NOT the user_id (handled in app layer)
-CREATE POLICY "Anyone can view non-hidden reviews"
+-- Users can view their own non-hidden reviews
+CREATE POLICY "Users can view their own reviews"
     ON reviews FOR SELECT
-    USING (is_hidden = false);
+    USING (auth.uid() = user_id);
 
 -- Users can insert reviews with their own user_id
 CREATE POLICY "Authenticated users can create reviews"
@@ -212,6 +212,18 @@ CREATE POLICY "Authenticated users can upload files"
 CREATE POLICY "Users can delete their own files"
     ON files FOR DELETE
     USING (auth.uid() = user_id);
+
+-- ----------------------------------------------------------------------------
+-- PUBLIC REVIEWS VIEW
+-- ----------------------------------------------------------------------------
+
+-- Secure View that excludes user_id
+CREATE VIEW public.public_reviews AS 
+SELECT id, course_id, instructor_id, difficulty, usefulness, workload, exam_clarity, difficulty_value_alignment, exam_format, comment, created_at, updated_at
+FROM reviews
+WHERE is_hidden = false;
+
+GRANT SELECT ON public.public_reviews TO anon, authenticated;
 
 -- ----------------------------------------------------------------------------
 -- REPORTS: Users can report content
@@ -305,6 +317,23 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- ============================================================================
 -- TRIGGERS
 -- ============================================================================
+
+-- Enforce immutable columns on reviews update
+CREATE OR REPLACE FUNCTION prevent_system_column_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.user_id = OLD.user_id;
+    NEW.course_id = OLD.course_id;
+    NEW.report_count = OLD.report_count;
+    NEW.is_hidden = OLD.is_hidden;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_immutable_columns
+    BEFORE UPDATE ON reviews
+    FOR EACH ROW
+    EXECUTE FUNCTION prevent_system_column_update();
 
 -- Update review report count when report is created
 CREATE OR REPLACE FUNCTION increment_review_report_count()

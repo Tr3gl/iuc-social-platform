@@ -30,12 +30,22 @@ export default async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // 2. Protect private routes — redirect to sign-in if not authenticated
-  if (isProtectedPath(request.nextUrl.pathname) && !user) {
+  // 2. Protect private routes
+  if (isProtectedPath(request.nextUrl.pathname)) {
     const locale = request.nextUrl.pathname.startsWith('/en') ? 'en' : 'tr';
-    const signInUrl = new URL(`/${locale}/auth/signin`, request.url);
-    signInUrl.searchParams.set('redirectTo', request.nextUrl.pathname);
-    return NextResponse.redirect(signInUrl);
+    
+    // Redirect to sign-in if not authenticated
+    if (!user) {
+      const signInUrl = new URL(`/${locale}/auth/signin`, request.url);
+      signInUrl.searchParams.set('redirectTo', request.nextUrl.pathname);
+      return NextResponse.redirect(signInUrl);
+    }
+
+    // Redirect to home if user is not admin
+    if (user.app_metadata?.role !== 'admin') {
+      const homeUrl = new URL(`/${locale}`, request.url);
+      return NextResponse.redirect(homeUrl);
+    }
   }
 
   // 3. Run next-intl middleware (locale detection, prefix management)

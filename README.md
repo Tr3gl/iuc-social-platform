@@ -74,7 +74,10 @@ Create a `.env.local` file:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+ADMIN_EMAILS=admin@ogr.iuc.edu.tr,test@ogr.iuc.edu.tr
 ```
+
+> **Note on Admin Access**: The `/admin` console is dynamically restricted. Only users who log in with an email listed in the `ADMIN_EMAILS` environment variable (comma-separated) can view or modify the platform data.
 
 ### 4. Development
 
@@ -100,6 +103,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for a detailed step-by-step guide.
 **Important**: Add environment variables in Vercel dashboard:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `ADMIN_EMAILS` (Comma-separated list of admin emails e.g., admin@ogr.iuc.edu.tr)
 
 #### Update Supabase Site URL
 

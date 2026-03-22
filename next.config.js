@@ -25,6 +25,15 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+      {
         // Apply to all routes
         source: '/(.*)',
         headers: [
@@ -40,6 +49,7 @@ const nextConfig = {
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
+              "object-src 'none'",
             ].join('; '),
           },
           {

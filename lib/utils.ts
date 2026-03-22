@@ -297,7 +297,7 @@ export const getInstructorsByFaculty = async (facultyId: string) => {
 
 export const getReviewsByCourse = async (courseId: string): Promise<Review[]> => {
     const { data, error } = await supabase
-        .from('reviews')
+        .from('public_reviews')
         .select(`
  *,
  instructors(name),
@@ -355,6 +355,8 @@ export const getTags = async (): Promise<Tag[]> => {
     return data ?? [];
 };
 
+import { z } from 'zod';
+
 export const submitReview = async (reviewData: {
     course_id: string;
     instructor_id: string | null;
@@ -372,7 +374,15 @@ export const submitReview = async (reviewData: {
     extra_assessments?: string[];
     comment?: string | null;
     tags?: string[];
+    consent?: boolean;
 }) => {
+    // Validate consent
+    const reviewSchema = z.object({
+        consent: z.boolean().refine(val => val === true, { message: 'You must confirm the review guidelines.' })
+    });
+    
+    reviewSchema.parse({ consent: reviewData.consent });
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Not authenticated');
 
@@ -510,45 +520,29 @@ export const reportReview = async (reviewId: string, reason?: string) => {
 
 export const uploadFile = async (
     courseId: string,
-    file: any, // Browser File object, kept as any for compatibility or use File type from lib/dom?
-    fileType: 'exam' | 'notes' | 'other'
+    file: any, 
+    fileType: string
 ) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Not authenticated');
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('courseId', courseId);
+    formData.append('fileType', fileType);
 
-    // Generate unique file path
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const filePath = `${courseId}/${fileName}`;
+    const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+    });
 
-    // Upload to storage
-    const { error: uploadError } = await supabase.storage
-        .from('course-files')
-        .upload(filePath, file);
-
-    if (uploadError) throw uploadError;
-
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-        .from('course-files')
-        .getPublicUrl(filePath);
-
-    // Insert file record
-    const { data, error } = await supabase
-        .from('files')
-        .insert({
-            course_id: courseId,
-            user_id: user.id,
-            type: fileType,
-            file_name: file.name,
-            file_path: filePath,
-            file_url: publicUrl,
-            is_verified: false, // Default to false
-        })
-        .select()
-        .single();
-
-    if (error) throw error;
+    if (!res.ok) {
+        let errStr = 'Upload failed';
+        try {
+            const errData = await res.json();
+            errStr = errData.error || errStr;
+        } catch {}
+        throw new Error(errStr);
+    }
+    
+    const { data } = await res.json();
     return data;
 };
 
