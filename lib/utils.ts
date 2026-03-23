@@ -313,7 +313,6 @@ export const getReviewsByCourse = async (courseId: string): Promise<Review[]> =>
  )
 `)
         .eq('course_id', courseId)
-        .eq('is_hidden', false)
         .order('created_at', { ascending: false });
 
     if (error) throw error;
@@ -545,6 +544,35 @@ export const uploadFile = async (
         throw new Error(errStr);
     }
     
+    const { data } = await res.json();
+    return data;
+};
+
+export const uploadFileAsAdmin = async (
+    courseId: string,
+    file: any,
+    fileType: string
+) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('courseId', courseId);
+    formData.append('fileType', fileType);
+    formData.append('adminUpload', 'true');
+
+    const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!res.ok) {
+        let errStr = 'Upload failed';
+        try {
+            const errData = await res.json();
+            errStr = errData.error || errStr;
+        } catch {}
+        throw new Error(errStr);
+    }
+
     const { data } = await res.json();
     return data;
 };

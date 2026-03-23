@@ -15,8 +15,10 @@ import {
   deleteReview,
   getPendingFiles,
   verifyFile,
-  rejectFile
+  rejectFile,
+  uploadFileAsAdmin
 } from '@/lib/utils';
+import { FILE_TYPES } from '@/lib/constants';
 import {
   Flag,
   FileText,
@@ -626,11 +628,20 @@ function CourseManagementContent({ courses, faculties, onRefresh, processingId, 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<any>(null);
   const [formData, setFormData] = useState({ code: '', name: '', faculty_id: '' });
+  const [uploadCourseId, setUploadCourseId] = useState('');
+  const [uploadType, setUploadType] = useState(FILE_TYPES.notes);
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
 
   const filteredCourses = courses.filter((c: any) => 
     c.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
     c.code?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    if (!uploadCourseId && courses.length > 0) {
+      setUploadCourseId(courses[0].id);
+    }
+  }, [uploadCourseId, courses]);
 
   const openAddModal = () => {
     setEditingCourse(null);
@@ -675,8 +686,78 @@ function CourseManagementContent({ courses, faculties, onRefresh, processingId, 
     }
   };
 
+  const handleAdminUpload = async () => {
+    if (!uploadCourseId) {
+      alert(t('content.select_course_first'));
+      return;
+    }
+    if (!uploadFile) {
+      alert(t('content.select_file_first'));
+      return;
+    }
+
+    setProcessingId('admin-upload');
+    try {
+      await uploadFileAsAdmin(uploadCourseId, uploadFile, uploadType);
+      setUploadFile(null);
+      await onRefresh();
+      alert(t('content.upload_success'));
+    } catch (error: any) {
+      alert(error.message || t('content.upload_failed'));
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
   return (
     <div className="space-y-4">
+      <div className="p-4 border border-neutral-200 rounded-lg bg-neutral-50">
+        <h3 className="font-semibold text-neutral-900 mb-3">{t('content.direct_upload_title')}</h3>
+        <p className="text-sm text-neutral-600 mb-4">{t('content.direct_upload_desc')}</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <select
+            value={uploadCourseId}
+            onChange={(e) => setUploadCourseId(e.target.value)}
+            className="input w-full"
+          >
+            <option value="">{t('content.select_course')}</option>
+            {courses.map((course: any) => (
+              <option key={course.id} value={course.id}>
+                {course.code} - {course.name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={uploadType}
+            onChange={(e) => setUploadType(e.target.value as any)}
+            className="input w-full"
+          >
+            {Object.values(FILE_TYPES).map((type) => (
+              <option key={type} value={type}>
+                {t(`content.file_type_${type}`)}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="file"
+            onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
+            className="input w-full"
+            accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+          />
+
+          <button
+            type="button"
+            onClick={handleAdminUpload}
+            disabled={processingId === 'admin-upload'}
+            className="btn btn-primary"
+          >
+            {processingId === 'admin-upload' ? t('content.uploading') : t('content.upload_now')}
+          </button>
+        </div>
+      </div>
+
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />

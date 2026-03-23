@@ -349,6 +349,10 @@
         },
         "file_types": {
             "notes": "Course Notes",
+            "lab_template": "Lab Template",
+            "cheat_sheet": "Cheat Sheet",
+            "practice_exam": "Practice Exam",
+            "study_notes": "Study Notes",
             "other": "Other"
         }
     },
@@ -418,7 +422,22 @@
             "showing_first_50": "Showing first 50 results. Search for more.",
             "select_faculty": "Select Faculty",
             "save": "Save",
-            "saving": "Saving..."
+            "saving": "Saving...",
+            "direct_upload_title": "Direct File Upload",
+            "direct_upload_desc": "Upload a file directly to a selected course. Admin uploads are auto-approved.",
+            "select_course": "Select Course",
+            "select_course_first": "Please select a course first.",
+            "select_file_first": "Please select a file first.",
+            "upload_now": "Upload",
+            "uploading": "Uploading...",
+            "upload_success": "File uploaded successfully.",
+            "upload_failed": "File upload failed.",
+            "file_type_notes": "Course Notes",
+            "file_type_lab_template": "Lab Template",
+            "file_type_cheat_sheet": "Cheat Sheet",
+            "file_type_practice_exam": "Practice Exam",
+            "file_type_study_notes": "Study Notes",
+            "file_type_other": "Other"
         }
     }
 }

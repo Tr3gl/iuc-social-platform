@@ -7,6 +7,16 @@ import { z } from 'zod';
 
 export const runtime = 'nodejs';
 
+function isAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  const adminEmailsList = process.env.ADMIN_EMAILS || '';
+  const admins = adminEmailsList
+    .split(',')
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean);
+  return admins.includes(email.toLowerCase());
+}
+
 export async function POST(req: NextRequest) {
   try {
     const cookieStore = cookies();
@@ -38,15 +48,21 @@ export async function POST(req: NextRequest) {
     const file = formData.get('file') as File | null;
     const courseId = formData.get('courseId') as string | null;
     const fileType = formData.get('fileType') as string | null;
+    const isAdminUpload = formData.get('adminUpload') === 'true';
     
-    // Zod Validation
-    const uploadSchema = z.object({
-      consent: z.string().refine(val => val === 'true', { message: 'You must confirm the legal agreement to upload this file.' }),
-    });
+    if (isAdminUpload && !isAdminEmail(user.email)) {
+      return NextResponse.json({ error: 'Unauthorized admin upload' }, { status: 403 });
+    }
 
-    const validationResult = uploadSchema.safeParse({ consent: formData.get('consent') });
-    if (!validationResult.success) {
-      return NextResponse.json({ error: validationResult.error.errors[0].message }, { status: 400 });
+    if (!isAdminUpload) {
+      const uploadSchema = z.object({
+        consent: z.string().refine(val => val === 'true', { message: 'You must confirm the legal agreement to upload this file.' }),
+      });
+
+      const validationResult = uploadSchema.safeParse({ consent: formData.get('consent') });
+      if (!validationResult.success) {
+        return NextResponse.json({ error: validationResult.error.errors[0].message }, { status: 400 });
+      }
     }
 
     if (!file || !courseId || !fileType) {
@@ -117,7 +133,7 @@ export async function POST(req: NextRequest) {
         file_name: file.name,
         file_path: filePath,
         file_url: publicUrl,
-        is_verified: false,
+        is_verified: isAdminUpload,
       })
       .select()
       .single();

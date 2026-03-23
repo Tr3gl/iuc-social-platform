@@ -12,6 +12,16 @@ const intlMiddleware = createIntlMiddleware({
 // ── Routes that require an authenticated session ────────────────────────────
 const PROTECTED_PATHS = ['/admin'];
 
+function isAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  const adminEmailsList = process.env.ADMIN_EMAILS || '';
+  const admins = adminEmailsList
+    .split(',')
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean);
+  return admins.includes(email.toLowerCase());
+}
+
 function isProtectedPath(pathname: string): boolean {
   // Strip locale prefix (e.g. /tr/admin → /admin)
   const withoutLocale = pathname.replace(/^\/(en|tr)/, '');
@@ -42,7 +52,7 @@ export default async function middleware(request: NextRequest) {
     }
 
     // Redirect to home if user is not admin
-    if (user.app_metadata?.role !== 'admin') {
+    if (!isAdminEmail(user.email)) {
       const homeUrl = new URL(`/${locale}`, request.url);
       return NextResponse.redirect(homeUrl);
     }

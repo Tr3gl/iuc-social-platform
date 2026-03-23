@@ -349,6 +349,10 @@
         },
         "file_types": {
             "notes": "Ders Notları",
+            "lab_template": "Lab Şablonu",
+            "cheat_sheet": "Kopya Kağıdı",
+            "practice_exam": "Deneme Sınavı",
+            "study_notes": "Çalışma Notları",
             "other": "Diğer"
         }
     },
@@ -418,7 +422,22 @@
             "showing_first_50": "İlk 50 sonuç gösteriliyor. Diğerleri için arama yapın.",
             "select_faculty": "Fakülte Seçin",
             "save": "Kaydet",
-            "saving": "Kaydediliyor..."
+            "saving": "Kaydediliyor...",
+            "direct_upload_title": "Doğrudan Dosya Yükleme",
+            "direct_upload_desc": "Seçilen derse doğrudan dosya yükleyin. Admin yüklemeleri otomatik onaylanır.",
+            "select_course": "Ders Seçin",
+            "select_course_first": "Önce bir ders seçin.",
+            "select_file_first": "Önce bir dosya seçin.",
+            "upload_now": "Yükle",
+            "uploading": "Yükleniyor...",
+            "upload_success": "Dosya başarıyla yüklendi.",
+            "upload_failed": "Dosya yüklenemedi.",
+            "file_type_notes": "Ders Notları",
+            "file_type_lab_template": "Lab Şablonu",
+            "file_type_cheat_sheet": "Kopya Kağıdı",
+            "file_type_practice_exam": "Deneme Sınavı",
+            "file_type_study_notes": "Çalışma Notları",
+            "file_type_other": "Diğer"
         }
     }
 }
